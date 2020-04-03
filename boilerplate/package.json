@@ -1,0 +1,33 @@
+{
+  "name": "@firelayer/boilerplate",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Firelayer Boilerplate",
+  "keywords": [
+    "firelayer",
+    "boilerplate",
+    "firebase"
+  ],
+  "homepage": "https://github.com/firelayer/firelayer/tree/master/boilerplate",
+  "bugs": {
+    "url": "https://github.com/firelayer/firelayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firelayer/firelayer.git",
+    "directory": "boilerplate"
+  },
+  "author": "João Teixeira <joao@indielayer.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run dev",
+    "build": "lerna run build",
+    "dev": "lerna run dev --parallel",
+    "bootstrap": "npm i && lerna bootstrap",
+    "deploy": "npm run build && firebase deploy",
+    "functions": "cd app/functions && npm run serve"
+  },
+  "dependencies": {
+    "lerna": "^3.15.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "@firelayer/core",
+  "version": "0.0.0",
+  "description": "Firelayer Core",
+  "keywords": [
+    "firelayer",
+    "firebase"
+  ],
+  "homepage": "https://github.com/firelayer/firelayer/tree/master/lib/core",
+  "bugs": {
+    "url": "https://github.com/firelayer/firelayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firelayer/firelayer.git",
+    "directory": "lib/core"
+  },
+  "license": "MIT",
+  "author": "João Teixeira <joao@indielayer.com>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

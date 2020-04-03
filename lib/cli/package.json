@@ -1,0 +1,73 @@
+{
+  "name": "@firelayer/cli",
+  "version": "0.0.0",
+  "description": "Firelayer's CLI - Jumpstart your Firebase Project",
+  "keywords": [
+    "firelayer",
+    "generator",
+    "boilerplate",
+    "firebase",
+    "cli"
+  ],
+  "homepage": "https://github.com/firelayer/firelayer/tree/master/lib/cli",
+  "bugs": {
+    "url": "https://github.com/firelayer/firelayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firelayer/firelayer.git",
+    "directory": "lib/cli"
+  },
+  "license": "MIT",
+  "author": "João Teixeira <joao@indielayer.com>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "firelayer": "./bin/run"
+  },
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "chalk": "^3.0.0",
+    "envinfo": "^7.5.0",
+    "fs-extra": "^9.0.0",
+    "ignore": "^5.1.4",
+    "inquirer": "^7.1.0",
+    "listr": "^0.14.3",
+    "semver": "^7.1.3",
+    "shelljs": "^0.8.3",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@types/node": "^10",
+    "globby": "^10",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "yarn clean && tsc --watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "oclif": {
+    "commands": "./dist/commands",
+    "bin": "firelayer",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "version": "0.0.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": [
+    "lib/*",
+    "boilerplate",
+    "boilerplate/app/*"
+  ],
+  "command": {
+    "publish": {
+      "allowBranch": [
+        "master",
+        "developer"
+      ],
+      "message": "chore(release): publish %s"
+    },
+    "version": {
+      "push": true
+    }
+  }
+}

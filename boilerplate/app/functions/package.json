@@ -1,0 +1,29 @@
+{
+  "name": "@firelayer/functions",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run shell",
+    "build": "npm run clean && tsc",
+    "dev": "npm run serve",
+    "deploy": "firebase deploy --only functions",
+    "clean": "rm -rf dist",
+    "lint": "echo 'not implemented'",
+    "logs": "firebase functions:log",
+    "serve": "concurrently --kill-others \"tsc -w\" \"firebase serve --only functions\"",
+    "shell": "npm run build && firebase functions:shell"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.9.2",
+    "firebase-functions": "^3.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "firebase-functions-test": "^0.1.6",
+    "typescript": "^3.8.2"
+  },
+  "engines": {
+    "node": "10"
+  }
+}

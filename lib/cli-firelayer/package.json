@@ -1,0 +1,35 @@
+{
+  "name": "firelayer",
+  "version": "0.0.0",
+  "description": "Firelayer's CLI - Jumpstart your Firebase Project",
+  "keywords": [
+    "firelayer",
+    "generator",
+    "boilerplate",
+    "firebase",
+    "cli"
+  ],
+  "homepage": "https://github.com/firelayer/firelayer/tree/master/lib/cli",
+  "bugs": {
+    "url": "https://github.com/firelayer/firelayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firelayer/firelayer.git",
+    "directory": "lib/cli"
+  },
+  "license": "MIT",
+  "author": "João Teixeira <joao@indielayer.com>",
+  "bin": {
+    "firelayer": "./index.js"
+  },
+  "scripts": {
+    "start": "firelayer"
+  },
+  "dependencies": {
+    "@firelayer/cli": "0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

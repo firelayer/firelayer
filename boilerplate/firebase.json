@@ -1,0 +1,43 @@
+{
+  "database": {
+    "rules": "rules/database.rules.json"
+  },
+  "firestore": {
+    "rules": "rules/firestore.rules",
+    "indexes": "rules/firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "rules/storage.rules"
+  },
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint",
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ],
+    "source": "app/functions",
+    "ignore": [
+      "*.log",
+      ".gitignore",
+      "service-key.json",
+      "**/node_modules/**",
+      "tsconfig.json"
+    ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "pubsub": {
+      "port": 8085
+    }
+  }
+}
