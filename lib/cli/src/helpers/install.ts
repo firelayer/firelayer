@@ -25,12 +25,17 @@ export default async (targetDir, targetVersion, options) => {
         console.log(chalk.cyan(`\nRunning in dev mode, copying boilerplate from root\n`))
 
         const boilerPath = path.join(__dirname, '../../../../boilerplate')
-        const relativePath = path.relative(process.cwd(), boilerPath)
-        const gitIgnore = fs.readFileSync(path.join(relativePath, '.gitignore'))
+        const gitIgnore = fs.readFileSync(path.join(boilerPath, '.gitignore'))
         const ig = ignore().add(gitIgnore.toString())
 
-        await fs.copy(relativePath, targetDir, {
-          filter: src => ig.filter([src]).length > 0
+        await fs.copy(boilerPath, targetDir, {
+          filter: src => {
+            const relativePath = path.relative(boilerPath, src)
+
+            if (!relativePath) return true
+
+            return ig.filter([relativePath]).length > 0
+          }
         })
       } else {
         // choose latest tag version that suits cli version
