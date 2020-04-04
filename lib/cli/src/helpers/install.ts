@@ -15,14 +15,14 @@ export default async (targetDir, targetVersion, options) => {
   let isDev = false
 
   if (fs.existsSync(rootPackage)) {
-    isDev = ((await import(rootPackage)).name === '@firelayer/root')
+    isDev = (await import(rootPackage)).name === '@firelayer/root'
   }
 
   const tasks = new Listr([{
     title: 'Creating project',
     task: async () => {
       if (isDev) {
-        console.log(chalk.cyan(`\nRunning in dev mode, copying boilerplate from root\n`))
+        console.log(chalk.cyan('\nRunning in dev mode, copying boilerplate from root\n'))
 
         const boilerPath = path.join(__dirname, '../../../../boilerplate')
         const gitIgnore = fs.readFileSync(path.join(boilerPath, '.gitignore'))
@@ -39,7 +39,7 @@ export default async (targetDir, targetVersion, options) => {
         })
       } else {
         // choose latest tag version that suits cli version
-        const stdout = await cmd('git ls-remote --tags git://github.com/firelayer/firelayer.git') as string
+        const stdout = (await cmd('git ls-remote --tags git://github.com/firelayer/firelayer.git')) as string
 
         const versions = stdout.split(/\r?\n/).map(line => {
           const match = line.match(/tags\/(.*)/)
@@ -50,7 +50,9 @@ export default async (targetDir, targetVersion, options) => {
         let latest = versions.reverse().find(version => semver.satisfies(version, `^${targetVersion}`))
 
         if (!latest) {
-          console.log(chalk.bold(`Boilerplate version for @firelayer/cli v${targetVersion} not found, using 'master' branch..`))
+          console.log(
+            chalk.bold(`Boilerplate version for @firelayer/cli v${targetVersion} not found, using 'master' branch..`)
+          )
           latest = 'master'
         }
 

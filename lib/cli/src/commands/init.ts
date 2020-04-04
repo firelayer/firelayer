@@ -4,13 +4,10 @@ import * as chalk from 'chalk'
 import verifyPath from '../helpers/verifyPath'
 import install from '../helpers/install'
 
-
 export default class Init extends Command {
   static description = 'create a new project'
 
-  static examples = [
-    `$ firelayer init new-firelayer-app`,
-  ]
+  static examples = ['$ firelayer init new-firelayer-app']
 
   static flags = {
     help: flags.help({ char: 'h' }),

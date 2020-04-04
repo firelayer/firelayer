@@ -4,9 +4,7 @@ import * as chalk from 'chalk'
 export default class Info extends Command {
   static description = 'print debugging information about your environment'
 
-  static examples = [
-    `$ firelayer info`,
-  ]
+  static examples = ['$ firelayer info']
 
   async run() {
     this.log(chalk.bold('\nEnvironment Info:'))
