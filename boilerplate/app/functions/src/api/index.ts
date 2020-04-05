@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { lazyImport} from '@firelayer/core'
+import { lazyImport } from '@firelayer/core'
 
 const APIv1 = lazyImport('./v1', __dirname)
 
