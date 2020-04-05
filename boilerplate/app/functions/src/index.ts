@@ -1,5 +1,4 @@
 import * as functions from 'firebase-functions'
+import { lazyImport} from '@firelayer/core'
 
-export const helloWorld = functions.https.onRequest((request, response) => {
-  response.send('Hello World!')
-})
+export const api = functions.https.onRequest(lazyImport('./api', __dirname))
