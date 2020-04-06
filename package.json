@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "start": "yarn dev",
-    "bootstrap": "yarn && lerna bootstrap",
+    "bootstrap": "yarn --check-files --frozen-lockfile --non-interactive && lerna bootstrap",
     "build": "yarn clean && lerna run build",
     "clean": "lerna run --parallel clean",
     "dev": "yarn build && lerna run --parallel dev",
