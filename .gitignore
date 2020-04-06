@@ -6,6 +6,9 @@ yarn-error.log*
 node_modules
 package-lock.json
 .DS_Store
+Thumbs.db
 .cache
 *.d.**
 **/dist
+.vscode
+.idea
