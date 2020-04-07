@@ -10,5 +10,6 @@ Thumbs.db
 .cache
 *.d.**
 **/dist
+lib/**/lib
 .vscode
 .idea

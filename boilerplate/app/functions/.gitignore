@@ -1,4 +1,4 @@
 node_modules
 dist/
-env.json
-service-key.json
+env.ts
+service-key.ts
