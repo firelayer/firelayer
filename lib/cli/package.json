@@ -32,6 +32,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
+    "@firelayer/core": "0.0.0",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
