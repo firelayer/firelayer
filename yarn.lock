@@ -182,10 +182,10 @@
   dependencies:
     tslib "1.11.1"
 
-"@firelayer/eslint-config@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@firelayer/eslint-config/-/eslint-config-1.1.0.tgz#5e6f49bb4bbb51f341022643830f0629d8ffe16b"
-  integrity sha512-NbKvXF47YqiUVy/5GqluAAmw8/ZmStbyapxC+wIr+oa7JhYJWNn4rsdjZRghubv6uUbJkmHr+TdrIE76QIgLnQ==
+"@firelayer/eslint-config@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@firelayer/eslint-config/-/eslint-config-1.2.0.tgz#292f0d6a6a86418e9dc9902c8b71a73a423fcfd6"
+  integrity sha512-hRWC3aq0iiuTN9olqtYupQRGRhDsjFCP8KHfNCiA3AqeH5qHrG6lPliZof6w8bb7I2KBzS7B2bvjy9BmNfMqpA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.26.0"
     "@typescript-eslint/parser" "^2.26.0"

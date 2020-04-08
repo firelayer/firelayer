@@ -59,7 +59,7 @@ export default class Auth extends Command {
       if (Object.keys(flags).length === 1) {
         try {
           console.log(await user.get())
-        } catch(error) {
+        } catch (error) {
           console.log(error.message)
           this.log(chalk.red('User not found\n'))
         }

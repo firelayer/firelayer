@@ -89,7 +89,7 @@ try {
     appsEnv[app.name] = app.config
   })
 
-} catch(e) {
+} catch (e) {
   console.log(e)
   console.log('\nFailed to load environment variables.\n')
 

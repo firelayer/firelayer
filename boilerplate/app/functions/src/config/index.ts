@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
     config = {
       env: JSON.parse(process.env.functions)
     }
-  } catch(error) {
+  } catch (error) {
     config = {
       env: {}
     }
