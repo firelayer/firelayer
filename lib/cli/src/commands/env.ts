@@ -1,22 +1,27 @@
-import { Command, flags } from '@oclif/command'
-import findRoot from '../utils/findRoot'
-import cmd from '../utils/cmd'
+import { Command } from '@oclif/command'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
+import findRoot from '../utils/findRoot'
+import getEnv from '../helpers/getEnv'
+import cmd from '../utils/cmd'
 
-export default class Use extends Command {
+export default class Env extends Command {
   static description = 'change development environment'
 
-  static examples = ['$ firelayer use default']
+  static examples = ['$ firelayer env default']
 
-  static args = [{ name: 'name', required: true }]
+  static args = [{ name: 'name' }]
 
   async run() {
-    const { args } = this.parse(Use)
+    const { args } = this.parse(Env)
     const envName = args.name
     const root = await findRoot()
 
     process.chdir(root)
+
+    if (!envName) {
+      return this.log(`\nCurrent environment: ${chalk.bold.cyan(getEnv())}\n`)
+    }
 
     const envFile = `./configs/keys/${envName}.key.json`
 

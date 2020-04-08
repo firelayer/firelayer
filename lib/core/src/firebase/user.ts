@@ -111,7 +111,7 @@ export class User {
   }
 
   async setAdmin(isAdmin = false) {
-    return await this.setClaims({
+    return this.setClaims({
       admin: isAdmin ? 1 : undefined
     }, true)
   }

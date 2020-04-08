@@ -1,10 +1,11 @@
 import { Command, flags } from '@oclif/command'
 import { admin } from '@firelayer/core/lib/firebase'
 import { User } from '@firelayer/core/lib/firebase/user'
-import findRoot from '../utils/findRoot'
 import * as path from 'path'
 import * as chalk from 'chalk'
 import * as fs from 'fs-extra'
+import findRoot from '../utils/findRoot'
+import getEnv from '../helpers/getEnv'
 
 export default class Auth extends Command {
   static description = 'users and authentication'
@@ -23,17 +24,8 @@ export default class Auth extends Command {
 
     process.chdir(root)
 
-    let env = 'default'
-
     if (flags.user) {
-      if (!fs.existsSync(path.join(root, '.firelayer/env'))) {
-        this.log(`\nCreating '${chalk.bold('.firelayer/env')}' missing file..`)
-
-        fs.mkdirSync('.firelayer', { recursive: true })
-        fs.writeFileSync('.firelayer/env', 'default')
-      } else {
-        env = fs.readFileSync('./.firelayer/env', 'utf8')
-      }
+      const env = getEnv()
 
       const envFile = `./configs/keys/${env}.key.json`
       const defaultFile = './configs/keys/key.json'
@@ -64,8 +56,20 @@ export default class Auth extends Command {
 
       const user = new User(flags.user)
 
+      if (Object.keys(flags).length === 1) {
+        try {
+          console.log(await user.get())
+        } catch(error) {
+          console.log(error.message)
+          this.log(chalk.red('User not found\n'))
+        }
+
+        process.exit(0)
+      }
+
       if (flags['set-admin']) {
-        await user.setAdmin(true)
+        console.log(await user.setAdmin(true))
+        process.exit(0)
       }
     }
   }
