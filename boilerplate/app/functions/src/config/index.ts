@@ -4,14 +4,15 @@ let config = functions.config()
 
 // Local development
 if (process.env.NODE_ENV !== 'production') {
-  const localEnv = require('./env')
-  const env = {
-    ...localEnv
+  try {
+    config = {
+      env: JSON.parse(process.env.functions)
+    }
+  } catch(error) {
+    config = {
+      env: {}
+    }
   }
-
-  config = { env }
 }
-
-console.log(config)
 
 export default config.env

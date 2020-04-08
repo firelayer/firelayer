@@ -7,4 +7,7 @@ node_modules
 .firebase
 .firelayer
 .DS_Store
-environments/*.key.json
+key.json
+*.key.json
+env*.json
+!*dist.json

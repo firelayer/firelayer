@@ -22,12 +22,13 @@
   "scripts": {
     "start": "npm run dev",
     "build": "lerna run build",
-    "dev": "lerna run dev --parallel",
+    "dev": "env-cmd -f ./scripts/env.js lerna run dev --parallel",
     "bootstrap": "npm i && lerna bootstrap",
     "deploy": "npm run build && firebase deploy",
     "functions": "cd app/functions && npm run serve"
   },
   "dependencies": {
+    "env-cmd": "^10.1.0",
     "lerna": "^3.15.0"
   }
 }

@@ -38,6 +38,7 @@
     "@oclif/plugin-help": "^2",
     "chalk": "^3.0.0",
     "envinfo": "^7.5.0",
+    "find-up": "^4.1.0",
     "fs-extra": "^9.0.0",
     "ignore": "^5.1.4",
     "inquirer": "^7.1.0",

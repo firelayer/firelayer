@@ -1,8 +1,8 @@
 import { Command, flags } from '@oclif/command'
+import findRoot from '../utils/findRoot'
 import cmd from '../utils/cmd'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
-import * as path from 'path'
 
 export default class Use extends Command {
   static description = 'change development environment'
@@ -14,11 +14,13 @@ export default class Use extends Command {
   async run() {
     const { args } = this.parse(Use)
     const envName = args.name
+    const root = await findRoot()
 
-    const cwd = path.join(process.cwd(), 'environments')
-    const envPath = path.resolve(cwd, `${envName}.key.json`)
+    process.chdir(root)
 
-    if (fs.existsSync(envPath)) {
+    const envFile = `./configs/keys/${envName}.key.json`
+
+    if (fs.existsSync(envFile) || (envName === 'default' && fs.existsSync('./configs/keys/key.json'))) {
       this.log(`Setting firebase alias with '${chalk.bold(`firebase use ${envName}`)}'..`)
 
       await cmd(`firebase use ${envName}`, {
@@ -30,7 +32,9 @@ export default class Use extends Command {
       fs.mkdirSync('.firelayer', { recursive: true })
       fs.writeFileSync('.firelayer/env', envName)
     } else {
-      this.log(chalk.bold.red(`\nError: service key '${envName}.key.json' not found in 'environments' folder.\n`))
+      const notFound = envName === 'default' ? `key.json or ${envName}.key.json` : `${envName}.key.json`
+
+      this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'configs/keys' folder.\n`))
 
       return
     }
