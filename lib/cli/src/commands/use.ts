@@ -9,7 +9,7 @@ export default class Use extends Command {
 
   static examples = ['$ firelayer use default']
 
-  static args = [{ name: 'name' }]
+  static args = [{ name: 'name', required: true }]
 
   async run() {
     const { args } = this.parse(Use)
@@ -34,11 +34,9 @@ export default class Use extends Command {
     } else {
       const notFound = envName === 'default' ? `key.json or ${envName}.key.json` : `${envName}.key.json`
 
-      this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'configs/keys' folder.\n`))
-
-      return
+      return this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'configs/keys' folder.\n`))
     }
 
-    this.log(chalk.bold.green(`\nDevelopment environment changed to ${envName}.\n`))
+    return this.log(chalk.bold.green(`\nDevelopment environment changed to ${envName}.\n`))
   }
 }

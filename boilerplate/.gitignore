@@ -10,4 +10,5 @@ node_modules
 key.json
 *.key.json
 env*.json
+app.json
 !*dist.json
