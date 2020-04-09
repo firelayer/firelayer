@@ -8,6 +8,12 @@
 
 <br/>
 
+<p align="center">
+  <a href="https://github.com/firelayer/firelayer/actions?query=workflow%3Aci">
+    <img src="https://github.com/firelayer/firelayer/workflows/ci/badge.svg?branch=master" alt="Build Status on Github" />
+  </a>
+</p>
+
 Firelayer is a boilerplate / framework for Firebase projects.
 It allows you to jumpstart your Firebase projects with a boilerplate for common use cases so you don't have to start from scratch.
 
