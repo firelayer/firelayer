@@ -12,10 +12,5 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export const app = admin.initializeApp(firebaseConfig)
-export {
-  auth,
-  db,
-  realtime,
-  storage,
-  timestamp
-} from '@firelayer/core/lib/firebase'
+
+export * from '@firelayer/core/lib/firebase'

@@ -64,7 +64,7 @@ try {
   const dirFilter = source => fs.lstatSync(source).isDirectory() && !(/keys$/.test(source))
   const getDirectories = source => fs.readdirSync(source).map(name => path.join(source, name)).filter(dirFilter)
   const applications = getDirectories('./config').map(app => {
-    const name = app.substring(8)
+    const name = app.substring(7)
     let config = {}
 
     const appEnvfile = `./${app}/env.${env}.json`

@@ -40,7 +40,7 @@ export class User {
   async get(force?) {
     if (!force && this.user) return this.user
 
-    if (!this.id) throw new Error('Could not get the user record, missing Id property')
+    if (!this.id) throw new Error('Could not get the user record, missing id property')
 
     switch (this.idType) {
     case 'uid':

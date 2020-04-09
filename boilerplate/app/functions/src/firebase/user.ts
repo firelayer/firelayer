@@ -1,5 +1,4 @@
-import './core'
-import { User as UserModel } from '@firelayer/core/lib/firebase/user'
+import { User as UserModel } from './core'
 
 export class User extends UserModel {
   constructor(id?) {
