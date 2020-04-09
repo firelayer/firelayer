@@ -28,8 +28,8 @@ try {
   /**
    * Find current environment path to service key file
    */
-  const keyFile = `./configs/keys/${env}.key.json`
-  const defaultKeyFile = './configs/keys/key.json'
+  const keyFile = `./config/keys/${env}.key.json`
+  const defaultKeyFile = './config/keys/key.json'
 
   if (fs.existsSync(keyFile)) {
     keyPath = path.resolve(keyFile)
@@ -48,8 +48,8 @@ try {
   /**
    * Get global app variables
    */
-  const globalAppFile = `./configs/app.${env}.json`
-  const globalDefaultFile = './configs/app.json'
+  const globalAppFile = `./config/app.${env}.json`
+  const globalDefaultFile = './config/app.json'
   let globalConfig = {}
 
   if (fs.existsSync(globalAppFile)) {
@@ -59,11 +59,11 @@ try {
   }
 
   /**
-   * Get and set all applications configs in env
+   * Get and set all applications config in env
    */
   const dirFilter = source => fs.lstatSync(source).isDirectory() && !(/keys$/.test(source))
   const getDirectories = source => fs.readdirSync(source).map(name => path.join(source, name)).filter(dirFilter)
-  const applications = getDirectories('./configs').map(app => {
+  const applications = getDirectories('./config').map(app => {
     const name = app.substring(8)
     let config = {}
 

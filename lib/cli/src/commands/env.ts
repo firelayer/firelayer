@@ -23,9 +23,9 @@ export default class Env extends Command {
       return this.log(`\nCurrent environment: ${chalk.bold.cyan(getEnv())}\n`)
     }
 
-    const envFile = `./configs/keys/${envName}.key.json`
+    const envFile = `./config/keys/${envName}.key.json`
 
-    if (fs.existsSync(envFile) || (envName === 'default' && fs.existsSync('./configs/keys/key.json'))) {
+    if (fs.existsSync(envFile) || (envName === 'default' && fs.existsSync('./config/keys/key.json'))) {
       this.log(`Setting firebase alias with '${chalk.bold(`firebase use ${envName}`)}'..`)
 
       await cmd(`firebase use ${envName}`, {
@@ -39,7 +39,7 @@ export default class Env extends Command {
     } else {
       const notFound = envName === 'default' ? `key.json or ${envName}.key.json` : `${envName}.key.json`
 
-      return this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'configs/keys' folder.\n`))
+      return this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'config/keys' folder.\n`))
     }
 
     return this.log(chalk.bold.green(`\nDevelopment environment changed to ${envName}.\n`))

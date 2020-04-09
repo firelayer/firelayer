@@ -27,8 +27,8 @@ export default class Auth extends Command {
     if (flags.user) {
       const env = getEnv()
 
-      const envFile = `./configs/keys/${env}.key.json`
-      const defaultFile = './configs/keys/key.json'
+      const envFile = `./config/keys/${env}.key.json`
+      const defaultFile = './config/keys/key.json'
       let credentials = {}
 
       try {
