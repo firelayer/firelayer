@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { isEmail, isPhoneNumber, isUid } from '../utils'
+import { isEmail, isPhoneNumber, isUid } from '../utils/validators'
 import { auth } from './core'
 
 type UserRecord = admin.auth.UserRecord

@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 import { omit } from 'lodash'
-import { db, timestamp } from '../core'
+import { db, timestamp, serverTimestamp } from '../core'
 
 type CollectionReference = admin.firestore.CollectionReference;
 type DocumentReference = admin.firestore.DocumentReference;
@@ -26,31 +26,31 @@ export class Firemodel {
   }
 
   async set(id, data) {
-    const stamp = timestamp()
+    const serverStamp = serverTimestamp()
 
-    await this.path.doc(id).set({
+    const { writeTime } = await this.path.doc(id).set({
       ...data,
-      createdAt: stamp,
-      updatedAt: stamp
+      createdAt: serverStamp,
+      updatedAt: serverStamp
     })
 
     this.id = id
     this.data = {
       ...data,
-      createdAt: stamp,
-      updatedAt: stamp
+      createdAt: writeTime,
+      updatedAt: writeTime
     }
 
     return this
   }
 
   async save(data) {
-    const stamp = timestamp()
+    const serverStamp = serverTimestamp()
 
     if (this.id) {
       const { writeTime } = await this.doc.update({
         ...omit(data, 'createdAt'),
-        updatedAt: stamp
+        updatedAt: serverStamp
       })
 
       this.data = {
@@ -61,13 +61,19 @@ export class Firemodel {
     } else {
       const result = await this.path.add({
         ...data,
-        createdAt: stamp,
-        updatedAt: stamp
+        createdAt: serverStamp,
+        updatedAt: serverStamp
       })
 
-      this.id = result.id
+      // so we don't have to trigger a .get() just to see the new stamps
+      const emulatedStamp = timestamp()
 
-      await this.get()
+      this.id = result.id
+      this.data = {
+        ...data,
+        createdAt: emulatedStamp,
+        updatedAt: emulatedStamp
+      }
     }
 
     return this
