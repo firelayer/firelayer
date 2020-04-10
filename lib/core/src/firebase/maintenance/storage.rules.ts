@@ -1,4 +1,4 @@
-service firebase.storage {
+export default `service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
       allow read, write: if isSuperAdmin();
@@ -7,9 +7,6 @@ service firebase.storage {
     // Helpers for users
     function isLogged() { return request.auth != null && request.auth.token.email_verified }
     function isSuperAdmin() { return isLogged() && request.auth.token.admin == 1 }
-
-    // Helpers for files
-    function isSizeValid() { return request.resource.size < 50 * 1024 * 1024 } // file is less than 50 MB
-    function isTypeImage() { return request.resource.contentType.matches('image/.*') }
   }
 }
+`
