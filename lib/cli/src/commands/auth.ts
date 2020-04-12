@@ -1,11 +1,8 @@
 import { Command, flags } from '@oclif/command'
-import { admin } from '@firelayer/core/lib/firebase'
-import { User } from '@firelayer/core/lib/firebase/user'
-import * as path from 'path'
+import { User } from '@firelayer/core/lib/firebase'
 import * as chalk from 'chalk'
-import * as fs from 'fs-extra'
 import findRoot from '../utils/findRoot'
-import getEnv from '../helpers/getEnv'
+import initAdmin from '../helpers/initAdmin'
 
 export default class Auth extends Command {
   static description = 'users and authentication'
@@ -25,34 +22,7 @@ export default class Auth extends Command {
     process.chdir(root)
 
     if (flags.user) {
-      const env = getEnv()
-
-      const envFile = `./config/keys/${env}.key.json`
-      const defaultFile = './config/keys/key.json'
-      let credentials = {}
-
-      try {
-        let envContent = undefined
-
-        if (fs.existsSync(envFile)) {
-          envContent = fs.readFileSync(envFile, 'utf8')
-        } else if (env === 'default' && fs.existsSync(defaultFile)) {
-          envContent = fs.readFileSync(defaultFile, 'utf8')
-        }
-
-        credentials = JSON.parse(envContent)
-
-      } catch (error) {
-        const notFound = env === 'default' ? `key.json or ${env}.key.json` : `${env}.key.json`
-
-        this.log(chalk.red(`Failed to get credentials from 'config/keys' > '${chalk.bold(notFound)}'..\n`))
-
-        return
-      }
-
-      admin.initializeApp({
-        credential: admin.credential.cert(credentials)
-      })
+      initAdmin()
 
       const user = new User(flags.user)
 

@@ -1,2 +1,3 @@
 export * from './firemodel'
-export * from './backup'
+export * from './backups'
+export * from './migrations'

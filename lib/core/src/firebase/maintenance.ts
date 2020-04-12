@@ -4,7 +4,7 @@ import FirestoreMaintenanceRules from './maintenance/firestore.rules'
 import StorageMaintenanceRules from './maintenance/storage.rules'
 import { updateDatabaseRules, updateFirestoreRules, updateStorageRules } from './rules'
 
-const ref = realtime().ref('_SETTINGS')
+const SETTINGS_PATH = '_SETTINGS'
 
 export interface MaintenanceRuleConfig {
   rules?: string;
@@ -19,7 +19,7 @@ export interface MaintenanceConfig {
 }
 
 export const startMaintenance = async (config?: MaintenanceConfig) => {
-  await ref.update({ maintenance: true })
+  await realtime().ref(SETTINGS_PATH).update({ maintenance: true })
 
   const tasks = []
 
@@ -45,13 +45,13 @@ export const stopMaintenance = async (config?: MaintenanceConfig) => {
     if (config.storage.enabled) updateStorageRules(config.storage.rules)
   }
 
-  await ref.update({ maintenance: false })
+  await realtime().ref(SETTINGS_PATH).update({ maintenance: false })
 
   return true
 }
 
 export const isInMaintenance = async () => {
-  const doc = await ref.once('value')
+  const doc = await realtime().ref(SETTINGS_PATH).once('value')
 
   if (!doc.exists()) return false
 
