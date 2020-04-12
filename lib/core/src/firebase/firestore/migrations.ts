@@ -1,9 +1,10 @@
 /* eslint-disable no-await-in-loop */
 import * as fs from 'fs-extra'
 import * as path from 'path'
-import { db, serverTimestamp } from '../core'
+import { db, timestamp, serverTimestamp } from '../core'
 
 const MIGRATIONS_COLLECTION = '_MIGRATIONS'
+const context = { db, timestamp, serverTimestamp }
 
 export interface MigrateConfig {
   collection?: string;
@@ -47,7 +48,7 @@ export async function migrate(migrationsFolder: string, options: MigrateConfig =
       console.log(`\nMigrating ${name}..`)
 
       console.time(`Migrated ${name}`)
-      await migration.up()
+      await migration.up(context)
       console.timeEnd(`Migrated ${name}`)
 
       await mdb.doc(name).set({
@@ -89,7 +90,7 @@ export async function rollback(migrationsFolder: string, options: RollbackConfig
       console.log(`\nRolling back: ${name}..`)
 
       console.time(`Rolled back ${name}`)
-      await migration.down()
+      await migration.down(context)
       console.timeEnd(`Rolled back ${name}`)
 
       await mdb.doc(name).delete()

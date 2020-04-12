@@ -1,7 +1,4 @@
 module.exports = {
-  up: async () => {
-  },
-
-  down: async () => {
-  }
+  up: async ({ db }) => {},
+  down: async ({ db }) => {}
 }
