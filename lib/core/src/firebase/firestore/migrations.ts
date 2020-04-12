@@ -112,7 +112,7 @@ const getMigrationsFiles = (folder: string): Array<string> => fs.readdirSync(fol
 
 const getMigrationName = (file: string) => file.replace('.js', '')
 
-const generateFilename = (name: string) => {
+export const generateFilename = (name: string) => {
   const nowISO = (new Date()).toISOString()
   const prefix = nowISO.split('.')[0].split('-').join('_').replace('T', '_').split(':').join('')
 
