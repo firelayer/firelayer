@@ -4,15 +4,15 @@ import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
 import findRoot from '../utils/findRoot'
 
-export default class Migrate extends Command {
-  static description = 'helper to make new migrations'
+export default class Make extends Command {
+  static description = 'maker helper'
 
   static examples = ['$ firelayer make migration create_posts_collection']
 
   static args = [{ name: 'action' }, { name: 'name' }]
 
   async run() {
-    const { args } = this.parse(Migrate)
+    const { args } = this.parse(Make)
     const root = await findRoot()
 
     process.chdir(root)
@@ -22,6 +22,7 @@ export default class Migrate extends Command {
     if (action === 'migration') {
       const filename = generateFilename(name || 'migration')
 
+      fs.mkdirSync('./database/migrations', { recursive: true })
       fs.writeFileSync(`./database/migrations/${filename}.js`, `module.exports = {
   up: async ({ db }) => {},
   down: async ({ db }) => {}
