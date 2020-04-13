@@ -28,9 +28,9 @@ export const startMaintenance = async (config?: MaintenanceConfig) => {
     tasks.push(updateFirestoreRules(FirestoreMaintenanceRules))
     tasks.push(updateStorageRules(StorageMaintenanceRules))
   } else if (config.useRules) {
-    if (config.database.enabled) updateDatabaseRules(config.database.rules || DatabaseMaintenanceRules)
-    if (config.firestore.enabled) updateFirestoreRules(config.firestore.rules || FirestoreMaintenanceRules)
-    if (config.storage.enabled) updateStorageRules(config.storage.rules || StorageMaintenanceRules)
+    if (config.database.enabled) tasks.push(updateDatabaseRules(config.database.rules || DatabaseMaintenanceRules))
+    if (config.firestore.enabled) tasks.push(updateFirestoreRules(config.firestore.rules || FirestoreMaintenanceRules))
+    if (config.storage.enabled) tasks.push(updateStorageRules(config.storage.rules || StorageMaintenanceRules))
   }
 
   await Promise.all(tasks)
@@ -40,9 +40,13 @@ export const startMaintenance = async (config?: MaintenanceConfig) => {
 
 export const stopMaintenance = async (config?: MaintenanceConfig) => {
   if (config && config.useRules) {
-    if (config.database.enabled) updateDatabaseRules(config.database.rules)
-    if (config.firestore.enabled) updateFirestoreRules(config.firestore.rules)
-    if (config.storage.enabled) updateStorageRules(config.storage.rules)
+    const tasks = []
+
+    if (config.database.enabled) tasks.push(updateDatabaseRules(config.database.rules))
+    if (config.firestore.enabled) tasks.push(updateFirestoreRules(config.firestore.rules))
+    if (config.storage.enabled) tasks.push(updateStorageRules(config.storage.rules))
+
+    await Promise.all(tasks)
   }
 
   await realtime().ref(SETTINGS_PATH).update({ maintenance: false })

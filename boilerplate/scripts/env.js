@@ -53,7 +53,7 @@ try {
   let globalConfig = {}
 
   if (fs.existsSync(globalAppFile)) {
-    globalConfig = JSON.parse(fs.readFileSync(globalFile, 'utf8'))
+    globalConfig = JSON.parse(fs.readFileSync(globalAppFile, 'utf8'))
   } else if (env === 'default' && fs.existsSync(globalDefaultFile)) {
     globalConfig = JSON.parse(fs.readFileSync(globalDefaultFile, 'utf8'))
   }

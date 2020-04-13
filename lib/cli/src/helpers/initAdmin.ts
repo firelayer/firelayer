@@ -8,6 +8,16 @@ export default () => {
 
   const envFile = `./config/keys/${env}.key.json`
   const defaultFile = './config/keys/key.json'
+  const globalAppFile = `./config/app.${env}.json`
+  const globalDefaultFile = './config/app.json'
+  let globalConfig: any = {}
+
+  if (fs.existsSync(globalAppFile)) {
+    globalConfig = JSON.parse(fs.readFileSync(globalAppFile, 'utf8'))
+  } else if (env === 'default' && fs.existsSync(globalDefaultFile)) {
+    globalConfig = JSON.parse(fs.readFileSync(globalDefaultFile, 'utf8'))
+  }
+
   let credentials = {}
 
   try {
@@ -30,6 +40,8 @@ export default () => {
   }
 
   admin.initializeApp({
-    credential: admin.credential.cert(credentials)
+    credential: admin.credential.cert(credentials),
+    databaseURL: globalConfig.firebase.databaseURL,
+    storageBucket: globalConfig.firebase.storageBucket
   })
 }
