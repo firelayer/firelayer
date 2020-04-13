@@ -1,34 +1,46 @@
-import * as admin from 'firebase-admin'
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
+import * as firebase from 'firebase/app'
 import { omit } from 'lodash'
-import { db, timestamp, serverTimestamp } from '../core'
+import { db, timestamp, serverTimestamp } from '../../core'
 
-type CollectionReference = admin.firestore.CollectionReference;
-type DocumentReference = admin.firestore.DocumentReference;
+type CollectionReference = firebase.firestore.CollectionReference;
+type DocumentReference = firebase.firestore.DocumentReference;
+type DocumentSnapshot = firebase.firestore.DocumentSnapshot
 
 export class Firemodel {
   id: string
   data: object
+  snapshot: DocumentSnapshot
 
   constructor(id?) {
     this.data = {}
 
     if (id) {
-      this.id = id
+      if (typeof id === 'string') {
+        this.id = id
+      } else {
+        const snapshot = id
+
+        this.id = snapshot.id
+        this.data = snapshot.data()
+        this.snapshot = snapshot
+      }
     }
   }
 
-  get path(): CollectionReference {
+  get collection(): CollectionReference {
     return db().collection('_')
   }
 
   get doc(): DocumentReference {
-    return this.path.doc(this.id)
+    return this.collection.doc(this.id)
   }
 
   async set(id, data) {
     const serverStamp = serverTimestamp()
 
-    const { writeTime } = await this.path.doc(id).set({
+    // @ts-ignore
+    const { writeTime } = await this.collection.doc(id).set({
       ...data,
       createdAt: serverStamp,
       updatedAt: serverStamp
@@ -48,6 +60,7 @@ export class Firemodel {
     const serverStamp = serverTimestamp()
 
     if (this.id) {
+      // @ts-ignore
       const { writeTime } = await this.doc.update({
         ...omit(data, 'createdAt'),
         updatedAt: serverStamp
@@ -59,7 +72,7 @@ export class Firemodel {
         updatedAt: writeTime
       }
     } else {
-      const result = await this.path.add({
+      const result = await this.collection.add({
         ...data,
         createdAt: serverStamp,
         updatedAt: serverStamp

@@ -1,4 +1,5 @@
 export * from './firebase/core'
 export * from './firebase/user'
 export * from './firebase/maintenance'
+export { Firemodel } from './firebase/firestore/index'
 export * as firestore from './firebase/firestore/index'

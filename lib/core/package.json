@@ -34,6 +34,7 @@
     "access": "public"
   },
   "dependencies": {
+    "firebase": "^7.14.0",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.0",
     "lodash": "^4.17.15"
