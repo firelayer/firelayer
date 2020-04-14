@@ -23,6 +23,19 @@
       "tsconfig.json"
     ]
   },
+  "hosting": [{
+    "target": "www",
+    "public": "app/www/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "/api/**",
+      "function": "api"
+    }]
+  }],
   "emulators": {
     "functions": {
       "port": 5001

@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "firelayer-io"
+  },
+  "targets": {
+    "firelayer-io": {
+      "hosting": {
+        "www": [
+          "firelayer-io-nuxt"
+        ]
+      }
+    }
   }
 }
