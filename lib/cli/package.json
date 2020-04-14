@@ -37,6 +37,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "chalk": "^3.0.0",
+    "cross-spawn": "^7.0.2",
     "envinfo": "^7.5.0",
     "find-up": "^4.1.0",
     "fs-extra": "^9.0.0",

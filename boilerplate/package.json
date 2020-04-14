@@ -5,15 +5,14 @@
   "description": "Firelayer Boilerplate",
   "scripts": {
     "start": "npm run dev",
-    "build": "env-cmd -f ./scripts/env.js lerna run build",
-    "dev": "env-cmd -f ./scripts/env.js lerna run dev --parallel",
+    "build": "firelayer run \"lerna run build\"",
+    "dev": "firelayer run \"lerna run dev --parallel\"",
     "bootstrap": "npm i && lerna bootstrap",
     "deploy": "npm run build && firebase deploy",
-    "www": "env-cmd -f ./scripts/env.js --use-shell \"cd app/www && npm run dev\"",
-    "functions": "env-cmd -f ./scripts/env.js --use-shell \"cd app/functions && npm run dev\""
+    "www": "firelayer run \"cd app/www && npm run dev\"",
+    "functions": "firelayer run \"cd app/functions && npm run dev\""
   },
   "dependencies": {
-    "env-cmd": "^10.1.0",
     "lerna": "^3.15.0"
   }
 }
