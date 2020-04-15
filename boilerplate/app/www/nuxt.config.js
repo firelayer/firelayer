@@ -32,7 +32,8 @@ export default {
       { hid: 'description', name: 'description', content: 'Firelayer - Jumpstart your Firebase Project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap' }
     ]
   },
 
@@ -44,7 +45,9 @@ export default {
   /*
   ** Global CSS
   */
-  css: [],
+  css: [
+    '~/assets/styles/global.css'
+  ],
 
   /*
   ** Plugins to load before mounting the App
@@ -54,12 +57,19 @@ export default {
   /*
   ** Nuxt.js dev-modules
   */
-  buildModules: [],
+  buildModules: [
+    ['@nuxtjs/vuetify', {
+      customVariables: ['~/assets/styles/vuetify'],
+      optionsPath: '~/plugins/vuetify.options.js',
+      treeShake: true
+    }]
+  ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/style-resources',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     ['@nuxtjs/pwa', {
@@ -68,6 +78,15 @@ export default {
       oneSignal: false
     }]
   ],
+
+  /**
+   * Inject SCSS variables globally
+   */
+  styleResources: {
+    scss: [
+      '~/assets/styles/vuetify/_index.scss'
+    ]
+  },
 
   /**
    * Proxy

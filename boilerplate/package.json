@@ -12,7 +12,8 @@
     "www": "firelayer run \"cd app/www && npm run dev\"",
     "functions": "firelayer run \"cd app/functions && npm run dev\""
   },
-  "dependencies": {
+  "devDependencies": {
+    "@firelayer/cli": "0.0.0",
     "lerna": "^3.15.0"
   }
 }
