@@ -18,7 +18,7 @@
     </section>
 
     <!-- partners -->
-    <section class="grey lighten-5 partners">
+    <section class="grey lighten-5 partners pa-3">
       <v-container>
         <div class="d-flex justify-center align-center flex-column flex-sm-column flex-md-row">
           <img src="images/partners/slack.png" alt="">
@@ -31,31 +31,128 @@
     <!-- features -->
     <section class="text-center">
       <v-container>
-        <h2 class="display-1 ma-4">Features</h2>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi dolores autem officiis quam neque deserunt facere ea ab amet. Aspernatur soluta corporis autem delectus quos officiis, consectetur quaerat sequi necessitatibus!</p>
-
-        <v-timeline>
-          <v-timeline-item
-            v-for="n in 3"
-            :key="n"
-            color="primary darken-1"
-            large
+        <v-row>
+          <v-col
+            v-for="({ image, title, text }, i) in features"
+            :key="i"
+            cols="12"
+            md="4"
           >
-            <template v-slot:opposite>
-              <span>Feature X</span>
-            </template>
-            <v-card class="elevation-2">
-              <v-card-title class="headline">Lorem ipsum</v-card-title>
+            <v-card class="py-12 px-4" flat>
+              <v-img
+                class="mb-5"
+                height="200px"
+                contain
+                :src="image"
+              ></v-img>
+
+              <v-card-title
+                class="justify-center font-weight-black text-uppercase"
+                v-text="title"
+              ></v-card-title>
+
+              <v-card-text class="subtitle-1" v-text="text"></v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
+
+    <section class="grey lighten-5 ma-5">
+      <v-container class="text-center">
+        <v-row>
+          <v-col cols="6" md="3">
+            <div class="text-uppercase caption">Posts</div>
+            <div class="display-1">332</div>
+          </v-col>
+          <v-col cols="6" md="3">
+            <div class="text-uppercase caption">Followers</div>
+            <div class="display-1">12k</div>
+          </v-col>
+          <v-col cols="6" md="3">
+            <div class="text-uppercase caption">Stories</div>
+            <div class="display-1">4,344</div>
+          </v-col>
+          <v-col cols="6" md="3">
+            <div class="text-uppercase caption">Repositories</div>
+            <div class="display-1">85</div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
+
+    <section class="ma-5">
+      <v-container class="text-center">
+        <h2 class="display-1 ma-4">What people are saying</h2>
+
+        <v-row>
+          <v-col
+            v-for="({ image, text, name, company }, i) in testimonies"
+            :key="i"
+            cols="12"
+            md="4"
+          >
+            <v-card class="py-12 px-4">
+              <div>
+                <v-avatar color="primary" size="88">
+                  <img :src="image">
+                </v-avatar>
+              </div>
+
               <v-card-text>
-                Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
+                <div class="subtitle-1">{{ text }}</div>
+                <div class="subtitle-1 font-weight-bold mt-5">{{ name }}</div>
+                <div class="caption">{{ company }}</div>
               </v-card-text>
             </v-card>
-          </v-timeline-item>
-        </v-timeline>
+          </v-col>
+        </v-row>
       </v-container>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      features: [{
+        image: 'images/features/feature4.svg',
+        title: 'Feature',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam'
+      },
+      {
+        image: 'images/features/feature2.svg',
+        title: 'Frequent Updates',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam'
+      },
+      {
+        image: 'images/features/feature3.svg',
+        title: 'Social Feature',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam'
+      }],
+      testimonies: [{
+        image: 'images/testimonies/person1.png',
+        name: 'John Burg',
+        company: 'Company',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam'
+      },
+      {
+        image: 'images/testimonies/person2.png',
+        name: 'Sandra Bullocks',
+        company: 'Company',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam'
+      },
+      {
+        image: 'images/testimonies/person3.png',
+        name: 'Dave Blake',
+        company: 'Company',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam'
+      }]
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 section {

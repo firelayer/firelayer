@@ -8,18 +8,22 @@
         </a>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <!-- <v-btn text x-large>Sign In</v-btn> -->
+          <v-btn text x-large>Sign In</v-btn>
         </v-toolbar-items>
       </v-container>
     </v-app-bar>
 
     <v-content>
       <nuxt />
-      <v-footer color="grey lighten-5">
-        <v-container>
-          <div class="text-center">
-            <div>© 2020 TheCompany</div>
+      <v-footer color="grey lighten-5 pa-5">
+        <v-container class="text-center">
+          <div class="footer-links">
+            <a href="#">Pricing</a>
+            <a href="#">FAQ</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
           </div>
+          <div class="mt-2">© 2020 TheCompany</div>
         </v-container>
       </v-footer>
     </v-content>
@@ -31,7 +35,7 @@
 .footer-links {
   a {
     display: inline-block;
-    margin-left: 10px;
+    margin: 10px;
   }
 }
 </style>
