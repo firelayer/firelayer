@@ -1,4 +1,4 @@
-export const JavascriptModel = model => `const { db, Firemodel } = require('../firebase/core')
+export const JavascriptModel = model => `const { db, Firemodel } = require('../firebase/index')
 
 exports = class MODEL_NAME extends Firemodel {
   constructor(id) {
@@ -14,7 +14,7 @@ exports = class MODEL_NAME extends Firemodel {
 module.exports = MODEL_NAME
 `.split('MODEL_NAME').join(model)
 
-export const TypescriptModel = model => `import { db, Firemodel } from '../firebase/core'
+export const TypescriptModel = model => `import { db, Firemodel } from '../firebase/index'
 
 export class MODEL_NAME extends Firemodel {
   constructor(id) {

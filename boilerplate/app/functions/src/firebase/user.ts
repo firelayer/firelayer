@@ -1,4 +1,4 @@
-import { User as UserModel } from './core'
+import { User as UserModel } from './index'
 
 export class User extends UserModel {
   constructor(id?) {

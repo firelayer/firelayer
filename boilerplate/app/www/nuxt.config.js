@@ -10,7 +10,7 @@ const proxy = isProd ? {} : {
 
 export default {
   generate: { fallback: true },
-  mode: 'universal',
+  mode: 'spa',
   dev: !isProd,
   srcDir: 'src/',
   /**
@@ -52,7 +52,9 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [],
+  plugins: [
+    '~/plugins/firebase.js'
+  ],
 
   /*
   ** Nuxt.js dev-modules
@@ -60,7 +62,7 @@ export default {
   buildModules: [
     ['@nuxtjs/vuetify', {
       customVariables: ['~/assets/styles/vuetify'],
-      optionsPath: '~/plugins/vuetify.options.js',
+      optionsPath: '~/config/vuetify.options.js',
       treeShake: true
     }]
   ],

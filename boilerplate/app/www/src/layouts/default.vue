@@ -2,13 +2,13 @@
   <v-app>
     <v-app-bar flat app height="80" hide-on-scroll>
       <v-container class="d-flex">
-        <a href="/" class="d-flex align-center">
+        <nuxt-link to="/" class="d-flex align-center">
           <img src="/images/logo.png" alt="TheCompany" height="40" class="mr-2">
           <!-- <v-toolbar-title></v-toolbar-title> -->
-        </a>
+        </nuxt-link>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn href="/auth/login" text x-large>Sign In</v-btn>
+          <v-btn nuxt to="/auth/login" text x-large>Sign In</v-btn>
         </v-toolbar-items>
       </v-container>
     </v-app-bar>
