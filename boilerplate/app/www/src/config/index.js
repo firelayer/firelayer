@@ -1,7 +1,7 @@
 let config = {}
 
 try {
-  config = JSON.parse(process.env.config || '{}')
+  config = JSON.parse(process.env.config)
 } catch (error) {
   config = {}
 }

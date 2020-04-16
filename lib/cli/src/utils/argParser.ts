@@ -10,30 +10,30 @@ export default str => {
   let buffer = ''
 
   str.split('').forEach((v, i, s) => {
-    if (sQuoted && v === '\''){
+    if (sQuoted && v === '\'') {
       sQuoted = false
       notEmpty = true
 
       return
     }
-    if (!sQuoted && !dQuoted && !backSlash){
-      if (v === '\''){
+    if (!sQuoted && !dQuoted && !backSlash) {
+      if (v === '\'') {
         sQuoted = true
 
         return
       }
-      if (v === '"'){
+      if (v === '"') {
         dQuoted = true
 
         return
       }
-      if (v === '\\'){
+      if (v === '\\') {
         backSlash = true
 
         return
       }
-      if (['\b', '\f', '\n', '\r', '\t', ' '].includes(v)){
-        if (buffer.length > 0 || notEmpty){
+      if (['\b', '\f', '\n', '\r', '\t', ' '].includes(v)) {
+        if (buffer.length > 0 || notEmpty) {
           res.push(buffer)
           notEmpty = false
         }
@@ -42,25 +42,25 @@ export default str => {
         return
       }
     }
-    if (!sQuoted && dQuoted && !backSlash && v === '"'){
+    if (!sQuoted && dQuoted && !backSlash && v === '"') {
       dQuoted = false
       notEmpty = true
 
       return
     }
-    if (!sQuoted && dQuoted && !backSlash && v === '\\'){
+    if (!sQuoted && dQuoted && !backSlash && v === '\\') {
       backSlash = true
-      if (['"', '`', '$', '\\'].includes(s[i + 1])){
+      if (['"', '`', '$', '\\'].includes(s[i + 1])) {
         return
       }
     }
-    if (backSlash){
+    if (backSlash) {
       backSlash = false
     }
     buffer += v
   })
 
-  if (buffer.length > 0 || notEmpty){
+  if (buffer.length > 0 || notEmpty) {
     res.push(buffer)
     notEmpty = false
   }

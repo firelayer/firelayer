@@ -1167,19 +1167,19 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.38.tgz#1f0602cd73f7402ffc4d6116c811dfbb652caa73"
   integrity sha512-mp1XmAJsuqaSWm5WQYo7R0zfZWe9EmwMCxsxkKr+ubLOumyNy4NG5aV45hEpFTosQv4myXpiCiS4GFE9mNqLZQ==
 
-"@firelayer/eslint-config-vue@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@firelayer/eslint-config-vue/-/eslint-config-vue-1.2.0.tgz#31c0853e5dc6e3e01bf6697c0c9b1825a4694b40"
-  integrity sha512-Y1RvXzuUA66sBi6J7HHmLSU5a17Y5hsVP8NYEM0dS1kgSQ4PkAB6vUj5CJOgcJ5ItwGVeoBEwiJidibjpRfQqw==
+"@firelayer/eslint-config-vue@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@firelayer/eslint-config-vue/-/eslint-config-vue-1.3.0.tgz#e3ff2402a1ff22fea1ca2c46e947694f7e8b3cf7"
+  integrity sha512-IXJ4RERtY2+yk7Sp6ZPFWIqBQ5NWBBjsjXE9AeXMDUocvJ5b1ILDy41rX6f6QgGidr3uMSzGnrmh9y9ZPggpbA==
   dependencies:
-    "@firelayer/eslint-config" "^1.2.0"
+    "@firelayer/eslint-config" "^1.3.0"
     babel-eslint "^10.0.3"
     eslint-plugin-vue "^5.2.2"
 
-"@firelayer/eslint-config@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@firelayer/eslint-config/-/eslint-config-1.2.0.tgz#292f0d6a6a86418e9dc9902c8b71a73a423fcfd6"
-  integrity sha512-hRWC3aq0iiuTN9olqtYupQRGRhDsjFCP8KHfNCiA3AqeH5qHrG6lPliZof6w8bb7I2KBzS7B2bvjy9BmNfMqpA==
+"@firelayer/eslint-config@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@firelayer/eslint-config/-/eslint-config-1.3.0.tgz#0446f069833f4d0f0aac349eeda014e4e2046375"
+  integrity sha512-vOcWpwGn9uHyKMn/0zQB+NKh1Z9W0DPeSCa4c7w3pArhj2zBi6r80ByN16SUU7sd8v6LcIFriUJJi5+beEOKug==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.26.0"
     "@typescript-eslint/parser" "^2.26.0"
