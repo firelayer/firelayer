@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- landing section -->
-    <section class="ma-5">
+    <section class="white pa-5">
       <v-container>
         <v-row no-gutters>
           <v-col cols="12" md="6">
@@ -29,7 +29,7 @@
     </section>
 
     <!-- features -->
-    <section class="text-center">
+    <section class="white text-center">
       <v-container>
         <v-row>
           <v-col
@@ -58,7 +58,7 @@
       </v-container>
     </section>
 
-    <section class="grey lighten-5 ma-5">
+    <section class="grey lighten-5 pa-5">
       <v-container class="text-center">
         <v-row>
           <v-col cols="6" md="3">
@@ -81,7 +81,7 @@
       </v-container>
     </section>
 
-    <section class="ma-5">
+    <section class="white pa-5">
       <v-container class="text-center">
         <h2 class="display-1 ma-4">What people are saying</h2>
 

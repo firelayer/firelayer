@@ -1,6 +1,6 @@
 html {
-  font-family: 'Mukta', sans-serif;
-  font-size: 18px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 16px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -10,10 +10,47 @@ html {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #f5f6f7;
   color: #333b4f;
 }
 
 a {
   text-decoration: none;
 }
+
+h1 {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 14px 0;
+  letter-spacing: -.015625em;
+}
+
+h2 {
+  font-size: 2.6rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 14px 0;
+  letter-spacing: -.0083333333em;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 14px 0;
+  letter-spacing: normal;
+}
+
+h4 {
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 14px 0;
+  letter-spacing: .0073529412em;
+}
+
+.theme--light .v-input input::placeholder, .theme--light .v-input textarea::placeholder {
+  color: #cbcfda;
+}
+

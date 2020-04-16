@@ -9,7 +9,7 @@ $material-light: map-deep-merge(
       'lights-out': rgba(map-get($shades, 'white'), 0.7)
     ),
     'app-bar': #fff,
-    'background': #fff,
+    'background': #f5f6f7,
     'calendar': (
       'background-color': map-get($shades, 'white'),
       'outside-background-color': #f7f7f7,
