@@ -1,62 +1,69 @@
 <template>
   <div class="ma-2 mt-8 mb-12">
-    <div class="initial-card elevation-1">
-      <h1 class="display-1 mb-4">Sign In</h1>
-      <v-form ref="form" v-model="isFormValid" lazy-validation>
-        <v-text-field
-          v-model="email"
-          :rules="[rules.required]"
-          :validate-on-blur="false"
-          :error="error"
-          name="email"
-          label="Email"
-          outlined
-          @keyup.enter="submit"
-          @change="resetErrors"
-        ></v-text-field>
+    <v-card class="text-center login-card pa-1">
+      <v-card-title class="justify-center display-1 mb-2">Sign In</v-card-title>
+      <v-card-text>
+        <v-form ref="form" v-model="isFormValid" lazy-validation>
+          <v-text-field
+            v-model="email"
+            :rules="[rules.required]"
+            :validate-on-blur="false"
+            :error="error"
+            name="email"
+            label="Email"
+            outlined
+            @keyup.enter="submit"
+            @change="resetErrors"
+          ></v-text-field>
 
-        <v-text-field
-          v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required]"
-          :type="showPassword ? 'text' : 'password'"
-          :error="error"
-          :error-messages="errorMessages"
-          name="password"
-          label="Password"
-          outlined
-          @change="resetErrors"
-          @keyup.enter="submit"
-          @click:append="showPassword = !showPassword"
-        ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required]"
+            :type="showPassword ? 'text' : 'password'"
+            :error="error"
+            :error-messages="errorMessages"
+            name="password"
+            label="Password"
+            outlined
+            @change="resetErrors"
+            @keyup.enter="submit"
+            @click:append="showPassword = !showPassword"
+          ></v-text-field>
 
-        <v-btn
-          :loading="isLoading"
-          :disabled="isGoogleLoading"
-          block
-          depressed
-          x-large
-          color="success"
-          @click="submit"
-        >Sign In</v-btn>
+          <v-btn
+            :loading="isLoading"
+            :disabled="isSignInDisabled"
+            block
+            x-large
+            color="success"
+            @click="submit"
+          >Sign In</v-btn>
 
-        <div class="separator">Or sign in with</div>
+          <div class="separator">Or sign in with</div>
 
-        <v-btn
-          :loading="isGoogleLoading"
-          :disabled="isLoading"
-          block
-          outlined
-          x-large
-          @click="signInGoogle"
-        >
-          Google
-        </v-btn>
-        <div class="mt-5">
-          <nuxt-link :to="'/auth/forgot-password'">Forgot password?</nuxt-link>
-        </div>
-      </v-form>
-    </div>
+          <v-btn
+            v-for="provider in providers"
+            :key="provider.id"
+            :loading="provider.isLoading"
+            :disabled="isSignInDisabled"
+            class="mb-2"
+            block
+            x-large
+            @click="signInProvider(provider)"
+          >
+            <v-icon small left>mdi-{{ provider.id }}</v-icon>
+            {{ provider.label }}
+          </v-btn>
+
+          <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
+
+          <div class="mt-5">
+            <nuxt-link :to="'/auth/forgot-password'">Forgot password?</nuxt-link>
+          </div>
+        </v-form>
+      </v-card-text>
+    </v-card>
 
     <div class="text-center mt-6">
       Don't have an account?
@@ -70,14 +77,14 @@
 </template>
 
 <script>
-import { auth } from '../../firebase'
+import { signIn, signInWithProvider } from '../../firebase/helpers/signin'
 
 export default {
   data() {
     return {
       // sign in buttons
       isLoading: false,
-      isGoogleLoading: false,
+      isSignInDisabled: false,
 
       // form
       isFormValid: true,
@@ -88,8 +95,41 @@ export default {
       error: false,
       errorMessages: '',
 
+      errorProvider: false,
+      errorProviderMessages: '',
+
       // show password field
       showPassword: false,
+
+      providers: [{
+        id: 'google',
+        label: 'Google',
+        isLoading: false
+      }, {
+        id: 'facebook',
+        label: 'Facebook',
+        isLoading: false
+      }, {
+        id: 'apple',
+        label: 'Apple',
+        isLoading: false
+      }, {
+        id: 'twitter',
+        label: 'Twitter',
+        isLoading: false
+      }, {
+        id: 'github',
+        label: 'Github',
+        isLoading: false
+      }, {
+        id: 'microsoft',
+        label: 'Microsoft',
+        isLoading: false
+      }, {
+        id: 'yahoo',
+        label: 'Yahoo',
+        isLoading: false
+      }],
 
       // input rules
       rules: {
@@ -101,19 +141,16 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         this.isLoading = true
+        this.isSignInDisabled = true
         this.signIn(this.email, this.password)
       }
     },
     async signIn(email, password) {
       try {
-        const result = await auth().signInWithEmailAndPassword(email, password)
+        const result = await signIn(email, password)
         const { user } = result
 
-        if (user.emailVerified) {
-          this.$router.push({ name: 'dashboard' })
-        } else {
-          this.$router.push({ name: 'verify-email' })
-        }
+        // user is authenticated
       } catch (error) {
         const { code, message } = error
 
@@ -122,52 +159,45 @@ export default {
       }
 
       this.isLoading = false
+      this.isSignInDisabled = false
     },
-    async signInGoogle() {
-      this.isGoogleLoading = true
+    async signInProvider(provider) {
+      this.resetErrors()
+
+      provider.isLoading = true
+      this.isSignInDisabled = true
 
       try {
-        const provider = new auth.GoogleAuthProvider()
-        const result = await auth().signInWithPopup(provider)
-
-        // This gives you a Google Access Token. You can use it to access the Google API.
+        const result = await signInWithProvider(provider)
         const token = result.credential.accessToken
-        // The signed-in user info.
         const { user } = result
 
-        this.$router.push({
-          name: 'dashboard'
-        })
+        // user is authenticated
       } catch (error) {
-        this.isGoogleLoading = false
+        const { code, credential, message, email } = error
 
-        // Handle Errors here.// The email of the user's account used.
-        const { code, message, email } = error
-
-        // The firebase.auth.AuthCredential type that was used.
-        const { credential } = error
-
-        // this.error = true
-        // this.errorMessages = message
+        this.errorProvider = true
+        this.errorProviderMessages = message
       }
+
+      provider.isLoading = false
+      this.isSignInDisabled = false
     },
     resetErrors() {
       this.error = false
       this.errorMessages = ''
+
+      this.errorProvider = false
+      this.errorProviderMessages = ''
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.initial-card {
-  text-align: center;
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 4px;
-  margin: auto;
+.login-card {
   max-width: 470px;
-  margin-top: 12px;
+  margin: auto;
 }
 
 .separator {
@@ -176,7 +206,7 @@ export default {
   font-size: 12px;
   font-weight: 800;
   color: #757575;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 .v-btn {
