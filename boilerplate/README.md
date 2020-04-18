@@ -12,11 +12,11 @@
 
 This boilerplate is organized as a monorepo using [Lerna](https://lerna.js.org/). Useful scripts include:
 
-#### `npm run bootstrap`
+#### `yarn bootstrap`
 > Installs package dependencies - using lerna
 
-#### `npm run build`
+#### `yarn build`
 > Builds on all app packages - using lerna run build
 
-#### `npm run dev`
+#### `yarn dev`
 > Starts the dev mode on all app packages - using lerna run dev

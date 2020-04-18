@@ -6,6 +6,7 @@
     "start": "nuxt start",
     "build": "nuxt build && yarn generate",
     "dev": "nuxt",
+    "clean": "rm -rf .nuxt && rm -rf dist",
     "http": "cd dist && npx http-server",
     "lint": "eslint --ignore-path .gitignore --ext .js,.vue --report-unused-disable-directives",
     "generate": "nuxt generate"

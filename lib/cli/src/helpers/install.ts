@@ -72,7 +72,7 @@ export default async (targetDir, targetVersion, options) => {
     task: () => {
       shelljs.cd(targetDir)
 
-      return cmd('npm run bootstrap')
+      return cmd('yarn bootstrap')
     }
   }])
 

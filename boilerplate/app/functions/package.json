@@ -4,15 +4,15 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run shell",
-    "build": "npm run clean && tsc",
-    "dev": "npm run serve",
+    "start": "yarn shell",
+    "build": "yarn clean && tsc",
+    "dev": "yarn serve",
     "deploy": "firebase deploy --only functions",
     "clean": "rm -rf dist",
     "lint": "echo 'not implemented'",
     "logs": "firebase functions:log",
     "serve": "concurrently --kill-others \"tsc -w\" \"firebase serve --only functions\"",
-    "shell": "npm run build && firebase functions:shell"
+    "shell": "yarn build && firebase functions:shell"
   },
   "dependencies": {
     "@firelayer/core": "0.0.0",
