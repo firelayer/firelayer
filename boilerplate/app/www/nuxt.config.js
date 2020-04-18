@@ -10,7 +10,7 @@ const proxy = isProd ? {} : {
 
 export default {
   generate: { fallback: true },
-  mode: 'spa',
+  mode: 'universal',
   dev: !isProd,
   srcDir: 'src/',
   /**
