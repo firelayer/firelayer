@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "firelayer-io"
+    "default": "firelayer-boilerplate"
   },
   "targets": {
-    "firelayer-io": {
+    "firelayer-boilerplate": {
       "hosting": {
         "www": [
-          "firelayer-io-nuxt"
+          "firelayer-boilerplate"
         ]
       }
     }

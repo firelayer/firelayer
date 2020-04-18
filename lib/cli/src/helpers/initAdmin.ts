@@ -34,7 +34,7 @@ export default () => {
   } catch (error) {
     const notFound = env === 'default' ? `key.json or ${env}.key.json` : `${env}.key.json`
 
-    this.log(chalk.red(`Failed to get credentials from 'config/keys' > '${chalk.bold(notFound)}'..\n`))
+    console.log(chalk.red(`Failed to get credentials from 'config/keys' > '${chalk.bold(notFound)}'..\n`))
 
     return
   }

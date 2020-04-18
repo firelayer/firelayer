@@ -5,7 +5,7 @@ export default () => {
   let env = 'default'
 
   if (!fs.existsSync('.firelayer/env')) {
-    this.log(`\nCreating '${chalk.bold('.firelayer/env')}' missing file..`)
+    console.log(`\nCreating '${chalk.bold('.firelayer/env')}' missing file..`)
 
     fs.mkdirSync('.firelayer', { recursive: true })
     fs.writeFileSync('.firelayer/env', 'default')
