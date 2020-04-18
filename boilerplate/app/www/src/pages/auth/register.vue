@@ -1,14 +1,28 @@
 <template>
   <div class="ma-2 mt-8 mb-12">
     <v-card class="text-center solo-card pa-1">
-      <v-card-title class="justify-center display-1 mb-2">Sign In</v-card-title>
+      <v-card-title class="justify-center display-1 mb-2">Create Account</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="isFormValid" lazy-validation>
+          <v-text-field
+            v-model="name"
+            :rules="[rules.required]"
+            :validate-on-blur="false"
+            :error="errorName"
+            :error-messages="errorNameMessage"
+            name="name"
+            label="Full name"
+            outlined
+            @keyup.enter="submit"
+            @change="resetErrors"
+          ></v-text-field>
+
           <v-text-field
             v-model="email"
             :rules="[rules.required]"
             :validate-on-blur="false"
-            :error="error"
+            :error="errorEmail"
+            :error-messages="errorEmailMessage"
             name="email"
             label="Email"
             outlined
@@ -21,8 +35,8 @@
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
-            :error="error"
-            :error-messages="errorMessages"
+            :error="errorPassword"
+            :error-messages="errorPasswordMessage"
             name="password"
             label="Password"
             outlined
@@ -33,20 +47,20 @@
 
           <v-btn
             :loading="isLoading"
-            :disabled="isSignInDisabled"
+            :disabled="isSignUpDisabled"
             block
             x-large
             color="success"
             @click="submit"
-          >Sign In</v-btn>
+          >Create Account</v-btn>
 
-          <div class="separator">Or sign in with</div>
+          <div class="separator">Or sign up with</div>
 
           <v-btn
             v-for="provider in providers"
             :key="provider.id"
             :loading="provider.isLoading"
-            :disabled="isSignInDisabled"
+            :disabled="isSignUpDisabled"
             class="mb-2"
             block
             x-large
@@ -58,40 +72,49 @@
 
           <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
 
-          <div class="mt-5">
-            <nuxt-link :to="'/auth/forgot-password'">Forgot password?</nuxt-link>
+          <div class="mt-5 overline">
+            By signing up, you agree to the
+            <br />
+            <a href="#" target="_blank">Terms of Service</a> and
+            <a href="#" target="_blank">Privacy Policy</a>
           </div>
         </v-form>
       </v-card-text>
     </v-card>
 
     <div class="text-center mt-6">
-      Don't have an account?
-      <nuxt-link to="/auth/register" style="text-decoration: underline">
-        Create one here
-      </nuxt-link>
+      Already have an account?
+      <router-link to="/auth/login" style="text-decoration: underline">
+        Sign In
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { signIn, signInWithProvider } from '../../firebase/helpers/auth'
+import { auth } from '../../firebase'
+import { signUp, signInWithProvider } from '../../firebase/helpers/auth'
 
 export default {
   data() {
     return {
-      // sign in buttons
+      // sign up buttons
       isLoading: false,
-      isSignInDisabled: false,
+      isSignUpDisabled: false,
 
       // form
       isFormValid: true,
       email: '',
       password: '',
+      name: '',
 
       // form error
-      error: false,
-      errorMessages: '',
+      errorName: false,
+      errorEmail: false,
+      errorPassword: false,
+      errorNameMessage: '',
+      errorEmailMessage: '',
+      errorPasswordMessage: '',
 
       errorProvider: false,
       errorProviderMessages: '',
@@ -139,36 +162,48 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.isSignInDisabled = true
-        this.signIn(this.email, this.password)
+        this.isSignUpDisabled = true
+        this.signUp(this.email, this.password)
       }
     },
-    async signIn(email, password) {
+    async signUp(email, password) {
       try {
-        const result = await signIn(email, password)
-        const { user } = result
+        await signUp(email, password)
 
-        // user is authenticated
+        const user = auth().currentUser
+
+        await user.updateProfile({
+          displayName: this.name
+        })
+
+        user.sendEmailVerification()
       } catch (error) {
         const { code, message } = error
 
-        this.error = true
-        this.errorMessages = 'The email / password combination is invalid'
+        if (code === 'auth/email-already-in-use' || code === 'auth/invalid-email') {
+          this.errorEmail = true
+          this.errorEmailMessage = message
+        } else {
+          this.errorPassword = true
+          this.errorPasswordMessage = message
+        }
       }
 
       this.isLoading = false
-      this.isSignInDisabled = false
+      this.isSignUpDisabled = false
     },
     async signInProvider(provider) {
       this.resetErrors()
 
       provider.isLoading = true
-      this.isSignInDisabled = true
+      this.isSignUpDisabled = true
 
       try {
         const result = await signInWithProvider(provider)
         const token = result.credential.accessToken
         const { user } = result
+
+        console.log(user)
 
         // user is authenticated
       } catch (error) {
@@ -179,11 +214,15 @@ export default {
       }
 
       provider.isLoading = false
-      this.isSignInDisabled = false
+      this.isSignUpDisabled = false
     },
     resetErrors() {
-      this.error = false
-      this.errorMessages = ''
+      this.errorName = false
+      this.errorEmail = false
+      this.errorPassword = false
+      this.errorNameMessage = ''
+      this.errorEmailMessage = ''
+      this.errorPasswordMessage = ''
 
       this.errorProvider = false
       this.errorProviderMessages = ''
