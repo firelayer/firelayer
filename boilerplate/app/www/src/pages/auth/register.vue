@@ -96,6 +96,7 @@ import { auth } from '../../firebase'
 import { signUp, signInWithProvider } from '../../firebase/helpers/auth'
 
 export default {
+  middleware: ['redirectIfAuth'],
   data() {
     return {
       // sign up buttons

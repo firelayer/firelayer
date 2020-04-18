@@ -50,6 +50,7 @@
 import { auth } from '../../firebase'
 
 export default {
+  middleware: ['redirectIfAuth'],
   data() {
     return {
       isLoading: true,
@@ -128,7 +129,7 @@ export default {
         await auth().confirmPasswordReset(this.oobCode, this.newPassword)
         await auth().signInWithEmailAndPassword(this.userEmail, this.newPassword)
 
-        window.location = '/'
+        this.$router.push('/user')
       } catch (error) {
         const { code, message } = error
 
@@ -147,7 +148,7 @@ export default {
         this.status = 'Email verified! Redirecting...'
 
         setTimeout(() => {
-          window.location = '/'
+          this.$router.push('/user')
         }, 3000)
       } catch (error) {
         const { code, message } = error

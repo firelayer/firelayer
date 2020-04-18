@@ -8,13 +8,7 @@
         </nuxt-link>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn
-            nuxt
-            to="/auth/login"
-            text
-            x-large
-            active-class="no-active"
-          >Sign In</v-btn>
+          <UserMenu />
         </v-toolbar-items>
       </v-container>
     </v-app-bar>
@@ -38,15 +32,22 @@
   </v-app>
 </template>
 
+<script>
+import UserMenu from '../components/common/UserMenu'
+
+export default {
+  name: 'DefaultLayout',
+  components: {
+    UserMenu
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .footer-links {
   a {
     display: inline-block;
     margin: 10px;
   }
-}
-
-.v-btn--active.no-active::before {
-  opacity: 0 !important;
 }
 </style>

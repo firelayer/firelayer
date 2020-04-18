@@ -44,6 +44,7 @@
 import { auth } from '../../firebase'
 
 export default {
+  middleware: ['redirectIfAuth'],
   data() {
     return {
       // reset button
