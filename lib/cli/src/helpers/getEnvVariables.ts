@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as fs from 'fs-extra'
 
-export default env => {
+export default (env): any => {
   const appsEnv = {}
   /**
    * Get global app variables

@@ -48,6 +48,9 @@ export default class Run extends Command {
     }
 
     const envVars = getEnvVariables(envName)
+
+    envVars['GOOGLE_APPLICATION_CREDENTIALS'] = keyPath
+
     const env = Object.assign({}, process.env, envVars)
 
     // run the command from the arguments
