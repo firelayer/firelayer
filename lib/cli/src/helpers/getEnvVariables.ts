@@ -19,9 +19,9 @@ export default (env): any => {
   /**
    * Get and set all applications config in env
    */
-  const dirFilter = source => fs.lstatSync(source).isDirectory() && !(/keys$/.test(source))
-  const getDirectories = source => fs.readdirSync(source).map(name => path.join(source, name)).filter(dirFilter)
-  const applications = getDirectories('./config').map(app => {
+  const dirFilter = (source) => fs.lstatSync(source).isDirectory() && !(/keys$/.test(source))
+  const getDirectories = (source) => fs.readdirSync(source).map((name) => path.join(source, name)).filter(dirFilter)
+  const applications = getDirectories('./config').map((app) => {
     const name = app.substring(7)
     let config = {}
 
@@ -43,7 +43,7 @@ export default (env): any => {
     }
   })
 
-  applications.forEach(app => {
+  applications.forEach((app) => {
     appsEnv[app.name] = app.config
   })
 

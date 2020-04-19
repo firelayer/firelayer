@@ -24,13 +24,13 @@ export async function migrate(migrationsFolder: string, options: MigrateConfig =
     return
   }
 
-  const migrations = migrationFiles.map(m => getMigrationName(m))
+  const migrations = migrationFiles.map((m) => getMigrationName(m))
 
   const mdb = db().collection(options.collection || MIGRATIONS_COLLECTION)
   const ranMigrationsDocs = await mdb.listDocuments()
-  const ranMigrations = ranMigrationsDocs.map(m => m.id)
+  const ranMigrations = ranMigrationsDocs.map((m) => m.id)
 
-  const queuedMigrations = migrations.filter(m => ranMigrations.indexOf(m) === -1)
+  const queuedMigrations = migrations.filter((m) => ranMigrations.indexOf(m) === -1)
 
   if (queuedMigrations.length === 0) {
     console.log('Nothing to migrate.\n')
@@ -68,7 +68,7 @@ export async function rollback(migrationsFolder: string, options: RollbackConfig
   const mdb = db().collection(options.collection || MIGRATIONS_COLLECTION)
 
   const ranMigrationsQuery = await mdb.orderBy('migratedAt', 'desc').get()
-  let ranMigrations = ranMigrationsQuery.docs.map(d => d.id)
+  let ranMigrations = ranMigrationsQuery.docs.map((d) => d.id)
 
   if (ranMigrations.length === 0) {
     console.log('Nothing to rollback.\n')
@@ -104,7 +104,7 @@ export async function rollback(migrationsFolder: string, options: RollbackConfig
   }
 }
 
-const getMigrationsFiles = (folder: string): Array<string> => fs.readdirSync(folder).filter(name => {
+const getMigrationsFiles = (folder: string): Array<string> => fs.readdirSync(folder).filter((name) => {
   const file = path.join(folder, name)
 
   return !fs.lstatSync(file).isDirectory() && /(\.js|\.ts)$/.test(file)

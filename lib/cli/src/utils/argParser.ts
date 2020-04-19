@@ -1,4 +1,4 @@
-export default str => {
+export default (str) => {
   const res = []
 
   if (!str || typeof str !== 'string') return res

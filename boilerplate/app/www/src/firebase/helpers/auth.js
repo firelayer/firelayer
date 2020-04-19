@@ -8,13 +8,13 @@ export const signIn = (email, password) => {
   return auth().signInWithEmailAndPassword(email, password)
 }
 
-export const signInWithProvider = provider => {
+export const signInWithProvider = (provider) => {
   const driver = getProviderInstance(provider.id)
 
   return auth().signInWithPopup(driver)
 }
 
-export const getProviderInstance = providerId => {
+export const getProviderInstance = (providerId) => {
   switch (providerId) {
   case 'google': return new auth.GoogleAuthProvider()
   case 'facebook': return new auth.FacebookAuthProvider()

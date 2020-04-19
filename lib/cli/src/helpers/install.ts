@@ -29,7 +29,7 @@ export default async (targetDir, targetVersion, options) => {
         const ig = ignore().add(gitIgnore.toString())
 
         await fs.copy(boilerPath, targetDir, {
-          filter: src => {
+          filter: (src) => {
             const relativePath = path.relative(boilerPath, src)
 
             if (!relativePath) return true
@@ -41,13 +41,13 @@ export default async (targetDir, targetVersion, options) => {
         // choose latest tag version that suits cli version
         const stdout = (await cmd('git ls-remote --tags git://github.com/firelayer/firelayer.git')) as string
 
-        const versions = stdout.split(/\r?\n/).map(line => {
+        const versions = stdout.split(/\r?\n/).map((line) => {
           const match = line.match(/tags\/(.*)/)
 
           return match ? match[1] : ''
         })
 
-        let latest = versions.reverse().find(version => semver.satisfies(version, `^${targetVersion}`))
+        let latest = versions.reverse().find((version) => semver.satisfies(version, `^${targetVersion}`))
 
         if (!latest) {
           console.log(

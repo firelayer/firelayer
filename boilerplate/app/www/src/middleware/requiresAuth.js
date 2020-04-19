@@ -7,10 +7,10 @@ export default async ({ store, redirect }) => {
 }
 
 function waitForAuthReady(store) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const unwatch = store.watch(
-      state => state.app.isAuthReady,
-      isAuthReady => {
+      (state) => state.app.isAuthReady,
+      (isAuthReady) => {
         resolve(isAuthReady)
         unwatch()
       }

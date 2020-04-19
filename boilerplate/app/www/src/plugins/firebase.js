@@ -1,7 +1,7 @@
 import { auth } from '../firebase/index'
 
 export default ({ app, store, redirect }) => {
-  auth().onAuthStateChanged(user => {
+  auth().onAuthStateChanged((user) => {
     const { currentRoute } = app.router
 
     if (!store.state.app.isAuthReady) store.commit('app/SET_AUTH_READY')

@@ -73,7 +73,7 @@ export default {
 
       // input rules
       rules: {
-        required: value => (value && Boolean(value)) || 'Required'
+        required: (value) => (value && Boolean(value)) || 'Required'
       },
 
       oobCode: null,

@@ -3,7 +3,6 @@ import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
 import cli from 'cli-ux'
 
-// eslint-disable-next-line arrow-parens
 export default async (name?) => {
   if (!name) {
     name = await cli.prompt('What is the migration name? (ex: create_posts)')
