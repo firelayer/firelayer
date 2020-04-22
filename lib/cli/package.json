@@ -1,7 +1,7 @@
 {
   "name": "@firelayer/cli",
   "version": "0.0.0",
-  "description": "Firelayer's CLI - Jumpstart your Firebase Project",
+  "description": "Firelayer's CLI - Jumpstart your Firebase Web Project",
   "keywords": [
     "firelayer",
     "generator",

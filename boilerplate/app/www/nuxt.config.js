@@ -29,7 +29,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { 'http-equiv': 'X-UA-Compatible', content: 'ie=edge' },
-      { hid: 'description', name: 'description', content: 'Firelayer - Jumpstart your Firebase Project' }
+      { hid: 'description', name: 'description', content: 'Firelayer - Jumpstart your Firebase Web Project' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -102,7 +102,7 @@ export default {
   manifest: {
     name: 'Firelayer',
     'short_name': 'Firelayer',
-    description: 'Firelayer - Jumpstart you Firebase Project'
+    description: 'Firelayer - Jumpstart you Firebase Web Project'
   },
 
   /*

@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<p align="center">Jumpstart your Firebase Project</p>
+<p align="center">Jumpstart your Firebase Web Project</p>
 
 <br/>
 
@@ -14,8 +14,8 @@
   </a>
 </p>
 
-Firelayer is a boilerplate / framework for Firebase projects.
-It allows you to jumpstart your Firebase projects with a boilerplate for common use cases so you don't have to start from scratch.
+Firelayer is a boilerplate / framework for Firebase web projects.
+It allows you to jumpstart your Firebase web projects with a boilerplate for common use cases so you don't have to start from scratch.
 
 ## Development
 
