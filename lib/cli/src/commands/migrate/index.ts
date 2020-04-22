@@ -1,11 +1,10 @@
-import { Command, flags } from '@oclif/command'
+import { flags } from '@oclif/command'
+import Command from '../../base'
 import * as path from 'path'
 import * as chalk from 'chalk'
 import { prompt } from 'inquirer'
 import { migrate } from '@firelayer/core/lib/firebase/firestore'
-import findRoot from '../../utils/findRoot'
 import initAdmin from '../../helpers/initAdmin'
-import getEnv from '../../helpers/getEnv'
 
 export default class Migrate extends Command {
   static description = 'run migrations'
@@ -22,11 +21,6 @@ export default class Migrate extends Command {
 
   async run() {
     const { flags } = this.parse(Migrate)
-    const root = await findRoot()
-
-    process.chdir(root)
-
-    const env = getEnv()
 
     let continueMigration = flags.yes
 
@@ -34,7 +28,7 @@ export default class Migrate extends Command {
       const quiz = await prompt({
         type: 'confirm',
         name: 'confirm',
-        message: `Run migrations for environment: '${chalk.bold.cyan(env)}' ?`
+        message: `Run migrations for environment: '${chalk.bold.cyan(this.env)}' ?`
       })
 
       continueMigration = quiz.confirm
@@ -45,7 +39,7 @@ export default class Migrate extends Command {
       this.log(chalk.bold('\nInitializing migrations..\n'))
       initAdmin()
 
-      await migrate(path.join(root, 'database/migrations'))
+      await migrate(path.join(this.root, 'database/migrations'))
     }
 
     return

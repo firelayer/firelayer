@@ -1,6 +1,5 @@
-import { Command } from '@oclif/command'
+import Command from '../../base'
 import { prompt } from 'inquirer'
-import findRoot from '../../utils/findRoot'
 import makeModel from '../../helpers/makeModel'
 import makeMigration from '../../helpers/makeMigration'
 
@@ -13,10 +12,6 @@ export default class Make extends Command {
   `]
 
   async run() {
-    const root = await findRoot()
-
-    process.chdir(root)
-
     const quiz = await prompt([{
       type: 'list',
       name: 'make',

@@ -1,8 +1,6 @@
-import { Command } from '@oclif/command'
+import Command from '../base'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
-import findRoot from '../utils/findRoot'
-import getEnv from '../helpers/getEnv'
 import cmd from '../utils/cmd'
 
 export default class Env extends Command {
@@ -15,12 +13,9 @@ export default class Env extends Command {
   async run() {
     const { args } = this.parse(Env)
     const envName = args.name
-    const root = await findRoot()
-
-    process.chdir(root)
 
     if (!envName) {
-      return this.log(`\nCurrent environment: ${chalk.bold.cyan(getEnv())}\n`)
+      return this.log(`\nCurrent environment: ${chalk.bold.cyan(this.env)}\n`)
     }
 
     const envFile = `./config/keys/${envName}.key.json`

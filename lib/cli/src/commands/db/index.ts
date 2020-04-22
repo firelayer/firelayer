@@ -1,6 +1,5 @@
-import { Command } from '@oclif/command'
+import Command from '../../base'
 import { prompt } from 'inquirer'
-import findRoot from '../../utils/findRoot'
 import dbSeed from '../../helpers/dbSeed'
 
 export default class DB extends Command {
@@ -9,10 +8,6 @@ export default class DB extends Command {
   static examples = ['$ firelayer db:seed']
 
   async run() {
-    const root = await findRoot()
-
-    process.chdir(root)
-
     const quiz = await prompt([{
       type: 'list',
       name: 'choice',

@@ -1,7 +1,7 @@
-import { Command, flags } from '@oclif/command'
+import { flags } from '@oclif/command'
+import Command from '../base'
 import { User } from '@firelayer/core/lib/firebase'
 import * as chalk from 'chalk'
-import findRoot from '../utils/findRoot'
 import initAdmin from '../helpers/initAdmin'
 
 export default class Auth extends Command {
@@ -17,9 +17,6 @@ export default class Auth extends Command {
 
   async run() {
     const { flags } = this.parse(Auth)
-    const root = await findRoot()
-
-    process.chdir(root)
 
     if (flags.user) {
       initAdmin()

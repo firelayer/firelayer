@@ -27,16 +27,18 @@ export default async (name?) => {
     name: 'apps',
     message: 'Select which applications to create the model:',
     choices
-  }, {
-    type: 'list',
-    name: 'language',
-    message: 'Choose the language for the model:',
-    choices: [{
-      name: 'Javascript'
-    }, {
-      name: 'Typescript'
-    }]
   }])
+
+  // , {
+  //   type: 'list',
+  //   name: 'language',
+  //   message: 'Choose the language for the model:',
+  //   choices: [{
+  //     name: 'Javascript'
+  //   }, {
+  //     name: 'Typescript'
+  //   }]
+  // }])
 
   const { apps, language } = quiz
 
@@ -45,15 +47,19 @@ export default async (name?) => {
   apps.forEach((app) => {
     fs.mkdirSync(`./app/${app}/src/models`, { recursive: true })
 
-    if (language === 'Javascript') {
-      fs.writeFileSync(`./app/${app}/src/models/${model}.js`, JavascriptModel(model))
+    fs.writeFileSync(`./app/${app}/src/models/${model}.js`, TypescriptModel(model))
 
-      console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
-    } else if (language === 'Typescript') {
-      fs.writeFileSync(`./app/${app}/src/models/${model}.ts`, TypescriptModel(model))
+    console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
 
-      console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
-    }
+    // if (language === 'Javascript') {
+    //   fs.writeFileSync(`./app/${app}/src/models/${model}.js`, JavascriptModel(model))
+
+    //   console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
+    // } else if (language === 'Typescript') {
+    //   fs.writeFileSync(`./app/${app}/src/models/${model}.ts`, TypescriptModel(model))
+
+    //   console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
+    // }
   })
 
   return

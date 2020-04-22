@@ -1,9 +1,8 @@
-import { Command, flags } from '@oclif/command'
+import { flags } from '@oclif/command'
+import Command from '../base'
 import { startMaintenance, isInMaintenance } from '@firelayer/core/lib/firebase'
 import { prompt } from 'inquirer'
 import * as chalk from 'chalk'
-import getEnv from '../helpers/getEnv'
-import findRoot from '../utils/findRoot'
 import initAdmin from '../helpers/initAdmin'
 
 export default class Down extends Command {
@@ -18,11 +17,6 @@ export default class Down extends Command {
 
   async run() {
     const { flags } = this.parse(Down)
-    const root = await findRoot()
-
-    process.chdir(root)
-
-    const env = getEnv()
 
     let putInMaintenance = flags.yes
 
@@ -30,7 +24,7 @@ export default class Down extends Command {
       const quiz = await prompt({
         type: 'confirm',
         name: 'confirm',
-        message: `Put the application into maintenance for environment '${chalk.bold.cyan(env)}' ?`
+        message: `Put the application into maintenance for environment '${chalk.bold.cyan(this.env)}' ?`
       })
 
       putInMaintenance = quiz.confirm
@@ -40,14 +34,14 @@ export default class Down extends Command {
       initAdmin()
 
       if (await isInMaintenance()) {
-        this.log(chalk.yellow(`\nApplication is already in maintenance mode (env: ${chalk.bold(env)}).\n`))
+        this.log(chalk.yellow(`\nApplication is already in maintenance mode (env: ${chalk.bold(this.env)}).\n`))
         process.exit(0)
       } else {
-        this.log(`\nPutting the application into maintenance mode! (env: ${chalk.bold(env)}).`)
+        this.log(`\nPutting the application into maintenance mode! (env: ${chalk.bold(this.env)}).`)
 
         await startMaintenance()
 
-        this.log(chalk.green(`\nApplication is now in maintenance mode (env: ${chalk.bold(env)}).\n`))
+        this.log(chalk.green(`\nApplication is now in maintenance mode (env: ${chalk.bold(this.env)}).\n`))
         process.exit(0)
       }
     }

@@ -1,12 +1,10 @@
-import { Command } from '@oclif/command'
+import Command from '../base'
 import * as chalk from 'chalk'
 import * as path from 'path'
 import * as fs from 'fs-extra'
-import getEnv from '../helpers/getEnv'
 import getEnvVariables from '../helpers/getEnvVariables'
 import { spawn } from '../utils/spawn'
 import { TermSignals } from '../utils/signalTermination'
-import findRoot from '../utils/findRoot'
 import argParser from '../utils/argParser'
 
 export default class Run extends Command {
@@ -18,36 +16,30 @@ export default class Run extends Command {
 
   async run() {
     const { args } = this.parse(Run)
-    const cwd = process.cwd()
-    const root = await findRoot()
-
-    process.chdir(root)
-
     const { command } = args
-    const envName = getEnv()
 
     /**
      * Find current environment path to service key file
      */
-    const keyFile = `./config/keys/${envName}.key.json`
+    const keyFile = `./config/keys/${this.env}.key.json`
     const defaultKeyFile = './config/keys/key.json'
 
     let keyPath = ''
 
     if (fs.existsSync(keyFile)) {
       keyPath = path.resolve(keyFile)
-    } else if (envName === 'default' && fs.existsSync(defaultKeyFile)) {
+    } else if (this.env === 'default' && fs.existsSync(defaultKeyFile)) {
       keyPath = path.resolve(defaultKeyFile)
     }
 
     if (!keyPath) {
-      const notFound = envName === 'default' ? `key.json or ${envName}.key.json` : `${envName}.key.json`
+      const notFound = this.env === 'default' ? `key.json or ${this.env}.key.json` : `${this.env}.key.json`
 
       this.log(chalk.bold(`\nFailed to get credentials from 'config/keys' > '${notFound}'\n`))
       process.exit(0)
     }
 
-    const envVars = getEnvVariables(envName)
+    const envVars = getEnvVariables(this.env)
 
     envVars['GOOGLE_APPLICATION_CREDENTIALS'] = keyPath
 
@@ -57,7 +49,7 @@ export default class Run extends Command {
     const commandParsed = argParser(command)
 
     const proc = spawn(commandParsed[0], commandParsed.slice(1), {
-      cwd,
+      cwd: this.cwd,
       stdio: 'inherit',
       shell: true,
       env

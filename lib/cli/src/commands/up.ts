@@ -1,9 +1,7 @@
-import { Command } from '@oclif/command'
+import Command from '../base'
 import { stopMaintenance, isInMaintenance } from '@firelayer/core/lib/firebase'
 import * as chalk from 'chalk'
 import * as fs from 'fs-extra'
-import getEnv from '../helpers/getEnv'
-import findRoot from '../utils/findRoot'
 import initAdmin from '../helpers/initAdmin'
 
 export default class Up extends Command {
@@ -12,16 +10,10 @@ export default class Up extends Command {
   static examples = ['$ firelayer up']
 
   async run() {
-    const root = await findRoot()
-
-    process.chdir(root)
-
-    const env = getEnv()
-
     initAdmin()
 
     if (await isInMaintenance()) {
-      this.log(`\nBringing the application from maintenance mode! (env: ${chalk.bold(env)}).`)
+      this.log(`\nBringing the application from maintenance mode! (env: ${chalk.bold(this.env)}).`)
 
       // stop maintenance and deploy repo rules
       const databaseRules = fs.readFileSync('./rules/database.rules.json', 'utf8')
@@ -44,10 +36,10 @@ export default class Up extends Command {
         }
       })
 
-      this.log(chalk.green(`\nApplication is now live! (env: ${chalk.bold(env)}).\n`))
+      this.log(chalk.green(`\nApplication is now live! (env: ${chalk.bold(this.env)}).\n`))
       process.exit(0)
     } else {
-      this.log(chalk.yellow(`\nApplication is not in maintenance mode (env: ${chalk.bold(env)}).\n`))
+      this.log(chalk.yellow(`\nApplication is not in maintenance mode (env: ${chalk.bold(this.env)}).\n`))
       process.exit(0)
     }
   }

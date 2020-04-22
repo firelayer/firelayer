@@ -19,7 +19,6 @@ export default class Init extends Command {
   async run() {
     const { args, flags } = this.parse(Init)
     const projectName = args.name || '.'
-
     const cwd = process.cwd()
     const inCurrent = projectName === '.'
     const targetDir = path.resolve(cwd, projectName || '.')

@@ -1,11 +1,10 @@
-import { Command, flags } from '@oclif/command'
+import { flags } from '@oclif/command'
+import Command from '../../base'
 import * as path from 'path'
 import * as chalk from 'chalk'
 import { prompt } from 'inquirer'
 import { rollback } from '@firelayer/core/lib/firebase/firestore'
-import findRoot from '../../utils/findRoot'
 import initAdmin from '../../helpers/initAdmin'
-import getEnv from '../../helpers/getEnv'
 
 export default class MigrateRollback extends Command {
   static description = 'rollback migrations'
@@ -20,11 +19,6 @@ export default class MigrateRollback extends Command {
 
   async run() {
     const { flags } = this.parse(MigrateRollback)
-    const root = await findRoot()
-
-    process.chdir(root)
-
-    const env = getEnv()
 
     let continueRollback = flags.yes
 
@@ -32,7 +26,7 @@ export default class MigrateRollback extends Command {
       const quiz = await prompt({
         type: 'confirm',
         name: 'confirm',
-        message: `Rollback the previous ${flags.steps} migration(s) (env: '${chalk.bold.cyan(env)}') ?`
+        message: `Rollback the previous ${flags.steps} migration(s) (env: '${chalk.bold.cyan(this.env)}') ?`
       })
 
       continueRollback = quiz.confirm
@@ -42,7 +36,7 @@ export default class MigrateRollback extends Command {
       this.log(chalk.bold('\nInitializing rollback..\n'))
       initAdmin()
 
-      await rollback(path.join(root, 'database/migrations'), { steps: flags.steps })
+      await rollback(path.join(this.root, 'database/migrations'), { steps: flags.steps })
     }
 
     return

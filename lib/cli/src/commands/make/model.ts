@@ -1,5 +1,4 @@
-import { Command } from '@oclif/command'
-import findRoot from '../../utils/findRoot'
+import Command from '../../base'
 import makeModel from '../../helpers/makeModel'
 
 export default class Make extends Command {
@@ -11,10 +10,6 @@ export default class Make extends Command {
 
   async run() {
     const { args } = this.parse(Make)
-    const root = await findRoot()
-
-    process.chdir(root)
-
     const { name } = args
 
     await makeModel(name)
