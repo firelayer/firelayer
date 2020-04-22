@@ -1,3 +1,3 @@
 module.exports = {
-  seed: async ({ db }) => {}
+  seed: async ({ db, timestamp, serverTimestamp }) => {}
 }

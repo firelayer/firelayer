@@ -1,10 +1,10 @@
 /* eslint-disable no-await-in-loop */
 import * as fs from 'fs-extra'
 import * as path from 'path'
-import { db, timestamp, serverTimestamp } from '../core'
+import { db, realtime, timestamp, serverTimestamp } from '../core'
 
 const MIGRATIONS_COLLECTION = '_MIGRATIONS'
-const context = { db, timestamp, serverTimestamp }
+const context = { db, realtime, timestamp, serverTimestamp }
 
 export interface MigrateConfig {
   collection?: string;

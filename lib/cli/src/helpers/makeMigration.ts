@@ -13,8 +13,8 @@ export default async (name?) => {
   fs.mkdirSync('./database/migrations', { recursive: true })
   fs.writeFileSync(`./database/migrations/${filename}.js`,
     `module.exports = {
-  up: async ({ db }) => {},
-  down: async ({ db }) => {}
+  up: async ({ db, realtime, timestamp, serverTimestamp }) => {},
+  down: async ({ db, realtime, timestamp, serverTimestamp }) => {}
 }`)
 
   console.log(chalk.bold(`\nMigration created: database/migrations/${filename}.js\n`))
