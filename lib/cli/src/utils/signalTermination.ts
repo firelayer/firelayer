@@ -13,7 +13,7 @@ export class TermSignals {
     this.verbose = options.verbose === true
   }
 
-  public handleTermSignals (proc: ChildProcess): void {
+  public handleTermSignals (proc: ChildProcess, cbk?: Function): void {
     // Terminate child process if parent process receives termination events
     SIGNALS_TO_HANDLE.forEach((signal): void => {
       this.terminateSpawnedProcessFuncHandlers[signal] =
@@ -28,6 +28,7 @@ export class TermSignals {
             }
             // Mark shared state so we do not run into a signal/exit loop
             this._exitCalled = true
+
             // Use the signal code if it is an error code
             let correctSignal: NodeJS.Signals | any
 
@@ -41,8 +42,10 @@ export class TermSignals {
             }
             // Kill the child process
             proc.kill(correctSignal ?? code)
+
+            if (cbk) cbk()
             // Terminate the parent process
-            this._terminateProcess(code, correctSignal)
+            if (!cbk) this._terminateProcess(code, correctSignal)
           }
         }
       process.once(signal, this.terminateSpawnedProcessFuncHandlers[signal])
@@ -73,8 +76,10 @@ export class TermSignals {
         } else {
           correctSignal = signal ?? undefined
         }
+
+        if (cbk) cbk()
         // Terminate the parent process
-        this._terminateProcess(code, correctSignal)
+        if (!cbk) this._terminateProcess(code, correctSignal)
       }
     })
   }

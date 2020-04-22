@@ -4,8 +4,10 @@ import * as path from 'path'
 import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as semver from 'semver'
+import * as glob from 'glob'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
+import spawner from '../utils/spawner'
 
 const boilerplateFolder = 'boilerplate'
 
@@ -17,6 +19,9 @@ export default async (targetDir, targetVersion, options) => {
   if (fs.existsSync(rootPackage)) {
     isDev = (await import(rootPackage)).name === '@firelayer/root'
   }
+
+  // select firebase project and web application
+  await spawner(`firebase apps:sdkconfig WEB -o ${targetDir}/firebase.js`)
 
   const tasks = new Listr([{
     title: 'Creating project',
@@ -67,6 +72,39 @@ export default async (targetDir, targetVersion, options) => {
       }
     }
   }, {
+    title: 'Preparing configurations',
+    task: () => {
+      // prepare configuration files
+      glob.sync(targetDir + '/**/*.dist.json').forEach((file) => {
+        fs.copyFileSync(file, file.replace('.dist', ''))
+      })
+
+      // get firebase configurations
+      const firebaseFile = path.join(targetDir, 'firebase.js')
+
+      if (fs.existsSync(firebaseFile)) {
+        const firebase = fs.readFileSync(firebaseFile, 'utf8')
+        const matched = firebase.match(/\(([^)]+)\)/g)
+
+        const firebaseJSON = matched[0].replace('(', '').replace(')', '')
+        const firebaseObject = JSON.parse(firebaseJSON)
+
+        const newAppConfig = JSON.stringify({
+          firebase: {
+            ...firebaseObject
+          }
+        }, null, 2)
+
+        fs.writeFileSync(path.join(targetDir, 'config/app.json'), newAppConfig)
+
+        const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
+
+        fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseObject.projectId))
+      }
+
+      fs.removeSync(firebaseFile)
+    }
+  }, {
     title: 'Installing dependencies',
     skip: () => options.skipDependencies,
     task: () => {
@@ -78,6 +116,9 @@ export default async (targetDir, targetVersion, options) => {
 
   try {
     await tasks.run()
+
+    console.log(chalk.bold('\nIn order to use the Admin SDK in our Firebase Cloud Functions we will need the service account key. See More:'))
+    console.log(chalk.cyan('https://firelayer.io/docs/getting-started#get-the-firebase-service-account-key\n'))
   } catch (e) {
     throw new Error()
   }

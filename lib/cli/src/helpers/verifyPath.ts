@@ -39,5 +39,7 @@ export default async (projectName, targetDir) => {
     }
   }
 
+  if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir)
+
   return true
 }
