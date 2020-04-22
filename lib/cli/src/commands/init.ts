@@ -3,6 +3,7 @@ import * as path from 'path'
 import * as chalk from 'chalk'
 import verifyPath from '../helpers/verifyPath'
 import install from '../helpers/install'
+import checkDependencies from '../utils/checkDependencies'
 
 export default class Init extends Command {
   static description = 'create a new project'
@@ -17,6 +18,8 @@ export default class Init extends Command {
   static args = [{ name: 'name' }]
 
   async run() {
+    await checkDependencies()
+
     const { args, flags } = this.parse(Init)
     const projectName = args.name || '.'
     const cwd = process.cwd()
