@@ -16,7 +16,7 @@ export default (command, opts = { cwd: undefined, env: undefined }) => {
       })
 
       // Handle any termination signals for parent and child proceses
-      const signals = new TermSignals({ verbose: true })
+      const signals = new TermSignals()
 
       signals.handleUncaughtExceptions()
       signals.handleTermSignals(proc, resolve)

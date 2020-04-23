@@ -42,7 +42,5 @@ export default class Init extends Command {
 
       return
     }
-
-    this.log(`\n🎉  Successfully created project ${chalk.yellow(name)}.\n`)
   }
 }

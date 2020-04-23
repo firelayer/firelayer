@@ -23,6 +23,12 @@ export default async (targetDir, targetVersion, options) => {
   // select firebase project and web application
   await spawner(`firebase apps:sdkconfig WEB -o ${targetDir}/firebase.js`)
 
+  if (!fs.existsSync(path.join(targetDir, 'firebase.js'))) {
+    console.log(chalk.bold('\nCreate a WEB app in the Firebase console before proceeding.\n'))
+
+    return
+  }
+
   const tasks = new Listr([{
     title: 'Creating project',
     task: async () => {
@@ -119,6 +125,8 @@ export default async (targetDir, targetVersion, options) => {
 
     console.log(chalk.bold('\nIn order to use the Admin SDK in our Firebase Cloud Functions we will need the service account key. See More:'))
     console.log(chalk.cyan('https://firelayer.io/docs/getting-started#get-the-firebase-service-account-key\n'))
+
+    console.log(`\n🎉  Successfully created project ${chalk.yellow(name)}.\n`)
   } catch (e) {
     throw new Error()
   }

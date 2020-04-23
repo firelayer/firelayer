@@ -48,7 +48,7 @@ function permissionsError(projectId) {
   - Enabled billing (Only GCP projects with billing enabled can use the export and import feature.)
   see: https://cloud.google.com/billing/docs/how-to/modify-project')
 
-  - Added "Cloud Datastore Import Export Admin" and "Storage Admin" to the service account you are using.
+  - Add "Cloud Datastore Import Export Admin" and "Storage Admin" to the service account you are using.
   see: https://firebase.google.com/docs/firestore/solutions/schedule-export#configure_access_permissions'
   check: https://console.cloud.google.com/iam-admin/iam?project=${projectId}
   `)
