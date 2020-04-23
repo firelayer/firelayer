@@ -3,12 +3,12 @@
     <v-btn
       v-if="!user"
       nuxt
-      to="/auth/login"
+      :to="localePath('/auth/login')"
       text
       x-large
       active-class="no-active"
     >
-      Sign In
+      {{ $t('usermenu.signin') }}
     </v-btn>
 
     <div v-else>
@@ -22,14 +22,14 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item to="/user">
-            <v-list-item-title>Profile</v-list-item-title>
+          <v-list-item :to="localePath('/dashboard')">
+            <v-list-item-title>{{ $t('usermenu.dashboard') }}</v-list-item-title>
           </v-list-item>
 
           <v-divider></v-divider>
 
           <v-list-item @click="signOut">
-            <v-list-item-title>Sign Out</v-list-item-title>
+            <v-list-item-title>{{ $t('usermenu.signout') }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -60,7 +60,7 @@ export default {
       try {
         await auth().signOut()
 
-        this.$router.push('/')
+        this.$router.push(this.localePath('/'))
       } catch (error) {
         console.log(error)
       }

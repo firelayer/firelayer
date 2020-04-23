@@ -6,7 +6,7 @@
         <div class="overline">{{ status }}</div>
         <div class="error--text mt-2 mb-4">{{ error }}</div>
 
-        <nuxt-link v-if="error" to="/auth/login">Back to Sign In</nuxt-link>
+        <nuxt-link v-if="error" :to="localePath('/auth/login')">{{ $t('check.backtosign') }}</nuxt-link>
 
         <v-progress-circular
           v-if="isLoading"
@@ -24,8 +24,8 @@
             :type="showPassword ? 'text' : 'password'"
             :error="errorNewPassword"
             :error-messages="errorNewPasswordMessage"
+            :label="$t('check.newpassword')"
             name="password"
-            label="New Password"
             outlined
             class="mt-4"
             @change="resetErrors"
@@ -39,7 +39,7 @@
             x-large
             color="success"
             @click="confirmPasswordReset"
-          >Set new password and Sign In</v-btn>
+          >{{ $t('check.button') }}</v-btn>
         </div>
       </v-card-text>
     </v-card>
@@ -103,15 +103,15 @@ export default {
     showBaseError() {
       this.status = ''
       this.isLoading = false
-      this.error = 'The action link is invalid.'
+      this.error = this.$t('check.error')
     },
     async handleResetPassword() {
-      this.status = 'Verifying link...'
+      this.status = this.$t('check.verifylink')
 
       try {
         const email = await auth().verifyPasswordResetCode(this.oobCode)
 
-        this.title = 'Set New Password'
+        this.title = this.$t('check.title')
         this.userEmail = email
         this.showNewPassword = true
       } catch (error) {
@@ -129,7 +129,7 @@ export default {
         await auth().confirmPasswordReset(this.oobCode, this.newPassword)
         await auth().signInWithEmailAndPassword(this.userEmail, this.newPassword)
 
-        this.$router.push('/user')
+        this.$router.push(this.localePath('/dashboard'))
       } catch (error) {
         const { code, message } = error
 
@@ -140,15 +140,15 @@ export default {
       this.isLoadingReset = false
     },
     async handleVerifyEmail() {
-      this.status = 'Verifying email address...'
+      this.status = this.$t('check.verifyemail')
 
       try {
         await auth().applyActionCode(this.oobCode)
 
-        this.status = 'Email verified! Redirecting...'
+        this.status = this.$t('check.emailverified')
 
         setTimeout(() => {
-          this.$router.push('/user')
+          this.$router.push(this.localePath('/dashboard'))
         }, 3000)
       } catch (error) {
         const { code, message } = error

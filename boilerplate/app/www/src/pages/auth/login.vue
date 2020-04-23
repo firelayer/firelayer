@@ -1,7 +1,7 @@
 <template>
   <div class="ma-2 mt-8 mb-12">
     <v-card class="text-center solo-card pa-1">
-      <v-card-title class="justify-center display-1 mb-2">Sign In</v-card-title>
+      <v-card-title class="justify-center display-1 mb-2">{{ $t('login.title') }}</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="isFormValid" lazy-validation>
           <v-text-field
@@ -9,8 +9,8 @@
             :rules="[rules.required]"
             :validate-on-blur="false"
             :error="error"
+            :label="$t('login.email')"
             name="email"
-            label="Email"
             outlined
             @keyup.enter="submit"
             @change="resetErrors"
@@ -23,8 +23,8 @@
             :type="showPassword ? 'text' : 'password'"
             :error="error"
             :error-messages="errorMessages"
+            :label="$t('login.password')"
             name="password"
-            label="Password"
             outlined
             @change="resetErrors"
             @keyup.enter="submit"
@@ -38,9 +38,9 @@
             x-large
             color="success"
             @click="submit"
-          >Sign In</v-btn>
+          >{{ $t('login.button') }}</v-btn>
 
-          <div class="separator">Or sign in with</div>
+          <div class="separator">{{ $t('login.orsign') }}</div>
 
           <v-btn
             v-for="provider in providers"
@@ -59,16 +59,16 @@
           <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
 
           <div class="mt-5">
-            <nuxt-link :to="'/auth/forgot-password'">Forgot password?</nuxt-link>
+            <nuxt-link :to="localePath('/auth/forgot-password')">{{ $t('login.forgot') }}</nuxt-link>
           </div>
         </v-form>
       </v-card-text>
     </v-card>
 
     <div class="text-center mt-6">
-      Don't have an account?
-      <nuxt-link to="/auth/register" style="text-decoration: underline">
-        Create one here
+      {{ $t('login.noaccount') }}
+      <nuxt-link :to="localePath('/auth/register')" style="text-decoration: underline">
+        {{ $t('login.create') }}
       </nuxt-link>
     </div>
   </div>
@@ -154,7 +154,7 @@ export default {
         const { code, message } = error
 
         this.error = true
-        this.errorMessages = 'The email / password combination is invalid'
+        this.errorMessages = this.$t('login.error')
       }
 
       this.isLoading = false

@@ -1,5 +1,5 @@
-export default function ({ store, redirect }) {
+export default function ({ app, store, redirect }) {
   if (store.state.app.user) {
-    redirect('/user')
+    redirect(app.localePath('/dashboard'))
   }
 }

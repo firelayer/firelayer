@@ -15,7 +15,7 @@ export default ({ app, store, redirect }) => {
       })
 
       if (/^auth/.test(currentRoute.name)) {
-        redirect('/user')
+        redirect(app.localePath('/dashboard'))
       }
     } else {
       store.commit('app/SET_USER', null)

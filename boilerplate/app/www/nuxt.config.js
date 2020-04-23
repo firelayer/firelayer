@@ -24,16 +24,16 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: 'Firelayer.io',
+    title: 'TheCompany',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { 'http-equiv': 'X-UA-Compatible', content: 'ie=edge' },
-      { hid: 'description', name: 'description', content: 'Firelayer - Jumpstart your Firebase Web Project' }
+      { hid: 'description', name: 'description', content: 'TheCompany - A new awesome service' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons' }
     ]
   },
@@ -41,7 +41,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#1976d2' },
 
   /*
   ** Global CSS
@@ -79,8 +79,35 @@ export default {
       meta: false,
       workbox: false,
       oneSignal: false
-    }]
+    }],
+    ['nuxt-i18n', {
+      detectBrowserLanguage: {
+        useCookie: true,
+        cookieKey: 'i18n_redirected'
+      },
+      locales: [{
+        code: 'en',
+        name: 'English',
+        file: 'en-US.js'
+      }, {
+        code: 'pt',
+        name: 'Português',
+        file: 'pt-PT.js'
+      }],
+      lazy: true,
+      langDir: 'lang/',
+      defaultLocale: 'en',
+      vueI18n: {
+        fallbackLocale: 'en'
+      }
+    }],
+    '@nuxtjs/sitemap'
   ],
+
+  /**
+   * Proxy
+   */
+  proxy,
 
   /**
    * Inject SCSS variables globally
@@ -91,13 +118,16 @@ export default {
     ]
   },
 
-  /**
-   * Proxy
-   */
-  proxy,
+  sitemap: {
+    hostname: config.firebase.authDomain,
+    gzip: true,
+    exclude: [
+      '/_static/'
+    ]
+  },
 
   /**
-   * Manifest
+   * Manifest file
    */
   manifest: {
     name: 'Firelayer',

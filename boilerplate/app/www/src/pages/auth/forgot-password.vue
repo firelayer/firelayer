@@ -1,10 +1,10 @@
 <template>
   <div class="ma-2 mt-8 mb-12">
     <v-card class="text-center solo-card pa-1">
-      <v-card-title class="justify-center display-1 mb-2">Forgot Password?</v-card-title>
+      <v-card-title class="justify-center display-1 mb-2">{{ $t('forgot.title') }}</v-card-title>
       <v-card-text>
         <div class="mb-6">
-          Enter your account email address and we will send you a link to reset your password.
+          {{ $t('forgot.subtitle') }}
         </div>
         <v-form ref="form" v-model="isFormValid" lazy-validation @submit.prevent="submit">
           <v-text-field
@@ -13,8 +13,8 @@
             :validate-on-blur="false"
             :error="error"
             :error-messages="errorMessages"
+            :label="$t('forgot.email')"
             name="email"
-            label="Email"
             outlined
             @keyup.enter="submit"
             @change="resetErrors"
@@ -26,15 +26,14 @@
             x-large
             color="success"
             @click="submit"
-          >Request Password Reset</v-btn>
+          >{{ $t('forgot.button') }}</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
 
     <div class="text-center mt-6">
-      Back to
-      <router-link to="/" style="text-decoration: underline">
-        Sign In
+      <router-link :to="localePath('/auth/login')" style="text-decoration: underline">
+        {{ $t('forgot.backtosign') }}
       </router-link>
     </div>
   </div>

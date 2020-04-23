@@ -8,8 +8,8 @@ $material-light: map-deep-merge(
       'regular': map-get($blue-grey, 'lighten-2'),
       'lights-out': rgba(map-get($shades, 'white'), 0.7)
     ),
-    'app-bar': #fff,
-    'background': #f5f6f7,
+    'app-bar': #edf2f7,
+    'background': #f7f9fc,
     'calendar': (
       'background-color': map-get($shades, 'white'),
       'outside-background-color': #f7f7f7,
@@ -24,7 +24,7 @@ $material-light: map-deep-merge(
     'dividers': rgba(map-get($shades, 'black'), 0.12),
     'text': (
       'theme': map-get($shades, 'white'),
-      'primary': rgba(map-get($shades, 'black'), 0.97),
+      'primary': #202c36,
       'secondary': rgba(map-get($shades, 'black'), 0.8),
       'disabled': rgba(map-get($shades, 'black'), 0.58),
       'link': map-get($blue, 'darken-2'),

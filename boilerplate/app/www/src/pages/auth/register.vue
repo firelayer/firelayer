@@ -1,7 +1,7 @@
 <template>
   <div class="ma-2 mt-8 mb-12">
     <v-card class="text-center solo-card pa-1">
-      <v-card-title class="justify-center display-1 mb-2">Create Account</v-card-title>
+      <v-card-title class="justify-center display-1 mb-2">{{ $t('register.title') }}</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="isFormValid" lazy-validation>
           <v-text-field
@@ -10,8 +10,8 @@
             :validate-on-blur="false"
             :error="errorName"
             :error-messages="errorNameMessage"
+            :label="$t('register.name')"
             name="name"
-            label="Full name"
             outlined
             @keyup.enter="submit"
             @change="resetErrors"
@@ -23,8 +23,8 @@
             :validate-on-blur="false"
             :error="errorEmail"
             :error-messages="errorEmailMessage"
+            :label="$t('register.email')"
             name="email"
-            label="Email"
             outlined
             @keyup.enter="submit"
             @change="resetErrors"
@@ -37,8 +37,8 @@
             :type="showPassword ? 'text' : 'password'"
             :error="errorPassword"
             :error-messages="errorPasswordMessage"
+            :label="$t('register.password')"
             name="password"
-            label="Password"
             outlined
             @change="resetErrors"
             @keyup.enter="submit"
@@ -52,9 +52,9 @@
             x-large
             color="success"
             @click="submit"
-          >Create Account</v-btn>
+          >{{ $t('register.button') }}</v-btn>
 
-          <div class="separator">Or sign up with</div>
+          <div class="separator">{{ $t('register.orsign') }}</div>
 
           <v-btn
             v-for="provider in providers"
@@ -73,19 +73,20 @@
           <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
 
           <div class="mt-5 overline">
-            By signing up, you agree to the
+            {{ $t('register.agree') }}
             <br />
-            <a href="#" target="_blank">Terms of Service</a> and
-            <a href="#" target="_blank">Privacy Policy</a>
+            <nuxt-link :to="localePath('/terms')">{{ $t('common.tos') }}</nuxt-link>
+            &
+            <nuxt-link :to="localePath('/policy')">{{ $t('common.policy') }}</nuxt-link>
           </div>
         </v-form>
       </v-card-text>
     </v-card>
 
     <div class="text-center mt-6">
-      Already have an account?
-      <router-link to="/auth/login" style="text-decoration: underline">
-        Sign In
+      {{ $t('register.account') }}
+      <router-link :to="localePath('/auth/login')" style="text-decoration: underline">
+        {{ $t('register.signin') }}
       </router-link>
     </div>
   </div>
