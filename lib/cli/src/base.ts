@@ -1,4 +1,5 @@
 import Command from '@oclif/command'
+import * as chalk from 'chalk'
 import findRoot from './utils/findRoot'
 import getEnv from './helpers/getEnv'
 
@@ -8,15 +9,21 @@ export default abstract class extends Command {
   env: string
 
   async init() {
-    const root = await findRoot()
-    const cwd = process.cwd()
+    try {
+      const root = await findRoot()
+      const cwd = process.cwd()
 
-    process.chdir(root)
+      process.chdir(root)
 
-    const env = getEnv()
+      const env = getEnv()
 
-    this.root = root
-    this.cwd = cwd
-    this.env = env
+      this.root = root
+      this.cwd = cwd
+      this.env = env
+    } catch (error) {
+      this.log(`\n${chalk.bold.red('Error:')} ${error.message}\n`)
+
+      process.exit(1)
+    }
   }
 }
