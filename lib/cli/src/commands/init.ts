@@ -33,11 +33,13 @@ export default class Init extends Command {
     // install boilerplate
     try {
       const options = {
+        name,
         skipDependencies: flags.skip
       }
 
       await install(targetDir, this.config.version, options)
     } catch (error) {
+      this.log(error)
       this.log(chalk.bold.red('\nError: failed to get boilerplate.\n'))
 
       return

@@ -1,17 +1,17 @@
 {
-  "name": "@firelayer/functions",
+  "name": "functions",
   "version": "1.0.0-alpha.0",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
     "start": "yarn shell",
     "build": "yarn clean && tsc",
-    "dev": "yarn serve",
+    "dev": "yarn build && yarn serve",
     "deploy": "firebase deploy --only functions",
     "clean": "rm -rf dist",
     "lint": "echo 'not implemented'",
     "logs": "firebase functions:log",
-    "serve": "concurrently --kill-others \"tsc -w\" \"firebase serve --only functions\"",
+    "serve": "concurrently --kill-others \"tsc -w --preserveWatchOutput\" \"firebase serve --only functions\"",
     "shell": "yarn build && firebase functions:shell"
   },
   "dependencies": {

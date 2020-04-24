@@ -28,7 +28,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf lib",
-    "dev": "tsc --watch"
+    "dev": "tsc -w --preserveWatchOutput"
   },
   "publishConfig": {
     "access": "public"

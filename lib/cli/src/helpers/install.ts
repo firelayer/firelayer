@@ -1,4 +1,3 @@
-import * as shelljs from 'shelljs'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as chalk from 'chalk'
@@ -21,7 +20,7 @@ export default async (targetDir, targetVersion, options) => {
   }
 
   // select firebase project and web application
-  await spawner(`firebase apps:sdkconfig WEB -o ${targetDir}/firebase.js`)
+  await spawner(`firebase apps:sdkconfig WEB -o ${path.join(targetDir, 'firebase.js')}`)
 
   if (!fs.existsSync(path.join(targetDir, 'firebase.js'))) {
     console.log(chalk.bold('\nCreate a WEB app in the Firebase console for that project before proceeding.\n'))
@@ -68,13 +67,20 @@ export default async (targetDir, targetVersion, options) => {
         }
 
         // get boilerplate from repo
-        await cmd(`git clone --branch ${latest} --depth 1 git@github.com:firelayer/firelayer.git ${targetDir}`)
+        fs.removeSync('.firelayer-temp')
+        fs.ensureDirSync('.firelayer-temp')
 
-        shelljs.cd(targetDir)
+        await cmd(`git clone --branch ${latest} --depth 1 git@github.com:firelayer/firelayer.git .firelayer-temp`)
+
+        // move code to right folder
+        fs.copySync('.firelayer-temp', targetDir)
+        fs.removeSync('.firelayer-temp')
+
+        process.chdir(targetDir)
 
         await cmd(`git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
 
-        shelljs.rm('-rf', `${targetDir}/.git`)
+        fs.removeSync(`${targetDir}/.git`)
 
         await cmd('git init')
       }
@@ -108,15 +114,15 @@ export default async (targetDir, targetVersion, options) => {
         const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
 
         fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseObject.projectId))
-      }
 
-      fs.removeSync(firebaseFile)
+        fs.removeSync(firebaseFile)
+      }
     }
   }, {
     title: 'Installing dependencies',
     skip: () => options.skipDependencies,
     task: () => {
-      shelljs.cd(targetDir)
+      process.chdir(targetDir)
 
       return cmd('yarn bootstrap')
     }
@@ -128,8 +134,9 @@ export default async (targetDir, targetVersion, options) => {
     console.log(chalk.bold('\nIn order to use the Admin SDK in our Firebase Cloud Functions we will need the service account key. See More:'))
     console.log(chalk.cyan('https://firelayer.io/docs/getting-started#get-the-firebase-service-account-key\n'))
 
-    console.log(`\n🎉  Successfully created project ${chalk.yellow(name)}.\n`)
+    console.log(`\n🎉  Successfully created project ${chalk.yellow(options.name)}.\n`)
   } catch (e) {
-    throw new Error()
+    console.log(e)
+    throw new Error(e)
   }
 }

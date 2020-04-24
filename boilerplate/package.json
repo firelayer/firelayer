@@ -1,5 +1,5 @@
 {
-  "name": "@firelayer/boilerplate",
+  "name": "boilerplate",
   "version": "1.0.0-alpha.1",
   "private": true,
   "workspaces": [
