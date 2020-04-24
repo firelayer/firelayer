@@ -1,6 +1,6 @@
 {
   "name": "functions",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "shell": "yarn build && firebase functions:shell"
   },
   "dependencies": {
-    "@firelayer/core": "^1.0.0-alpha.0",
+    "@firelayer/core": "^1.0.0-alpha.2",
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.0"
