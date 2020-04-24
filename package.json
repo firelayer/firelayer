@@ -23,7 +23,7 @@
     "build:cli": "cd lib/cli && yarn build",
     "cli:docs": "cd lib/cli && yarn docs",
     "release": "yarn build && HUSKY_SKIP_HOOKS=1 lerna publish",
-    "release:alpha": "yarn build && HUSKY_SKIP_HOOKS=1 lerna publish --preid alpha premajor",
+    "release:alpha": "yarn build && HUSKY_SKIP_HOOKS=1 lerna publish --preid alpha",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
