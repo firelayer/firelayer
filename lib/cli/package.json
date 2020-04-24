@@ -62,7 +62,9 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "dev": "yarn clean && tsc --watch"
+    "dev": "yarn clean && tsc --watch",
+    "manifest": "oclif-dev manifest",
+    "docs": "yarn manifest && oclif-dev readme --multi"
   },
   "publishConfig": {
     "access": "public"
