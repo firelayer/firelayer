@@ -17,4 +17,4 @@ EXAMPLE
   $ firelayer up
 ```
 
-_See code: [dist/commands/up.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.3/dist/commands/up.ts)_
+_See code: [dist/commands/up.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.4/dist/commands/up.ts)_
