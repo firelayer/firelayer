@@ -12,10 +12,46 @@
   <a href="https://github.com/firelayer/firelayer/actions?query=workflow%3Aci">
     <img src="https://github.com/firelayer/firelayer/workflows/ci/badge.svg?branch=master" alt="Build Status on Github" />
   </a>
+  <a href="https://npmjs.org/package/@firelayer/cli">
+    <img src="https://img.shields.io/npm/v/@firelayer/cli.svg" alt="Version" />
+  </a>
+  <a href="https://github.com/firelayer/firelayer/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/firelayer/firelayer.svg" alt="License" />
+  </a>
 </p>
 
 Firelayer is a boilerplate / framework for Firebase web projects.
 It allows you to jumpstart your Firebase web projects with a boilerplate for common use cases so you don't have to start from scratch.
+
+### Documentation
+
+[Documentation Website](https://firelayer.io)
+
+## Table of contents
+
+- 🚀[ Getting Started](#getting-started)
+- 👥 [Community](#community)
+- 👨‍💻 [Development](#development)
+- :memo: [License](#license)
+
+## Getting Started
+
+Install firelayer globally:
+
+```sh
+npm i -g @firelayer/cli
+```
+
+And initialize a new project:
+```sh
+firelayer init new-project
+```
+
+Once it's installed, you can `cd new-project` and `yarn www` and it will run the development server on your local machine. 
+
+## Community
+
+- Blogging at [Medium](https://medium.com/firelayer)
 
 ## Development
 

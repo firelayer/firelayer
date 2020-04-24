@@ -10,9 +10,9 @@
 
 <p align="center">
   <a href="https://npmjs.org/package/@firelayer/cli">
-    <img src="https://img.shields.io/npm/v/@firelayer/cli.svg" alt="version" />
+    <img src="https://img.shields.io/npm/v/@firelayer/cli.svg" alt="Version" />
   </a>
-    <a href="https://npmjs.org/package/@firelayer/cli">
+  <a href="https://npmjs.org/package/@firelayer/cli">
     <img src="https://img.shields.io/npm/dw/@firelayer/cli.svg" alt="Downloads/week" />
   </a>
   <a href="https://oclif.io">
