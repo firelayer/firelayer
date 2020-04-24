@@ -65,7 +65,7 @@
     "dev": "yarn clean && tsc -w --preserveWatchOutput",
     "manifest": "oclif-dev manifest",
     "docs": "yarn manifest && oclif-dev readme --multi",
-    "version": "yarn docs"
+    "version": "yarn docs && git add ."
   },
   "publishConfig": {
     "access": "public"
