@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import * as firebase from 'firebase/app'
-import { omit } from 'lodash'
 import { db, timestamp, serverTimestamp } from '../../core'
 
 type CollectionReference = firebase.firestore.CollectionReference;
@@ -58,11 +57,14 @@ export class Firemodel {
 
   async save(data) {
     const serverStamp = serverTimestamp()
+    const copy = JSON.parse(JSON.stringify(data))
+
+    delete copy.createdAt
 
     if (this.id) {
       // @ts-ignore
       const { writeTime } = await this.doc.update({
-        ...omit(data, 'createdAt'),
+        ...copy,
         updatedAt: serverStamp
       })
 
