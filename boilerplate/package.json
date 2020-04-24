@@ -1,6 +1,6 @@
 {
   "name": "@firelayer/boilerplate",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "private": true,
   "workspaces": [
     "app/*"
@@ -18,7 +18,7 @@
     "functions": "firelayer run \"cd app/functions && yarn dev\""
   },
   "devDependencies": {
-    "@firelayer/cli": "0.0.0",
+    "@firelayer/cli": "^1.0.0-alpha.0",
     "lerna": "^3.15.0"
   }
 }
