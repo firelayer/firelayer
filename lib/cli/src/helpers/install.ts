@@ -24,7 +24,7 @@ export default async (targetDir, targetVersion, options) => {
   await spawner(`firebase apps:sdkconfig WEB -o ${targetDir}/firebase.js`)
 
   if (!fs.existsSync(path.join(targetDir, 'firebase.js'))) {
-    console.log(chalk.bold('\nCreate a WEB app in the Firebase console before proceeding.\n'))
+    console.log(chalk.bold('\nCreate a WEB app in the Firebase console for that project before proceeding.\n'))
 
     return
   }
@@ -75,6 +75,8 @@ export default async (targetDir, targetVersion, options) => {
         await cmd(`git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
 
         shelljs.rm('-rf', `${targetDir}/.git`)
+
+        await cmd('git init')
       }
     }
   }, {
