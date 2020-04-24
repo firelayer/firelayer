@@ -13,9 +13,6 @@
         "master"
       ],
       "message": "chore(release): publish"
-    },
-    "version": {
-      "push": true
     }
   }
 }
