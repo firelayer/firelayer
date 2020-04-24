@@ -2,7 +2,7 @@
   "name": "@firelayer/root",
   "version": "0.0.0",
   "private": true,
-  "description": "Firelayer - A Firebase Framework",
+  "description": "Firelayer - A Firebase Web Framework",
   "license": "MIT",
   "author": "João Teixeira <joao@indielayer.com>",
   "workspaces": [
@@ -13,12 +13,16 @@
   "scripts": {
     "start": "yarn dev",
     "bootstrap": "yarn --check-files --frozen-lockfile --non-interactive && lerna bootstrap",
-    "build": "yarn clean && lerna run build",
-    "clean": "lerna run --parallel clean",
     "dev": "yarn build && lerna run --parallel dev",
+    "clean": "lerna run --parallel clean",
     "lint": "yarn lint:all .",
     "lint:all": "eslint --cache --cache-location=.cache/eslint --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx,.mjs,.vue --report-unused-disable-directives",
     "reset": "lerna clean --yes && yarn clean",
+    "build": "yarn clean && yarn build:core && yarn build:cli",
+    "build:core": "cd lib/core && yarn build",
+    "build:cli": "cd lib/cli && yarn build",
+    "cli:docs": "cd lib/cli && yarn docs",
+    "release": "yarn build && lerna publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
