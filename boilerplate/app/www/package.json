@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nuxt start",
-    "build": "nuxt build && npm run generate",
+    "build": "nuxt build && yarn generate",
     "dev": "nuxt",
     "clean": "rimraf .nuxt dist",
     "http": "cd dist && npx http-server",

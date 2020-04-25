@@ -7,15 +7,15 @@
   ],
   "description": "Firelayer Boilerplate",
   "scripts": {
-    "start": "npm run dev",
+    "start": "yarn dev",
     "build": "firelayer run \"lerna run build\"",
     "dev": "firelayer run \"lerna run dev --parallel\"",
-    "bootstrap": "npm run && lerna bootstrap",
-    "reset": "lerna clean --yes && npm run clean",
+    "bootstrap": "yarn && lerna bootstrap",
+    "reset": "lerna clean --yes && yarn clean",
     "clean": "lerna run --parallel clean",
-    "deploy": "npm run build && firebase deploy",
-    "www": "firelayer run \"cd app/www && npm run dev\"",
-    "functions": "firelayer run \"cd app/functions && npm run dev\""
+    "deploy": "yarn build && firebase deploy",
+    "www": "firelayer run \"cd app/www && yarn dev\"",
+    "functions": "firelayer run \"cd app/functions && yarn dev\""
   },
   "devDependencies": {
     "@firelayer/cli": "^1.0.0-alpha.5",
