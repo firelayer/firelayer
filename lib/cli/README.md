@@ -47,7 +47,7 @@ $ npm install -g @firelayer/cli
 $ firelayer COMMAND
 running command...
 $ firelayer (-v|--version|version)
-@firelayer/cli/1.0.0-alpha.4 darwin-x64 node-v10.16.0
+@firelayer/cli/1.0.0-alpha.5 darwin-x64 node-v10.16.0
 $ firelayer --help [COMMAND]
 USAGE
   $ firelayer COMMAND

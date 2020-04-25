@@ -1,6 +1,6 @@
 {
   "name": "boilerplate",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "private": true,
   "workspaces": [
     "app/*"
@@ -18,7 +18,7 @@
     "functions": "firelayer run \"cd app/functions && npm run dev\""
   },
   "devDependencies": {
-    "@firelayer/cli": "^1.0.0-alpha.4",
+    "@firelayer/cli": "^1.0.0-alpha.5",
     "lerna": "^3.15.0"
   }
 }
