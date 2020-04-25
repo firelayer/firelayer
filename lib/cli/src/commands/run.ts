@@ -3,9 +3,6 @@ import * as chalk from 'chalk'
 import * as path from 'path'
 import * as fs from 'fs-extra'
 import getEnvVariables from '../helpers/getEnvVariables'
-import { spawn } from '../utils/spawn'
-import { TermSignals } from '../utils/signalTermination'
-import argParser from '../utils/argParser'
 import spawner from '../utils/spawner'
 
 export default class Run extends Command {
@@ -48,8 +45,7 @@ export default class Run extends Command {
 
     await spawner(command, {
       cwd: this.cwd,
-      env,
-      windowsVerbatimArguments: undefined
+      env
     })
 
     return

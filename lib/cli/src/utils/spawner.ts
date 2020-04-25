@@ -1,27 +1,30 @@
 import { spawn } from './spawn'
+import argParser from './argParser'
 import { TermSignals } from './signalTermination'
 
-export default (command, opts = { cwd: undefined, env: undefined, windowsVerbatimArguments: undefined }) => {
+export default (command, opts = { cwd: undefined, env: undefined }) => {
   return new Promise((resolve, reject) => {
     try {
-      let file, args
+      let proc
 
       if (process.platform === 'win32') {
-        file = 'cmd.exe'
-        args = ['/s', '/c', '"' + command + '"']
-        opts.windowsVerbatimArguments = true
+        proc = spawn('cmd.exe', ['/s', '/c', '"' + command + '"'], {
+          cwd: opts.cwd,
+          stdio: 'inherit',
+          shell: true,
+          env: opts.env,
+          windowsVerbatimArguments: true
+        })
       } else {
-        file = '/bin/sh'
-        args = ['-c', command]
-      }
+        const commandParsed = argParser(command)
 
-      const proc = spawn(file, args, {
-        cwd: opts.cwd,
-        stdio: 'inherit',
-        shell: true,
-        env: opts.env,
-        windowsVerbatimArguments: opts.windowsVerbatimArguments
-      })
+        proc = spawn(commandParsed[0], commandParsed.slice(1), {
+          cwd: opts.cwd,
+          stdio: 'inherit',
+          shell: true,
+          env: opts.env
+        })
+      }
 
       // Handle any termination signals for parent and child proceses
       const signals = new TermSignals()
