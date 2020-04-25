@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nuxt start",
-    "build": "nuxt build && yarn generate",
+    "build": "nuxt build && npm run generate",
     "dev": "nuxt",
-    "clean": "rm -rf .nuxt && rm -rf dist",
+    "clean": "rimraf .nuxt dist",
     "http": "cd dist && npx http-server",
     "lint": "eslint --ignore-path .gitignore --ext .js,.vue --report-unused-disable-directives",
     "generate": "nuxt generate"
@@ -27,6 +27,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.0",
     "node-sass": "^4.13.1",
+    "rimraf": "^3.0.2",
     "sass-loader": "^8.0.2"
   }
 }

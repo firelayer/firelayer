@@ -4,15 +4,15 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "start": "yarn shell",
-    "build": "yarn clean && tsc",
-    "dev": "yarn build && yarn serve",
+    "start": "npm run shell",
+    "build": "npm run clean && tsc",
+    "dev": "npm run build && npm run serve",
     "deploy": "firebase deploy --only functions",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "lint": "echo 'not implemented'",
     "logs": "firebase functions:log",
     "serve": "concurrently --kill-others \"tsc -w --preserveWatchOutput\" \"firebase serve --only functions\"",
-    "shell": "yarn build && firebase functions:shell"
+    "shell": "npm run build && firebase functions:shell"
   },
   "dependencies": {
     "@firelayer/core": "^1.0.0-alpha.4",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "concurrently": "^5.1.0",
     "firebase-functions-test": "^0.1.6",
+    "rimraf": "^3.0.2",
     "typescript": "^3.8.2"
   },
   "engines": {
