@@ -13,7 +13,7 @@ export default class Info extends Command {
       Binaries: ['Node', 'Yarn', 'npm'],
       Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
       npmPackages: '/**/{typescript,*firelayer*,@firelayer/*/}',
-      npmGlobalPackages: ['@firelayer/cli']
+      npmGlobalPackages: ['@firelayer/cli', 'firelayer']
     }, {
       showNotFound: true,
       duplicates: true,
