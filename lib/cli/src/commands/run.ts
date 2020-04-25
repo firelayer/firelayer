@@ -6,6 +6,7 @@ import getEnvVariables from '../helpers/getEnvVariables'
 import { spawn } from '../utils/spawn'
 import { TermSignals } from '../utils/signalTermination'
 import argParser from '../utils/argParser'
+import spawner from '../utils/spawner'
 
 export default class Run extends Command {
   static description = 'run shell commands with injected firelayer env variables'
@@ -45,21 +46,11 @@ export default class Run extends Command {
 
     const env = Object.assign({}, process.env, envVars)
 
-    // run the command from the arguments
-    const commandParsed = argParser(command)
-
-    const proc = spawn(commandParsed[0], commandParsed.slice(1), {
+    await spawner(command, {
       cwd: this.cwd,
-      stdio: 'inherit',
-      shell: true,
-      env
+      env,
+      windowsVerbatimArguments: undefined
     })
-
-    // Handle any termination signals for parent and child proceses
-    const signals = new TermSignals({ verbose: true })
-
-    signals.handleUncaughtExceptions()
-    signals.handleTermSignals(proc)
 
     return
   }

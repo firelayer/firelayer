@@ -23,7 +23,8 @@ export default async (targetDir, targetVersion, options) => {
   await spawner(`firebase apps:sdkconfig WEB -o ${path.join(targetDir, 'firebase.js')}`)
 
   if (!fs.existsSync(path.join(targetDir, 'firebase.js'))) {
-    console.log(chalk.bold('\nCreate a WEB app in the Firebase console for that project before proceeding.\n'))
+    console.log(`\nMake sure you already sign in with Firebase: '${chalk.bold('firebase login')}'`)
+    console.log(chalk.bold('\nAnd create a WEB app in the Firebase console for that project before proceeding.\n'))
 
     return
   }
@@ -49,7 +50,7 @@ export default async (targetDir, targetVersion, options) => {
         })
       } else {
         // choose latest tag version that suits cli version
-        const stdout = (await cmd('git ls-remote --tags git://github.com/firelayer/firelayer.git')) as string
+        const stdout = (await cmd('git ls-remote --tags https://github.com/firelayer/firelayer.git')) as string
 
         const versions = stdout.split(/\r?\n/).map((line) => {
           const match = line.match(/tags\/(.*)/)
@@ -70,7 +71,7 @@ export default async (targetDir, targetVersion, options) => {
         fs.removeSync('.firelayer-temp')
         fs.ensureDirSync('.firelayer-temp')
 
-        await cmd(`git clone --branch ${latest} --depth 1 git@github.com:firelayer/firelayer.git .firelayer-temp`)
+        await cmd(`git clone --branch ${latest} --depth 1 https://github.com/firelayer/firelayer.git .firelayer-temp`)
 
         // move code to right folder
         fs.copySync('.firelayer-temp', targetDir)
@@ -131,7 +132,7 @@ export default async (targetDir, targetVersion, options) => {
   try {
     await tasks.run()
 
-    console.log(chalk.bold('\nIn order to use the Admin SDK in our Firebase Cloud Functions we will need the service account key. See More:'))
+    console.log(chalk.bold('\nIn order to use the Admin SDK you will need the service account key. See More:'))
     console.log(chalk.cyan('https://firelayer.io/docs/getting-started#get-the-firebase-service-account-key\n'))
 
     console.log(`\n🎉  Successfully created project ${chalk.yellow(options.name)}.\n`)
