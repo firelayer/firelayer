@@ -10,7 +10,7 @@
     "start": "yarn dev",
     "build": "firelayer run \"lerna run build\"",
     "dev": "firelayer run \"lerna run dev --parallel\"",
-    "bootstrap": "yarn && lerna bootstrap",
+    "bootstrap": "yarn --ignore-engines && lerna bootstrap",
     "reset": "lerna clean --yes && yarn clean",
     "clean": "lerna run --parallel clean",
     "deploy": "yarn build && firebase deploy",
@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "@firelayer/cli": "^1.0.0-alpha.7",
-    "lerna": "^3.15.0"
+    "lerna": "^3.20.2"
   }
 }
