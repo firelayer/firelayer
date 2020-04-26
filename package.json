@@ -23,7 +23,7 @@
     "build:cli": "cd lib/cli && yarn build",
     "cli:docs": "cd lib/cli && yarn docs",
     "release": "yarn build && HUSKY_SKIP_HOOKS=1 lerna publish",
-    "release:alpha": "yarn build && HUSKY_SKIP_HOOKS=1 lerna publish --preid alpha --dist-tag alpha",
+    "release:alpha": "yarn build && HUSKY_SKIP_HOOKS=1 lerna publish prerelease --preid alpha --dist-tag alpha",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
@@ -41,6 +41,10 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "engines": {
+    "node": ">= 10.16.0",
+    "yarn": ">= 1.12.0"
   },
   "devDependencies": {
     "@firelayer/eslint-config": "^1.3.2",
