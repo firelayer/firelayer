@@ -18,6 +18,8 @@ export default class Init extends Command {
   static args = [{ name: 'name' }]
 
   async run() {
+    this.log(chalk.grey('\nChecking dependencies..\n'))
+
     await checkDependencies()
 
     const { args, flags } = this.parse(Init)

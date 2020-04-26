@@ -19,6 +19,8 @@ export default async (targetDir, targetVersion, options) => {
     isDev = (await import(rootPackage)).name === '@firelayer/root'
   }
 
+  console.log(chalk.grey('\nInitializing Firebase CLI to select project..\n'))
+
   // select firebase project and web application
   await spawner(`firebase apps:sdkconfig WEB -o ${path.join(targetDir, 'firebase.js')}`)
 

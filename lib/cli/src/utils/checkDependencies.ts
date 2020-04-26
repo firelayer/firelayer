@@ -6,7 +6,7 @@ export default async () => {
   try {
     // check node version
     if (semver.lt(process.version, '10.0.0')) {
-      console.log(`\nFirelayer needs ${chalk.bold('Node version >= 10.0.0')}, please update to continue.`)
+      console.log(`\nFirelayer needs ${chalk.bold('Node version >= 10')}, please update to continue.`)
       console.log('\nAn easy way to have multiple node versions would be NVM: https://github.com/nvm-sh/nvm\n')
 
       process.exit(1)
