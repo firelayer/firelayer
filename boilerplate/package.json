@@ -1,24 +1,26 @@
 {
-  "name": "boilerplate",
-  "version": "1.0.0-alpha.9",
+  "name": "firelayer-boilerplate",
+  "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "app/*"
+    "apps/*"
   ],
-  "description": "Firelayer Boilerplate",
+  "description": "firelayer-boilerplate",
   "scripts": {
-    "start": "yarn dev",
+    "bootstrap": "npm install && lerna bootstrap",
     "build": "firelayer run \"lerna run build\"",
-    "dev": "firelayer run \"lerna run dev --parallel\"",
-    "bootstrap": "yarn --ignore-engines && lerna bootstrap",
-    "reset": "lerna clean --yes && yarn clean",
     "clean": "lerna run --parallel clean",
-    "deploy": "yarn build && firebase deploy",
-    "www": "firelayer run \"cd app/www && yarn dev\"",
-    "functions": "firelayer run \"cd app/functions && yarn dev\""
+    "deploy": "npm run build && firebase deploy",
+    "deploy:env": "firelayer deploy:env",
+    "deploy:cors": "firelayer deploy:cors",
+    "dev": "firelayer run \"lerna run dev --parallel\"",
+    "lint": "lerna run lint --parallel",
+    "reset": "lerna clean --yes && npm run clean",
+    "test": "lerna run test --parallel"
   },
   "devDependencies": {
     "@firelayer/cli": "^1.0.0-alpha.9",
+    "firebase": "^7.14.2",
     "lerna": "^3.20.2"
   }
 }

@@ -38,6 +38,8 @@
     "@oclif/plugin-help": "^2",
     "chalk": "^3.0.0",
     "cross-spawn": "^7.0.2",
+    "deepmerge": "^4.2.2",
+    "ejs": "^3.1.2",
     "envinfo": "^7.5.0",
     "find-up": "^4.1.0",
     "fs-extra": "^9.0.0",
@@ -61,7 +63,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist && rm -rf oclif.manifest.json",
     "dev": "yarn clean && tsc -w --preserveWatchOutput",
     "manifest": "oclif-dev manifest",
     "docs": "yarn manifest && oclif-dev readme --multi",

@@ -1,9 +1,9 @@
 import { JavascriptModel, TypescriptModel } from '@firelayer/core/lib/firebase/firestore'
 import cli from 'cli-ux'
 import * as fs from 'fs-extra'
-import * as path from 'path'
 import * as chalk from 'chalk'
 import { prompt } from 'inquirer'
+import getDirectories from '../utils/getDirectories'
 
 export default async (name?) => {
   if (!name) {
@@ -12,9 +12,7 @@ export default async (name?) => {
 
   const model = name.charAt(0).toUpperCase() + name.slice(1)
 
-  const dirFilter = (source) => fs.lstatSync(source).isDirectory()
-  const getDirectories = (source) => fs.readdirSync(source).map((name) => path.join(source, name)).filter(dirFilter)
-  const applications = getDirectories('./app').map((a) => a.replace('app/', ''))
+  const applications = getDirectories('./apps').map((a) => a.replace('apps/', ''))
 
   const choices = applications.map((app) => ({
     name: app
@@ -45,20 +43,20 @@ export default async (name?) => {
   if (apps.length === 0) return
 
   apps.forEach((app) => {
-    fs.mkdirSync(`./app/${app}/src/models`, { recursive: true })
+    fs.mkdirSync(`./apps/${app}/src/models`, { recursive: true })
 
-    fs.writeFileSync(`./app/${app}/src/models/${model}.js`, TypescriptModel(model))
+    fs.writeFileSync(`./apps/${app}/src/models/${model}.js`, TypescriptModel(model))
 
-    console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
+    console.log(chalk.bold(`Model created: apps/${app}/models/${model}.js\n`))
 
     // if (language === 'Javascript') {
-    //   fs.writeFileSync(`./app/${app}/src/models/${model}.js`, JavascriptModel(model))
+    //   fs.writeFileSync(`./apps/${app}/src/models/${model}.js`, JavascriptModel(model))
 
-    //   console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
+    //   console.log(chalk.bold(`Model created: apps/${app}/models/${model}.js\n`))
     // } else if (language === 'Typescript') {
-    //   fs.writeFileSync(`./app/${app}/src/models/${model}.ts`, TypescriptModel(model))
+    //   fs.writeFileSync(`./apps/${app}/src/models/${model}.ts`, TypescriptModel(model))
 
-    //   console.log(chalk.bold(`Model created: app/${app}/models/${model}.js\n`))
+    //   console.log(chalk.bold(`Model created: apps/${app}/models/${model}.js\n`))
     // }
   })
 

@@ -16,25 +16,44 @@ export default class Up extends Command {
       this.log(`\nBringing the application from maintenance mode! (env: ${chalk.bold(this.env)}).`)
 
       // stop maintenance and deploy repo rules
-      const databaseRules = fs.readFileSync('./rules/database.rules.json', 'utf8')
-      const firestoreRules = fs.readFileSync('./rules/firestore.rules', 'utf8')
-      const storageRules = fs.readFileSync('./rules/storage.rules', 'utf8')
-
-      await stopMaintenance({
+      const stopOptions = {
         useRules: true,
         database: {
-          rules: databaseRules,
-          enabled: true
+          rules: '',
+          enabled: false
         },
-        firestore:{
-          rules: firestoreRules,
-          enabled: true
+        firestore: {
+          rules: '',
+          enabled: false
         },
         storage: {
-          rules: storageRules,
+          rules: '',
+          enabled: false
+        }
+      }
+
+      if (fs.existsSync('./rules/database.rules.json')) {
+        stopOptions.database = {
+          rules: fs.readFileSync('./rules/database.rules.json', 'utf8'),
           enabled: true
         }
-      })
+      }
+
+      if (fs.existsSync('./rules/firestore.rules')) {
+        stopOptions.firestore = {
+          rules: fs.readFileSync('./rules/firestore.rules', 'utf8'),
+          enabled: true
+        }
+      }
+
+      if (fs.existsSync('./rules/storage.rules')) {
+        stopOptions.storage = {
+          rules: fs.readFileSync('./rules/storage.rules', 'utf8'),
+          enabled: true
+        }
+      }
+
+      await stopMaintenance(stopOptions)
 
       this.log(chalk.green(`\nApplication is now live! (env: ${chalk.bold(this.env)}).\n`))
       process.exit(0)

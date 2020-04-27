@@ -9,33 +9,6 @@
   "storage": {
     "rules": "rules/storage.rules"
   },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\" run build"
-    ],
-    "source": "app/functions",
-    "ignore": [
-      "*.log",
-      ".gitignore",
-      "service-key.json",
-      "**/node_modules/**",
-      "tsconfig.json"
-    ]
-  },
-  "hosting": [{
-    "target": "www",
-    "public": "app/www/dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [{
-      "source": "/api/**",
-      "function": "api"
-    }]
-  }],
   "emulators": {
     "functions": {
       "port": 5001

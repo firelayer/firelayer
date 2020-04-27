@@ -1,14 +1,5 @@
 {
   "projects": {
     "default": "firelayer-boilerplate"
-  },
-  "targets": {
-    "firelayer-boilerplate": {
-      "hosting": {
-        "www": [
-          "firelayer-boilerplate"
-        ]
-      }
-    }
   }
 }

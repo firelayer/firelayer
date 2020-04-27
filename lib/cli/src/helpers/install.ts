@@ -1,12 +1,16 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
+import * as os from 'os'
 import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as semver from 'semver'
 import * as glob from 'glob'
+import * as ejs from 'ejs'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
 import spawner from '../utils/spawner'
+import addTemplate from '../helpers/addTemplate'
+import npmCli from '../helpers/npmCli'
 
 const boilerplateFolder = 'boilerplate'
 
@@ -31,6 +35,9 @@ export default async (targetDir, targetVersion, options) => {
     return
   }
 
+  // check npm package managers
+  const npmcli = await npmCli()
+
   const tasks = new Listr([{
     title: 'Creating project',
     task: async () => {
@@ -51,8 +58,10 @@ export default async (targetDir, targetVersion, options) => {
           }
         })
       } else {
+        const gitRepo = 'git@github.com:firelayer/starter-template.git'
+
         // choose latest tag version that suits cli version
-        const stdout = (await cmd('git ls-remote --tags https://github.com/firelayer/firelayer.git')) as string
+        const stdout = (await cmd(`git ls-remote --tags ${gitRepo}`)) as string
 
         const versions = stdout.split(/\r?\n/).map((line) => {
           const match = line.match(/tags\/(.*)/)
@@ -70,23 +79,49 @@ export default async (targetDir, targetVersion, options) => {
         }
 
         // get boilerplate from repo
-        fs.removeSync('.firelayer-temp')
-        fs.ensureDirSync('.firelayer-temp')
+        const tmpdir = path.join(os.tmpdir(), 'firelayer-temp')
 
-        await cmd(`git clone --branch ${latest} --depth 1 https://github.com/firelayer/firelayer.git .firelayer-temp`)
+        fs.removeSync(tmpdir)
+        fs.ensureDirSync(tmpdir)
+
+        await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`)
 
         // move code to right folder
-        fs.copySync('.firelayer-temp', targetDir)
-        fs.removeSync('.firelayer-temp')
+        fs.copySync(tmpdir, targetDir)
+        fs.removeSync(tmpdir)
 
         process.chdir(targetDir)
 
         await cmd(`git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
 
         fs.removeSync(`${targetDir}/.git`)
-
-        await cmd('git init')
       }
+
+      await cmd('git init')
+
+      fs.writeFileSync(`${targetDir}/README.md`, ejs.render(fs.readFileSync(`${targetDir}/README.md`, 'utf8'), {
+        npmCli: npmcli
+      }))
+
+      const packageJSON = JSON.parse(fs.readFileSync(`${targetDir}/package.json`, 'utf8'))
+
+      packageJSON.name = options.name
+      packageJSON.description = `${options.name} - Firelayer boilerplate`
+
+      if (npmcli === 'npm') {
+        packageJSON.scripts.bootstrap = 'npm install && lerna bootstrap'
+        delete packageJSON.workspaces
+
+        // remove yarn from lerna
+        const lernaJSON = JSON.parse(fs.readFileSync(`${targetDir}/lerna.json`, 'utf8'))
+
+        delete lernaJSON.npmClient
+        delete lernaJSON.useWorkspaces
+
+        fs.writeFileSync(`${targetDir}/lerna.json`, JSON.stringify(lernaJSON, null, 2))
+      }
+
+      fs.writeFileSync(`${targetDir}/package.json`, JSON.stringify(packageJSON, null, 2))
     }
   }, {
     title: 'Preparing configurations',
@@ -122,18 +157,26 @@ export default async (targetDir, targetVersion, options) => {
       }
     }
   }, {
+    title: `Adding template (${options.template})`,
+    task: async () => {
+      process.chdir(targetDir)
+
+      await addTemplate(options.template)
+    }
+  }, {
     title: 'Installing dependencies',
     skip: () => options.skipDependencies,
     task: () => {
       process.chdir(targetDir)
 
-      return cmd('yarn bootstrap')
+      return cmd('npm run bootstrap')
     }
   }])
 
   try {
     await tasks.run()
 
+    console.log(chalk.bold(`\nDon't forget to verify hosting properties in '${chalk.cyan('firebase.json')}' and targets on '${chalk.cyan('.firebaserc')}'`))
     console.log(chalk.bold('\nIn order to use the Admin SDK you will need the service account key. See More:'))
     console.log(chalk.cyan('https://firelayer.io/docs/getting-started#get-the-firebase-service-account-key\n'))
 

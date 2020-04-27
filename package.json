@@ -6,9 +6,7 @@
   "license": "MIT",
   "author": "João Teixeira <joao@indielayer.com>",
   "workspaces": [
-    "lib/*",
-    "boilerplate",
-    "boilerplate/app/*"
+    "lib/*"
   ],
   "scripts": {
     "start": "yarn dev",

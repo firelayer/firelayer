@@ -4,6 +4,7 @@ import * as chalk from 'chalk'
 import verifyPath from '../helpers/verifyPath'
 import install from '../helpers/install'
 import checkDependencies from '../utils/checkDependencies'
+import cleanString from '../utils/cleanString'
 
 export default class Init extends Command {
   static description = 'create a new project'
@@ -12,7 +13,8 @@ export default class Init extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    skip: flags.boolean({ char: 's', description: 'skip install deps' })
+    skip: flags.boolean({ char: 's', description: 'skip install deps' }),
+    template: flags.string({ char: 't', description: 'skip install deps', default: 'starter' })
   }
 
   static args = [{ name: 'name' }]
@@ -35,8 +37,9 @@ export default class Init extends Command {
     // install boilerplate
     try {
       const options = {
-        name,
-        skipDependencies: flags.skip
+        name: cleanString(name),
+        skipDependencies: flags.skip,
+        template: flags.template
       }
 
       await install(targetDir, this.config.version, options)
