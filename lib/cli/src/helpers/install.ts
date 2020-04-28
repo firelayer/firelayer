@@ -1,12 +1,16 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
+import * as os from 'os'
 import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as semver from 'semver'
 import * as glob from 'glob'
+import * as ejs from 'ejs'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
-import spawner from '../utils/spawner'
+import addTemplate from './addTemplate'
+import npmCli from './npmCli'
+import getFirebaseConfig from './getFirebaseConfig'
 
 const boilerplateFolder = 'boilerplate'
 
@@ -19,17 +23,10 @@ export default async (targetDir, targetVersion, options) => {
     isDev = (await import(rootPackage)).name === '@firelayer/root'
   }
 
-  console.log(chalk.grey('\nInitializing Firebase CLI to select project..\n'))
+  const firebaseConfig = await getFirebaseConfig()
 
-  // select firebase project and web application
-  await spawner(`firebase apps:sdkconfig WEB -o ${path.join(targetDir, 'firebase.js')}`)
-
-  if (!fs.existsSync(path.join(targetDir, 'firebase.js'))) {
-    console.log(`\nMake sure you already sign in with Firebase: '${chalk.bold('firebase login')}'`)
-    console.log(chalk.bold('\nAnd create a WEB app in the Firebase console for that project before proceeding.\n'))
-
-    return
-  }
+  // check npm package managers
+  const npmcli = await npmCli()
 
   const tasks = new Listr([{
     title: 'Creating project',
@@ -51,8 +48,10 @@ export default async (targetDir, targetVersion, options) => {
           }
         })
       } else {
+        const gitRepo = 'git@github.com:firelayer/starter-template.git'
+
         // choose latest tag version that suits cli version
-        const stdout = (await cmd('git ls-remote --tags https://github.com/firelayer/firelayer.git')) as string
+        const stdout = (await cmd(`git ls-remote --tags ${gitRepo}`)) as string
 
         const versions = stdout.split(/\r?\n/).map((line) => {
           const match = line.match(/tags\/(.*)/)
@@ -70,23 +69,51 @@ export default async (targetDir, targetVersion, options) => {
         }
 
         // get boilerplate from repo
-        fs.removeSync('.firelayer-temp')
-        fs.ensureDirSync('.firelayer-temp')
+        const tmpdir = path.join(os.tmpdir(), 'firelayer-temp')
 
-        await cmd(`git clone --branch ${latest} --depth 1 https://github.com/firelayer/firelayer.git .firelayer-temp`)
+        fs.removeSync(tmpdir)
+        fs.ensureDirSync(tmpdir)
+
+        await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`)
 
         // move code to right folder
-        fs.copySync('.firelayer-temp', targetDir)
-        fs.removeSync('.firelayer-temp')
+        fs.copySync(tmpdir, targetDir)
+        fs.removeSync(tmpdir)
 
         process.chdir(targetDir)
 
         await cmd(`git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
 
         fs.removeSync(`${targetDir}/.git`)
-
-        await cmd('git init')
       }
+
+      process.chdir(targetDir)
+
+      if (!fs.existsSync(path.join(targetDir, '.git'))) await cmd('git init')
+
+      fs.writeFileSync(`${targetDir}/README.md`, ejs.render(fs.readFileSync(`${targetDir}/README.md`, 'utf8'), {
+        npmCli: npmcli
+      }))
+
+      const packageJSON = JSON.parse(fs.readFileSync(`${targetDir}/package.json`, 'utf8'))
+
+      packageJSON.name = options.name
+      packageJSON.description = `${options.name} - Firelayer boilerplate`
+
+      if (npmcli === 'npm') {
+        packageJSON.scripts.bootstrap = 'npm install && lerna bootstrap'
+        delete packageJSON.workspaces
+
+        // remove yarn from lerna
+        const lernaJSON = JSON.parse(fs.readFileSync(`${targetDir}/lerna.json`, 'utf8'))
+
+        delete lernaJSON.npmClient
+        delete lernaJSON.useWorkspaces
+
+        fs.writeFileSync(`${targetDir}/lerna.json`, JSON.stringify(lernaJSON, null, 2))
+      }
+
+      fs.writeFileSync(`${targetDir}/package.json`, JSON.stringify(packageJSON, null, 2))
     }
   }, {
     title: 'Preparing configurations',
@@ -96,30 +123,24 @@ export default async (targetDir, targetVersion, options) => {
         fs.copyFileSync(file, file.replace('.dist', ''))
       })
 
-      // get firebase configurations
-      const firebaseFile = path.join(targetDir, 'firebase.js')
+      const newAppConfig = JSON.stringify({
+        firebase: {
+          ...firebaseConfig
+        }
+      }, null, 2)
 
-      if (fs.existsSync(firebaseFile)) {
-        const firebase = fs.readFileSync(firebaseFile, 'utf8')
-        const matched = firebase.match(/\(([^)]+)\)/g)
+      fs.writeFileSync(path.join(targetDir, 'config/app.json'), newAppConfig)
 
-        const firebaseJSON = matched[0].replace('(', '').replace(')', '')
-        const firebaseObject = JSON.parse(firebaseJSON)
+      const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
 
-        const newAppConfig = JSON.stringify({
-          firebase: {
-            ...firebaseObject
-          }
-        }, null, 2)
+      fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseConfig.projectId))
+    }
+  }, {
+    title: `Adding template (${options.template})`,
+    task: async () => {
+      process.chdir(targetDir)
 
-        fs.writeFileSync(path.join(targetDir, 'config/app.json'), newAppConfig)
-
-        const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
-
-        fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseObject.projectId))
-
-        fs.removeSync(firebaseFile)
-      }
+      await addTemplate(options.template)
     }
   }, {
     title: 'Installing dependencies',
@@ -127,13 +148,14 @@ export default async (targetDir, targetVersion, options) => {
     task: () => {
       process.chdir(targetDir)
 
-      return cmd('yarn bootstrap')
+      return cmd('npm run bootstrap')
     }
   }])
 
   try {
     await tasks.run()
 
+    console.log(chalk.bold(`\nDon't forget to verify hosting properties in '${chalk.cyan('firebase.json')}' and targets on '${chalk.cyan('.firebaserc')}'`))
     console.log(chalk.bold('\nIn order to use the Admin SDK you will need the service account key. See More:'))
     console.log(chalk.cyan('https://firelayer.io/docs/getting-started#get-the-firebase-service-account-key\n'))
 

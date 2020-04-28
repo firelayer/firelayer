@@ -1,9 +1,10 @@
 import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import { prompt } from 'inquirer'
+import * as firebaseCLI from 'firebase-tools'
+import fireWrap from '../helpers/fireWrap'
 import getEnv from '../helpers/getEnv'
 import getEnvVariables from '../helpers/getEnvVariables'
-import cmd from '../utils/cmd'
 
 export default async () => {
   const envName = getEnv()
@@ -24,10 +25,14 @@ export default async () => {
       }
     }, {
       title: `Removing previous environment variables from environment (env: ${chalk.bold(envName)}).`,
-      task: () => cmd('firebase functions:config:unset env')
+      task: async () => {
+        await fireWrap(() => firebaseCLI.functions.config.unset(['env'], {}))
+      }
     }, {
       title: `Deploying new environment variables (env: ${chalk.bold(envName)}).`,
-      task: () => cmd(`firebase functions:config:set env='${envVars.functions}'`)
+      task: async () => {
+        await fireWrap(() => firebaseCLI.functions.config.set([`env=${envVars.functions}`], {}))
+      }
     }])
 
     try {

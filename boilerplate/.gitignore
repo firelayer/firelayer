@@ -7,6 +7,7 @@ node_modules
 .firebase
 .firelayer
 .DS_Store
+Thumbs.db
 key.json
 *.key.json
 env*.json
