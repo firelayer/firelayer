@@ -21,7 +21,7 @@
 </p>
 
 Firelayer is a boilerplate / framework for Firebase web projects.
-It allows you to jumpstart your Firebase web projects with a boilerplate for common use cases so you don't have to start from scratch.
+It allows you to jumpstart your Firebase web projects with templates for common use cases so you don't have to start from scratch.
 
 ### Documentation
 
