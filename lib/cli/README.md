@@ -47,7 +47,7 @@ $ npm install -g @firelayer/cli
 $ firelayer COMMAND
 running command...
 $ firelayer (-v|--version|version)
-@firelayer/cli/1.0.0-alpha.9 darwin-x64 node-v10.16.0
+@firelayer/cli/1.0.0-alpha.10 darwin-x64 node-v10.16.0
 $ firelayer --help [COMMAND]
 USAGE
   $ firelayer COMMAND
@@ -58,6 +58,7 @@ USAGE
 <!-- commands -->
 # Command Topics
 
+* [`firelayer add`](docs/add.md) - add templates and plugins to the current project
 * [`firelayer auth`](docs/auth.md) - users and authentication
 * [`firelayer db`](docs/db.md) - database helper
 * [`firelayer deploy`](docs/deploy.md) - deploy helper
