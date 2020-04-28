@@ -21,4 +21,4 @@ EXAMPLE
   $ firelayer down
 ```
 
-_See code: [dist/commands/down.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.11/dist/commands/down.ts)_
+_See code: [dist/commands/down.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.12/dist/commands/down.ts)_
