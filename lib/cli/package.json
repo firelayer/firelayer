@@ -39,7 +39,6 @@
     "chalk": "^3.0.0",
     "cross-spawn": "^7.0.2",
     "deepmerge": "^4.2.2",
-    "ejs": "^3.1.2",
     "envinfo": "^7.5.0",
     "find-up": "^4.1.0",
     "firebase-tools": "^8.2.0",

@@ -1,5 +1,4 @@
 import { JavascriptModel, TypescriptModel } from '@firelayer/core/lib/firebase/firestore'
-import cli from 'cli-ux'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
 import { prompt } from 'inquirer'
@@ -7,7 +6,11 @@ import getDirectories from '../utils/getDirectories'
 
 export default async (name?) => {
   if (!name) {
-    name = await cli.prompt('What is the model name? (ex: Post)')
+    name = (await prompt({
+      type: 'input',
+      name: 'input',
+      message: 'What is the model name? (ex: Post)'
+    })).input
   }
 
   const model = name.charAt(0).toUpperCase() + name.slice(1)

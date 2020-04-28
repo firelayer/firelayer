@@ -1,11 +1,15 @@
 import { generateFilename } from '@firelayer/core/lib/firebase/firestore'
+import { prompt } from 'inquirer'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
-import cli from 'cli-ux'
 
 export default async (name?) => {
   if (!name) {
-    name = await cli.prompt('What is the migration name? (ex: create_posts)')
+    name = (await prompt({
+      type: 'input',
+      name: 'input',
+      message: 'What is the migration name? (ex: create_posts)'
+    })).input
   }
 
   const filename = generateFilename(name || 'migration')

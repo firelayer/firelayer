@@ -7,14 +7,18 @@ import * as chalk from 'chalk'
 import * as glob from 'glob'
 import * as deepmerge from 'deepmerge'
 import { prompt } from 'inquirer'
-import cli from 'cli-ux'
 import findRoot from '../utils/findRoot'
 import cmd from '../utils/cmd'
 import cleanString from '../utils/cleanString'
 import getDirectories from '../utils/getDirectories'
 
 async function getNameForApp(appName, currentApps) {
-  appName = await cli.prompt(`Application name '${appName}' is already taken, please choose a different name:`)
+  appName = (await prompt({
+    type: 'input',
+    name: 'input',
+    message: `Application name '${appName}' is already taken, please choose a different name:`
+  })).input
+
   appName = cleanString(appName)
 
   if (currentApps[appName]) return getNameForApp(appName, currentApps)
@@ -26,7 +30,11 @@ export default async (name = '', options = { silent: true }) => {
   const root = await findRoot()
 
   if (!name) {
-    name = await cli.prompt('What\'s the name of the template ? (ex: starter)')
+    name = (await prompt({
+      type: 'input',
+      name: 'input',
+      message: 'What\'s the name of the template ? (ex: starter)'
+    })).input
   }
 
   const gitRepo = `git://github.com/firelayer/${name}-template.git`

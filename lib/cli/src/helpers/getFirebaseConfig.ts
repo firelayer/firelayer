@@ -1,5 +1,4 @@
 import * as chalk from 'chalk'
-import cli from 'cli-ux'
 import { prompt } from 'inquirer'
 import { getAppConfig } from 'firebase-tools/lib/management/apps'
 import * as firebaseCLI from 'firebase-tools'
@@ -47,7 +46,11 @@ export default async (): Promise<any> => {
 
     if (apps.length === 0) {
       console.log(chalk.bold('\nNo web applications found. Creating a new web application.\n'))
-      const webProjectName = await cli.prompt('What name do you want for the new web application? ')
+      const webProjectName = (await prompt({
+        type: 'input',
+        name: 'input',
+        message: 'What name do you want for the new web application?'
+      })).input
       const webApp = await firebaseCLI.apps.create('WEB', webProjectName, { project: projects[0].projectId })
 
       return await getAppConfig(webApp.appId, 'WEB')

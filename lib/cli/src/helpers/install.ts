@@ -5,7 +5,6 @@ import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as semver from 'semver'
 import * as glob from 'glob'
-import * as ejs from 'ejs'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
 import addTemplate from './addTemplate'
@@ -90,10 +89,6 @@ export default async (targetDir, targetVersion, options) => {
       process.chdir(targetDir)
 
       if (!fs.existsSync(path.join(targetDir, '.git'))) await cmd('git init')
-
-      fs.writeFileSync(`${targetDir}/README.md`, ejs.render(fs.readFileSync(`${targetDir}/README.md`, 'utf8'), {
-        npmCli: npmcli
-      }))
 
       const packageJSON = JSON.parse(fs.readFileSync(`${targetDir}/package.json`, 'utf8'))
 
