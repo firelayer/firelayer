@@ -17,4 +17,4 @@ EXAMPLE
   $ firelayer info
 ```
 
-_See code: [dist/commands/info.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.10/dist/commands/info.ts)_
+_See code: [dist/commands/info.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.11/dist/commands/info.ts)_
