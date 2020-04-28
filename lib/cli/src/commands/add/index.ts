@@ -8,7 +8,7 @@ export default class Add extends Command {
   static examples = ['$ firelayer add:template starter']
 
   async run() {
-    const quiz = await prompt([{
+    const { choice } = await prompt([{
       type: 'list',
       name: 'choice',
       message: 'What would you wish to add?',
@@ -16,8 +16,6 @@ export default class Add extends Command {
         name: 'Template'
       }]
     }])
-
-    const { choice } = quiz
 
     if (choice === 'Template') await addTemplate(null, { silent: false })
   }

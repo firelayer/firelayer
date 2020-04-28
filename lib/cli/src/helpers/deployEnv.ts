@@ -9,13 +9,13 @@ import getEnvVariables from '../helpers/getEnvVariables'
 export default async () => {
   const envName = getEnv()
 
-  const quiz = await prompt({
+  const { confirm } = await prompt({
     type: 'confirm',
     name: 'confirm',
     message: `Deploy cloud functions environment variables for '${chalk.bold.cyan(envName)}' ?`
   })
 
-  if (quiz.confirm) {
+  if (confirm) {
     let envVars: any = {}
 
     const tasks = new Listr([{

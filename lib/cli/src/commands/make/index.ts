@@ -12,7 +12,7 @@ export default class Make extends Command {
   `]
 
   async run() {
-    const quiz = await prompt([{
+    const { make } = await prompt([{
       type: 'list',
       name: 'make',
       message: 'What do you wish to generate:',
@@ -22,8 +22,6 @@ export default class Make extends Command {
         name: 'Migration'
       }]
     }])
-
-    const { make } = quiz
 
     if (make === 'Model') await makeModel()
     if (make === 'Migration') await makeMigration()

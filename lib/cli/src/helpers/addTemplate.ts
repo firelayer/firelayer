@@ -241,14 +241,14 @@ export default async (name = '', options = { silent: true }) => {
   // copy rules
   if (fs.existsSync(`${tempPath}/rules`)) {
     if (fs.existsSync('./rules')) {
-      const quiz = await prompt({
+      const { confirm } = await prompt({
         type: 'confirm',
         name: 'confirm',
         default: false,
         message: 'Do you want to overwrite current rules ? \n (if not, a folder inside rules \'TO_MERGE\' will be made for manual merge)'
       })
 
-      if (quiz.confirm) {
+      if (confirm) {
         fs.copySync(`${tempPath}/rules`, './rules')
       } else {
         fs.copySync(`${tempPath}/rules`, './rules/TO_MERGE')

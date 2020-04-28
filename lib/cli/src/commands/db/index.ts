@@ -8,7 +8,7 @@ export default class DB extends Command {
   static examples = ['$ firelayer db:seed']
 
   async run() {
-    const quiz = await prompt([{
+    const { choice } = await prompt([{
       type: 'list',
       name: 'choice',
       message: 'What database action do you want?',
@@ -16,8 +16,6 @@ export default class DB extends Command {
         name: 'Seed'
       }]
     }])
-
-    const { choice } = quiz
 
     if (choice === 'Seed') await dbSeed()
   }

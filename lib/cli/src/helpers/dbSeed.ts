@@ -15,13 +15,13 @@ export default async () => {
   const root = await findRoot()
   const env = getEnv()
 
-  const quiz = await prompt({
+  const { confirm } = await prompt({
     type: 'confirm',
     name: 'confirm',
     message: `Seed database for the environment '${chalk.bold.cyan(env)}' ?`
   })
 
-  if (quiz.confirm) {
+  if (confirm) {
     initAdmin()
 
     if (fs.existsSync('./database/seeds/firestore.js')) {

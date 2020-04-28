@@ -5,6 +5,7 @@ import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as semver from 'semver'
 import * as glob from 'glob'
+import { prompt } from 'inquirer'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
 import addTemplate from './addTemplate'
@@ -137,18 +138,34 @@ export default async (targetDir, targetVersion, options) => {
 
       await addTemplate(options.template)
     }
-  }, {
-    title: 'Installing dependencies',
-    skip: () => options.skipDependencies,
-    task: () => {
-      process.chdir(targetDir)
-
-      return cmd('npm run bootstrap')
-    }
   }])
 
   try {
     await tasks.run()
+
+    let confirm = false
+
+    if (!options.skipDependencies) {
+      console.log()
+      confirm = (await prompt({
+        type: 'confirm',
+        name: 'confirm',
+        default: true,
+        message: 'Install dependencies?'
+      })).confirm
+    }
+
+    const tasksDependencies = new Listr([{
+      title: 'Installing dependencies',
+      skip: () => options.skipDependencies || !confirm,
+      task: () => {
+        process.chdir(targetDir)
+
+        return cmd('npm run bootstrap')
+      }
+    }])
+
+    await tasksDependencies.run()
 
     console.log(chalk.bold(`\nDon't forget to verify hosting properties in '${chalk.cyan('firebase.json')}' and targets on '${chalk.cyan('.firebaserc')}'`))
     console.log(chalk.bold('\nIn order to use the Admin SDK you will need the service account key. See More:'))

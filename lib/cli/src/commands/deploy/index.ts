@@ -9,7 +9,7 @@ export default class Deploy extends Command {
   static examples = ['$ firelayer deploy:env']
 
   async run() {
-    const quiz = await prompt([{
+    const { choice } = await prompt([{
       type: 'list',
       name: 'choice',
       message: 'What do you wish to deploy:',
@@ -19,8 +19,6 @@ export default class Deploy extends Command {
         name: 'Storage CORS'
       }]
     }])
-
-    const { choice } = quiz
 
     if (choice === 'Cloud Functions Environment Variables') await deployEnv()
     if (choice === 'Storage CORS') await deployCors()

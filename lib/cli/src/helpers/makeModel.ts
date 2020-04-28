@@ -23,7 +23,7 @@ export default async (name?) => {
 
   console.log()
 
-  const quiz = await prompt([{
+  const { apps, language } = await prompt([{
     type: 'checkbox',
     name: 'apps',
     message: 'Select which applications to create the model:',
@@ -40,8 +40,6 @@ export default async (name?) => {
   //     name: 'Typescript'
   //   }]
   // }])
-
-  const { apps, language } = quiz
 
   if (apps.length === 0) return
 

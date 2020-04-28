@@ -18,12 +18,12 @@ export default async () => {
     name: client
   }))
 
-  const quiz = await prompt([{
+  const { npmclient } = await prompt([{
     type: 'list',
     name: 'npmclient',
     message: 'Select which package manager to use in this project:',
     choices
   }])
 
-  return quiz.npmclient
+  return npmclient
 }

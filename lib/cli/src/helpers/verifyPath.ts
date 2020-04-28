@@ -7,15 +7,13 @@ export default async (projectName, targetDir) => {
 
   if (fs.existsSync(targetDir)) {
     if (inCurrent) {
-      const { ok } = await inquirer.prompt([{
-        name: 'ok',
+      const { confirm } = await inquirer.prompt([{
+        name: 'confirm',
         type: 'confirm',
         message: 'Generate project in current directory?'
       }])
 
-      if (!ok) {
-        return false
-      }
+      if (!confirm) return false
     } else {
       const { action } = await inquirer.prompt([
         {

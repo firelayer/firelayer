@@ -14,13 +14,13 @@ export default async (): Promise<any> => {
     console.log(`Go to the Firebase console ${chalk.bold.cyan('https://console.firebase.google.com')} and create a project there.\n`)
 
     return process.exit(1)
-    // const quiz = await prompt({
+    // const { confirm } = await prompt({
     //   type: 'confirm',
     //   name: 'confirm',
     //   message: 'Do you want to create a Firebase project ?'
     // })
 
-    // if (quiz.confirm) {
+    // if (confirm) {
     //   const project = await firebaseCLI.projects.create(undefined, {})
 
     //   const webProjectName = await cli.prompt('What name do you want for the new web application? ')
@@ -33,14 +33,12 @@ export default async (): Promise<any> => {
     //   process.exit(1)
     // }
   } else {
-    const projectquiz = await prompt([{
+    const { projectId } = await prompt([{
       type: 'list',
       name: 'projectId',
       message: 'What Firebase project would you like to use?',
       choices: projects.map((p) => ({ name: p.projectId }))
     }])
-
-    const { projectId } = projectquiz
 
     const apps = await firebaseCLI.apps.list('WEB', { project: projectId })
 
@@ -55,14 +53,12 @@ export default async (): Promise<any> => {
 
       return await getAppConfig(webApp.appId, 'WEB')
     } else {
-      const appquiz = await prompt([{
+      const { appId } = await prompt([{
         type: 'list',
         name: 'appId',
         message: 'What web application would you like to use?',
         choices: apps.map((a) => ({ name: a.appId }))
       }])
-
-      const { appId } = appquiz
 
       return await getAppConfig(appId, 'WEB')
     }
