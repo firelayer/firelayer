@@ -8,9 +8,9 @@ import * as glob from 'glob'
 import * as ejs from 'ejs'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
-import spawner from '../utils/spawner'
-import addTemplate from '../helpers/addTemplate'
-import npmCli from '../helpers/npmCli'
+import addTemplate from './addTemplate'
+import npmCli from './npmCli'
+import getFirebaseConfig from './getFirebaseConfig'
 
 const boilerplateFolder = 'boilerplate'
 
@@ -23,17 +23,7 @@ export default async (targetDir, targetVersion, options) => {
     isDev = (await import(rootPackage)).name === '@firelayer/root'
   }
 
-  console.log(chalk.grey('\nInitializing Firebase CLI to select project..\n'))
-
-  // select firebase project and web application
-  await spawner(`firebase apps:sdkconfig WEB -o ${path.join(targetDir, 'firebase.js')}`)
-
-  if (!fs.existsSync(path.join(targetDir, 'firebase.js'))) {
-    console.log(`\nMake sure you already sign in with Firebase: '${chalk.bold('firebase login')}'`)
-    console.log(chalk.bold('\nAnd create a WEB app in the Firebase console for that project before proceeding.\n'))
-
-    return
-  }
+  const firebaseConfig = await getFirebaseConfig()
 
   // check npm package managers
   const npmcli = await npmCli()
@@ -97,7 +87,9 @@ export default async (targetDir, targetVersion, options) => {
         fs.removeSync(`${targetDir}/.git`)
       }
 
-      await cmd('git init')
+      process.chdir(targetDir)
+
+      if (!fs.existsSync(path.join(targetDir, '.git'))) await cmd('git init')
 
       fs.writeFileSync(`${targetDir}/README.md`, ejs.render(fs.readFileSync(`${targetDir}/README.md`, 'utf8'), {
         npmCli: npmcli
@@ -131,30 +123,17 @@ export default async (targetDir, targetVersion, options) => {
         fs.copyFileSync(file, file.replace('.dist', ''))
       })
 
-      // get firebase configurations
-      const firebaseFile = path.join(targetDir, 'firebase.js')
+      const newAppConfig = JSON.stringify({
+        firebase: {
+          ...firebaseConfig
+        }
+      }, null, 2)
 
-      if (fs.existsSync(firebaseFile)) {
-        const firebase = fs.readFileSync(firebaseFile, 'utf8')
-        const matched = firebase.match(/\(([^)]+)\)/g)
+      fs.writeFileSync(path.join(targetDir, 'config/app.json'), newAppConfig)
 
-        const firebaseJSON = matched[0].replace('(', '').replace(')', '')
-        const firebaseObject = JSON.parse(firebaseJSON)
+      const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
 
-        const newAppConfig = JSON.stringify({
-          firebase: {
-            ...firebaseObject
-          }
-        }, null, 2)
-
-        fs.writeFileSync(path.join(targetDir, 'config/app.json'), newAppConfig)
-
-        const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
-
-        fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseObject.projectId))
-
-        fs.removeSync(firebaseFile)
-      }
+      fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseConfig.projectId))
     }
   }, {
     title: `Adding template (${options.template})`,

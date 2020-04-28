@@ -1,5 +1,4 @@
 import Command from '../../base'
-import cli from 'cli-ux'
 import addTemplate from '../../helpers/addTemplate'
 
 export default class AddTemplate extends Command {

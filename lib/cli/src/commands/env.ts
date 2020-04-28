@@ -1,7 +1,8 @@
 import Command from '../base'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
-import cmd from '../utils/cmd'
+import * as firebaseCLI from 'firebase-tools'
+import fireWrap from '../helpers/fireWrap'
 
 export default class Env extends Command {
   static description = 'change development environment'
@@ -23,9 +24,7 @@ export default class Env extends Command {
     if (fs.existsSync(envFile) || (envName === 'default' && fs.existsSync('./config/keys/key.json'))) {
       this.log(`Setting firebase alias with '${chalk.bold(`firebase use ${envName}`)}'..`)
 
-      await cmd(`firebase use ${envName}`, {
-        silent: false
-      })
+      await fireWrap(() => firebaseCLI.use(envName, {}))
 
       this.log(`\nSetting '${chalk.bold('.firelayer/env')}' file..`)
 

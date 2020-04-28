@@ -3,10 +3,11 @@ import { prompt } from 'inquirer'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as chalk from 'chalk'
+import * as firebaseCLI from 'firebase-tools'
 import initAdmin from '../helpers/initAdmin'
 import getEnv from '../helpers/getEnv'
 import findRoot from '../utils/findRoot'
-import cmd from '../utils/cmd'
+import fireWrap from '../helpers/fireWrap'
 
 const context = { db, realtime, timestamp, serverTimestamp }
 
@@ -47,7 +48,7 @@ export default async () => {
       console.log(chalk.bold('\nInitializing users seeding..\n'))
 
       console.time('Finished users seeding')
-      await cmd('firebase auth:import ./database/seeds/users.json')
+      await fireWrap(() => firebaseCLI.auth.import('./database/seeds/users.json', {}))
       console.timeEnd('Finished users seeding')
     }
 

@@ -1,6 +1,5 @@
 import Command from '../../base'
 import { prompt } from 'inquirer'
-import cli from 'cli-ux'
 import addTemplate from '../../helpers/addTemplate'
 
 export default class Add extends Command {
