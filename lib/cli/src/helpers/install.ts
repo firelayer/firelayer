@@ -47,7 +47,7 @@ export default async (targetDir, targetVersion, options) => {
           }
         })
       } else {
-        const gitRepo = 'git@github.com:firelayer/starter-template.git'
+        const gitRepo = 'git@github.com:firelayer/firelayer.git'
 
         // choose latest tag version that suits cli version
         const stdout = (await cmd(`git ls-remote --tags ${gitRepo}`)) as string
@@ -61,9 +61,9 @@ export default async (targetDir, targetVersion, options) => {
         let latest = versions.reverse().find((version) => semver.satisfies(version, `^${targetVersion}`))
 
         if (!latest) {
-          console.log(
-            chalk.bold(`Boilerplate version for @firelayer/cli v${targetVersion} not found, using 'master' branch..`)
-          )
+          // console.log(
+          //   chalk.bold(`Boilerplate version for @firelayer/cli v${targetVersion} not found, using 'master' branch..`)
+          // )
           latest = 'master'
         }
 
