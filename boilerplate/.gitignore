@@ -13,3 +13,4 @@ key.json
 env*.json
 app.json
 !*dist.json
+TO_MERGE

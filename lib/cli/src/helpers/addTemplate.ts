@@ -115,6 +115,8 @@ export default async (name = '', options = { silent: true }) => {
           const appName = await getNameForApp(newName, currentApps)
 
           newApps[app] = appName
+        } else {
+          newApps[app] = newName
         }
       }
     }
