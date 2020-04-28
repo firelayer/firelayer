@@ -33,11 +33,24 @@ export default async (name = '', options = { silent: true }) => {
     name = (await prompt({
       type: 'input',
       name: 'input',
-      message: 'What\'s the name of the template ? (ex: starter)'
+      message: 'What\'s the name or git repository of the template ? (ex: starter)'
     })).input
   }
 
-  const gitRepo = `git://github.com/firelayer/${name}-template.git`
+  const isGitRepo = name.indexOf('.git') !== -1
+  let gitRepo = ''
+
+  if (isGitRepo) {
+    gitRepo = name
+    name = cleanString(name
+      .replace(/((?:.git)?#.*)/, '')
+      .split('/')
+      .slice(-1)[0]
+      .replace(/[:#]/g, '')
+      .replace('.git', ''))
+  } else {
+    gitRepo = `git://github.com/firelayer/${name}-template.git`
+  }
 
   // choose latest tag version that suits cli version
   let stdout = ''
