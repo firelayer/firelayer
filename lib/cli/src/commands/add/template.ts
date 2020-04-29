@@ -12,6 +12,6 @@ export default class AddTemplate extends Command {
     const { args } = this.parse(AddTemplate)
     const { name } = args
 
-    await addTemplate(name, { silent: false })
+    await addTemplate(name, { silent: false, dependenciesPrompt: true })
   }
 }

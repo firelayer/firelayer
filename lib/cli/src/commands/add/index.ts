@@ -17,6 +17,6 @@ export default class Add extends Command {
       }]
     }])
 
-    if (choice === 'Template') await addTemplate(null, { silent: false })
+    if (choice === 'Template') await addTemplate(null, { silent: false, dependenciesPrompt: true })
   }
 }

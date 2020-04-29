@@ -6,6 +6,7 @@ import * as os from 'os'
 import * as chalk from 'chalk'
 import * as glob from 'glob'
 import * as deepmerge from 'deepmerge'
+import * as Listr from 'listr'
 import { prompt } from 'inquirer'
 import findRoot from '../utils/findRoot'
 import cmd from '../utils/cmd'
@@ -26,7 +27,7 @@ async function getNameForApp(appName, currentApps) {
   return appName
 }
 
-export default async (name = '', options = { silent: true }) => {
+export default async (name = '', options = { silent: true, dependenciesPrompt: false }) => {
   const root = await findRoot()
 
   if (!name) {
@@ -75,6 +76,8 @@ export default async (name = '', options = { silent: true }) => {
     if (!options.silent) console.log(chalk.bold(`Can't find latest version for ${name}-template, using 'master' branch..`))
     latest = 'master'
   }
+
+  if (!options.silent) console.log(chalk.bold(`\nGetting template from '${gitRepo}'..`))
 
   const tempPath = path.join(os.tmpdir(), 'firelayer-templates', name)
 
@@ -275,6 +278,30 @@ export default async (name = '', options = { silent: true }) => {
 
   // delete clone
   fs.removeSync(tempPath)
+
+  if (!options.silent) console.log(`\nAdded template ${chalk.cyan(name)}.\n`)
+
+  if (options.dependenciesPrompt) {
+    try {
+      const { confirm } = await prompt({
+        type: 'confirm',
+        name: 'confirm',
+        default: true,
+        message: 'Install dependencies?'
+      })
+
+      const tasksDependencies = new Listr([{
+        title: 'Installing dependencies',
+        skip: () => !confirm,
+        task: () => cmd('npm run bootstrap')
+      }])
+
+      await tasksDependencies.run()
+    } catch (e) {
+      console.log(e)
+      throw new Error(e)
+    }
+  }
 
   if (!options.silent) console.log(chalk.bold.cyan('\nDon\'t forget to verify hosting properties in \'firebase.json\' and targets on \'.firebaserc\'\n'))
 
