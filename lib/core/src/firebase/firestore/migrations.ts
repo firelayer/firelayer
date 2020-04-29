@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import * as fs from 'fs-extra'
+import * as fs from 'fs'
 import * as path from 'path'
 import { db, realtime, timestamp, serverTimestamp } from '../core'
 

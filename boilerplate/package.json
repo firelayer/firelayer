@@ -14,6 +14,7 @@
     "deploy:env": "firelayer deploy:env",
     "deploy:cors": "firelayer deploy:cors",
     "dev": "firelayer run \"lerna run dev --parallel\"",
+    "emulators": "firelayer run \"firebase emulators:start\"",
     "lint": "lerna run lint --parallel",
     "reset": "lerna clean --yes && npm run clean",
     "test": "lerna run test --parallel"
