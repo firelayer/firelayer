@@ -1,6 +1,6 @@
 {
   "name": "@firelayer/cli",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "description": "Firelayer's CLI - Jumpstart your Firebase Web Project",
   "keywords": [
     "firelayer",
@@ -32,7 +32,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@firelayer/core": "^1.0.0-alpha.8",
+    "@firelayer/core": "^1.0.0-alpha.13",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
