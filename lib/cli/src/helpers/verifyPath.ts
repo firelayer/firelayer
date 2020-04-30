@@ -14,6 +14,22 @@ export default async (projectName, targetDir) => {
       }])
 
       if (!confirm) return false
+
+      const files = fs.readdirSync(targetDir)
+
+      // dir is not empty
+      if (files.length) {
+        const { deleteAll } = await inquirer.prompt([{
+          name: 'deleteAll',
+          type: 'confirm',
+          default: false,
+          message: 'Directory is not empty do you wish to delete all the files?'
+        }])
+
+        if (!deleteAll) return false
+
+        fs.emptyDirSync(targetDir)
+      }
     } else {
       const { action } = await inquirer.prompt([
         {
@@ -22,7 +38,7 @@ export default async (projectName, targetDir) => {
           message: `Target directory ${chalk.cyan(targetDir)} already exists. Pick an action:`,
           choices: [
             { name: 'Overwrite', value: 'overwrite' },
-            { name: 'Merge', value: 'merge' },
+            // { name: 'Merge', value: 'merge' },
             { name: 'Cancel', value: false }
           ]
         }

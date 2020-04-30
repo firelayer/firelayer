@@ -7,7 +7,7 @@
   ],
   "description": "firelayer-boilerplate",
   "scripts": {
-    "bootstrap": "npm install && lerna bootstrap",
+    "bootstrap": "yarn --ignore-engines && lerna bootstrap",
     "build": "firelayer run \"lerna run build\"",
     "clean": "lerna run --parallel clean",
     "deploy": "npm run build && firebase deploy",
