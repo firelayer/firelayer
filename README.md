@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<p align="center">Jumpstart your Firebase Web Project</p>
+<p align="center">Jump-start your Firebase Web Project</p>
 
 <br/>
 
@@ -20,8 +20,8 @@
   </a>
 </p>
 
-Firelayer is a boilerplate / framework for Firebase web projects.
-It allows you to jumpstart your Firebase web projects with templates for common use cases so you don't have to start from scratch.
+Firelayer is a boilerplate toolkit for Firebase web projects.
+It allows you to jump-start your Firebase web projects with templates for common use cases so you don't have to start from scratch.
 
 ### Documentation
 
@@ -68,4 +68,4 @@ Firelayer is organized as a monorepo using [Lerna](https://lerna.js.org/) and ya
 
 ## License
 
-The Firelayer framework is open-sourced software licensed under the [MIT license](https://github.com/firelayer/firelayer/blob/master/LICENSE).
+Firelayer is open-sourced software licensed under the [MIT license](https://github.com/firelayer/firelayer/blob/master/LICENSE).

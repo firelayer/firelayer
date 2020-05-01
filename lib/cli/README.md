@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<p align="center">Jumpstart your Firebase Web Project</p>
+<p align="center">Jump-start your Firebase Web Project</p>
 
 <br/>
 
