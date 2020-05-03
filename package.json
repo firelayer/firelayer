@@ -2,7 +2,7 @@
   "name": "@firelayer/root",
   "version": "0.0.0",
   "private": true,
-  "description": "Firelayer - A Firebase Web Framework",
+  "description": "Firelayer - A Firebase Toolkit",
   "license": "MIT",
   "author": "João Teixeira <joao@indielayer.com>",
   "workspaces": [
