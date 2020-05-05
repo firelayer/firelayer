@@ -4,7 +4,7 @@ import FirestoreMaintenanceRules from './maintenance/firestore.rules'
 import StorageMaintenanceRules from './maintenance/storage.rules'
 import { updateDatabaseRules, updateFirestoreRules, updateStorageRules } from './rules'
 
-const SETTINGS_PATH = '_SETTINGS'
+const SETTINGS_PATH = '_settings'
 
 export interface MaintenanceRuleConfig {
   rules?: string;
@@ -16,10 +16,13 @@ export interface MaintenanceConfig {
   firestore?: MaintenanceRuleConfig;
   storage?: MaintenanceRuleConfig;
   useRules?: boolean;
+  settingsPath?: string;
 }
 
 export const startMaintenance = async (config?: MaintenanceConfig) => {
-  await realtime().ref(SETTINGS_PATH).update({ maintenance: true })
+  const settingsPath = (config && config.settingsPath) || SETTINGS_PATH
+
+  await realtime().ref(settingsPath).update({ maintenance: true })
 
   const tasks = []
 
@@ -39,6 +42,8 @@ export const startMaintenance = async (config?: MaintenanceConfig) => {
 }
 
 export const stopMaintenance = async (config?: MaintenanceConfig) => {
+  const settingsPath = (config && config.settingsPath) || SETTINGS_PATH
+
   if (config && config.useRules) {
     const tasks = []
 
@@ -49,13 +54,13 @@ export const stopMaintenance = async (config?: MaintenanceConfig) => {
     await Promise.all(tasks)
   }
 
-  await realtime().ref(SETTINGS_PATH).update({ maintenance: false })
+  await realtime().ref(settingsPath).update({ maintenance: false })
 
   return true
 }
 
-export const isInMaintenance = async () => {
-  const doc = await realtime().ref(SETTINGS_PATH).once('value')
+export const isInMaintenance = async (settingsPath?: string) => {
+  const doc = await realtime().ref(settingsPath || SETTINGS_PATH).once('value')
 
   if (!doc.exists()) return false
 

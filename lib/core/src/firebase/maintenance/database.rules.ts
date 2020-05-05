@@ -1,8 +1,14 @@
 export default `{
   "rules": {
-    "_SETTINGS": {
+    "_settings": {
       ".read": true,
       ".write": false
+    },
+    "_users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": false
+      }
     }
   }
 }`
