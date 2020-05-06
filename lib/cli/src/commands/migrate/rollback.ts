@@ -33,10 +33,12 @@ export default class MigrateRollback extends Command {
     }
 
     if (continueRollback) {
-      this.log(chalk.bold('\nInitializing rollback..\n'))
+      this.log(chalk.bold('\nInitializing rollback..'))
       initAdmin()
 
       await rollback(path.join(this.root, 'database/migrations'), { steps: flags.steps })
+
+      this.log(chalk.bold('\nFinished rollback.\n'))
     }
 
     return

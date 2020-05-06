@@ -36,10 +36,12 @@ export default class Migrate extends Command {
 
     // run migrations
     if (continueMigration) {
-      this.log(chalk.bold('\nInitializing migrations..\n'))
+      this.log(chalk.bold('\nInitializing migrations..'))
       initAdmin()
 
       await migrate(path.join(this.root, 'database/migrations'))
+
+      this.log(chalk.bold('\nFinished migrations.\n'))
     }
 
     return
