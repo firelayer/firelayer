@@ -1,7 +1,7 @@
 import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as fs from 'fs-extra'
-import { storage } from '@firelayer/core/lib/firebase'
+import { storage } from '@firelayer/core'
 import getEnvVariables from './getEnvVariables'
 import initAdmin from './initAdmin'
 import getEnv from './getEnv'

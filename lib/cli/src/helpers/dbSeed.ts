@@ -1,4 +1,4 @@
-import { db, realtime, timestamp, serverTimestamp } from '@firelayer/core/lib/firebase'
+import { db, realtime, timestamp, serverTimestamp } from '@firelayer/core'
 import { prompt } from 'inquirer'
 import * as fs from 'fs-extra'
 import * as path from 'path'

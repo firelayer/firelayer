@@ -1,6 +1,6 @@
 import * as chalk from 'chalk'
 import * as fs from 'fs-extra'
-import { admin } from '@firelayer/core/lib/firebase'
+import { admin } from '@firelayer/core'
 import getEnv from '../helpers/getEnv'
 
 export default () => {

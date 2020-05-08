@@ -1,6 +1,6 @@
-import { flags } from '@oclif/command'
 import Command from '../base'
-import { User } from '@firelayer/core/lib/firebase'
+import { flags } from '@oclif/command'
+import { User } from '@firelayer/core'
 import * as chalk from 'chalk'
 import initAdmin from '../helpers/initAdmin'
 
