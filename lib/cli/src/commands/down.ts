@@ -41,7 +41,7 @@ export default class Down extends Command {
 
         await startMaintenance()
 
-        this.log(chalk.green(`\nApplication is now in maintenance mode (env: ${chalk.bold(this.env)}).\n`))
+        this.log(chalk.yellow(`\nApplication is now in maintenance mode (env: ${chalk.bold(this.env)}).\n`))
         process.exit(0)
       }
     }
