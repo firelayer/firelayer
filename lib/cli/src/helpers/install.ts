@@ -48,10 +48,10 @@ export default async (targetDir, targetVersion, options) => {
           }
         })
       } else {
-        const gitRepo = 'git@github.com:firelayer/firelayer.git'
+        const gitRepo = 'https://github.com/firelayer/firelayer.git'
 
         // choose latest tag version that suits cli version
-        const stdout = (await cmd(`git ls-remote --tags ${gitRepo}`)) as string
+        const stdout = (await cmd(`GIT_TERMINAL_PROMPT=0 git ls-remote --tags ${gitRepo}`)) as string
 
         const versions = stdout.split(/\r?\n/).map((line) => {
           const match = line.match(/tags\/(.*)/)
@@ -74,7 +74,7 @@ export default async (targetDir, targetVersion, options) => {
         fs.removeSync(tmpdir)
         fs.ensureDirSync(tmpdir)
 
-        await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`)
+        await cmd(`GIT_TERMINAL_PROMPT=0 git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`)
 
         // move code to right folder
         fs.copySync(tmpdir, targetDir)
@@ -82,7 +82,7 @@ export default async (targetDir, targetVersion, options) => {
 
         process.chdir(targetDir)
 
-        await cmd(`git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
+        await cmd(`GIT_TERMINAL_PROMPT=0 git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
 
         fs.removeSync(`${targetDir}/.git`)
       }

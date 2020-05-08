@@ -50,14 +50,14 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
       .replace(/[:#]/g, '')
       .replace('.git', ''))
   } else {
-    gitRepo = `git://github.com/firelayer/${name}-template.git`
+    gitRepo = `https://github.com/firelayer/${name}-template.git`
   }
 
   // choose latest tag version that suits cli version
   let stdout = ''
 
   try {
-    stdout = (await cmd(`git ls-remote --tags ${gitRepo}`)) as string
+    stdout = (await cmd(`GIT_TERMINAL_PROMPT=0 git ls-remote --tags ${gitRepo}`)) as string
   } catch (error) {
     const message = `Template not found. Repository: '${gitRepo}' not found.\n`
 
@@ -96,7 +96,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   // fs.removeSync(tempPath)
   // fs.ensureDirSync(tempPath)
 
-  await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tempPath}`)
+  await cmd(`GIT_TERMINAL_PROMPT=0 git clone --branch ${latest} --depth 1 ${gitRepo} ${tempPath}`)
 
   // check if i already have a app with same dir name on my current project
   const newApps = {}
