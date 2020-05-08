@@ -5,6 +5,7 @@ import { storage } from '@firelayer/core'
 import getEnvVariables from './getEnvVariables'
 import initAdmin from './initAdmin'
 import getEnv from './getEnv'
+import logger from '../utils/logger'
 
 export default async () => {
   const envName = getEnv()
@@ -37,7 +38,7 @@ export default async () => {
   try {
     await tasks.run()
   } catch (e) {
-    throw new Error()
+    throw new Error(e)
   }
 
   console.log(`\n🎉  Successfully deployed cors configuration for bucket: '${chalk.bold(storageBucket)}'.\n`)

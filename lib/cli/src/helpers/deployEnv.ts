@@ -38,7 +38,7 @@ export default async () => {
     try {
       await tasks.run()
     } catch (e) {
-      throw new Error()
+      throw new Error(e)
     }
 
     console.log(`\n🎉  Successfully deployed variables, ${chalk.bold('deploy your functions for the change to take effect')}.\n`)

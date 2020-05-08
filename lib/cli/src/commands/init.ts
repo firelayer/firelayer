@@ -5,6 +5,7 @@ import verifyPath from '../helpers/verifyPath'
 import install from '../helpers/install'
 import checkDependencies from '../utils/checkDependencies'
 import cleanString from '../utils/cleanString'
+import logger from '../utils/logger'
 
 export default class Init extends Command {
   static description = 'create a new project'
@@ -44,7 +45,7 @@ export default class Init extends Command {
 
       await install(targetDir, this.config.version, options)
     } catch (error) {
-      this.log(error)
+      logger('init', error)
       this.log(chalk.bold.red('\nError: failed to get boilerplate.\n'))
 
       return

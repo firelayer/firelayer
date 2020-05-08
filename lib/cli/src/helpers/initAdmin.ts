@@ -2,6 +2,7 @@ import * as chalk from 'chalk'
 import * as fs from 'fs-extra'
 import { admin } from '@firelayer/core'
 import getEnv from '../helpers/getEnv'
+import logger from '../utils/logger'
 
 export default () => {
   const env = getEnv()
@@ -34,6 +35,7 @@ export default () => {
   } catch (error) {
     const notFound = env === 'default' ? `key.json or key.${env}.json` : `key.${env}.json`
 
+    logger('init-admin', error)
     console.log(chalk.red(`Failed to get credentials from 'config/keys' > '${chalk.bold(notFound)}'..\n`))
 
     return

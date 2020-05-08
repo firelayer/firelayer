@@ -1,5 +1,6 @@
 import * as chalk from 'chalk'
 import * as firebaseCLI from 'firebase-tools'
+import logger from '../utils/logger'
 
 export default async (command) => {
   let output
@@ -13,11 +14,13 @@ export default async (command) => {
 
         output = await command()
       } catch (loginError) {
-        console.log(chalk.bold.red('\nError: ' + `Please run ${chalk.bold('firebase login')} and try again.\n`))
+        logger('fire-wrap', loginError)
 
+        console.log(chalk.bold.red('\nError: ' + `Please run ${chalk.bold('firebase login')} and try again.\n`))
         process.exit(1)
       }
     } else {
+      logger('fire-wrap', error)
       throw error
     }
   }

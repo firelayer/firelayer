@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
 import * as firebaseCLI from 'firebase-tools'
 import fireWrap from '../helpers/fireWrap'
+import logger from '../utils/logger'
 
 export default class Env extends Command {
   static description = 'change development environment'
@@ -32,8 +33,11 @@ export default class Env extends Command {
       fs.writeFileSync('.firelayer/env', envName)
     } else {
       const notFound = envName === 'default' ? `key.json or key.${envName}.json` : `key.${envName}.json`
+      const message = `\nError: service key '${notFound}' not found in 'config/keys' folder.\n`
 
-      return this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'config/keys' folder.\n`))
+      logger('env', message)
+
+      return this.log(chalk.bold.red(message))
     }
 
     return this.log(chalk.bold.green(`\nDevelopment environment changed to ${envName}.\n`))

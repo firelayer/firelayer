@@ -11,6 +11,7 @@ import cmd from '../utils/cmd'
 import addTemplate from './addTemplate'
 import npmCli from './npmCli'
 import getFirebaseConfig from './getFirebaseConfig'
+import logger from '../utils/logger'
 
 const boilerplateFolder = 'boilerplate'
 
@@ -173,7 +174,6 @@ export default async (targetDir, targetVersion, options) => {
 
     console.log(`\n🎉  Successfully created project ${chalk.yellow(options.name)}.\n`)
   } catch (e) {
-    console.log(e)
     throw new Error(e)
   }
 }

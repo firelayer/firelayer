@@ -3,6 +3,7 @@ import { flags } from '@oclif/command'
 import { User } from '@firelayer/core'
 import * as chalk from 'chalk'
 import initAdmin from '../helpers/initAdmin'
+import logger from '../utils/logger'
 
 export default class Auth extends Command {
   static description = 'users and authentication'
@@ -27,7 +28,7 @@ export default class Auth extends Command {
         try {
           console.log(await user.get())
         } catch (error) {
-          console.log(error.message)
+          logger('auth', error)
           this.log(chalk.red('User not found\n'))
         }
 

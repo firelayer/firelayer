@@ -1,4 +1,3 @@
-/* eslint-disable no-empty */
 /* eslint-disable no-await-in-loop */
 import * as fs from 'fs-extra'
 import * as path from 'path'
@@ -12,6 +11,7 @@ import findRoot from '../utils/findRoot'
 import cmd from '../utils/cmd'
 import cleanString from '../utils/cleanString'
 import getDirectories from '../utils/getDirectories'
+import logger from '../utils/logger'
 
 async function getNameForApp(appName, currentApps) {
   appName = (await prompt({
@@ -59,7 +59,10 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   try {
     stdout = (await cmd(`git ls-remote --tags ${gitRepo}`)) as string
   } catch (error) {
-    console.log(chalk.bold.red('\nError: ') + `Template not found. Repository: '${gitRepo}' not found.\n`)
+    const message = `Template not found. Repository: '${gitRepo}' not found.\n`
+
+    logger('addTemplate', message)
+    console.log(chalk.bold.red('\nError: ') + message)
 
     process.exit(1)
   }
@@ -73,7 +76,13 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   let latest = versions.length > 0 ? versions[versions.length - 1] : ''
 
   if (!latest) {
-    if (!options.silent) console.log(chalk.bold(`Can't find latest version for ${name}-template, using 'master' branch..`))
+    if (!options.silent) {
+      const message = `Can't find latest version for ${name}-template, using 'master' branch..`
+
+      logger('addTemplate', message)
+      console.log(chalk.bold(message))
+    }
+
     latest = 'master'
   }
 
@@ -192,7 +201,9 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
             if (newApps[appName]) {
               hosting.public = hosting.public.replace(appName, newApps[appName])
             }
-          } catch (error) {}
+          } catch (error) {
+            logger('addTemplate', error)
+          }
 
           newTargets.push(hosting.target)
 
@@ -298,7 +309,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
 
       await tasksDependencies.run()
     } catch (e) {
-      console.log(e)
+      logger('addTemplate', e)
       throw new Error(e)
     }
   }
