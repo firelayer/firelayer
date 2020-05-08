@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import * as firebase from 'firebase/app'
-import { db, timestamp, serverTimestamp } from '../../core'
+import { db, timestamp, serverTimestamp } from './core'
 
 type CollectionReference = firebase.firestore.CollectionReference;
 type DocumentReference = firebase.firestore.DocumentReference;
