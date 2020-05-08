@@ -18,7 +18,7 @@ EXAMPLE
   $ firelayer db:seed
 ```
 
-_See code: [dist/commands/db/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/db/index.ts)_
+_See code: [dist/commands/db/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/db/index.ts)_
 
 ## `firelayer db:seed`
 
@@ -32,4 +32,4 @@ EXAMPLE
   $ firelayer db:seed
 ```
 
-_See code: [dist/commands/db/seed.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/db/seed.ts)_
+_See code: [dist/commands/db/seed.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/db/seed.ts)_

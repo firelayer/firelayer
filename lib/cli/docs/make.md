@@ -21,7 +21,7 @@ EXAMPLE
      $ firelayer make:model Post
 ```
 
-_See code: [dist/commands/make/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/make/index.ts)_
+_See code: [dist/commands/make/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/make/index.ts)_
 
 ## `firelayer make:migration NAME`
 
@@ -35,7 +35,7 @@ EXAMPLE
   $ firelayer make:migration create_posts
 ```
 
-_See code: [dist/commands/make/migration.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/make/migration.ts)_
+_See code: [dist/commands/make/migration.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/make/migration.ts)_
 
 ## `firelayer make:model NAME`
 
@@ -49,4 +49,4 @@ EXAMPLE
   $ firelayer make:model create_posts
 ```
 
-_See code: [dist/commands/make/model.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/make/model.ts)_
+_See code: [dist/commands/make/model.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/make/model.ts)_

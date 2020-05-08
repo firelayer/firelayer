@@ -24,7 +24,7 @@ EXAMPLE
      $ firelayer migrate:rollback --steps 2
 ```
 
-_See code: [dist/commands/migrate/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/migrate/index.ts)_
+_See code: [dist/commands/migrate/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/migrate/index.ts)_
 
 ## `firelayer migrate:rollback`
 
@@ -43,4 +43,4 @@ EXAMPLE
   $ firelayer migrate:rollback --steps 1
 ```
 
-_See code: [dist/commands/migrate/rollback.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.13/dist/commands/migrate/rollback.ts)_
+_See code: [dist/commands/migrate/rollback.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.14/dist/commands/migrate/rollback.ts)_
