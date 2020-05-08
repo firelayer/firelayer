@@ -6,7 +6,7 @@ import getEnv from '../helpers/getEnv'
 export default () => {
   const env = getEnv()
 
-  const envFile = `./config/keys/${env}.key.json`
+  const envFile = `./config/keys/key.${env}.json`
   const defaultFile = './config/keys/key.json'
   const globalAppFile = `./config/app.${env}.json`
   const globalDefaultFile = './config/app.json'
@@ -32,7 +32,7 @@ export default () => {
     credentials = JSON.parse(envContent)
 
   } catch (error) {
-    const notFound = env === 'default' ? `key.json or ${env}.key.json` : `${env}.key.json`
+    const notFound = env === 'default' ? `key.json or key.${env}.json` : `key.${env}.json`
 
     console.log(chalk.red(`Failed to get credentials from 'config/keys' > '${chalk.bold(notFound)}'..\n`))
 

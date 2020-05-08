@@ -19,7 +19,7 @@ export default class Env extends Command {
       return this.log(`\nCurrent environment: ${chalk.bold.cyan(this.env)}\n`)
     }
 
-    const envFile = `./config/keys/${envName}.key.json`
+    const envFile = `./config/keys/key.${envName}.json`
 
     if (fs.existsSync(envFile) || (envName === 'default' && fs.existsSync('./config/keys/key.json'))) {
       this.log(`Setting firebase alias with '${chalk.bold(`firebase use ${envName}`)}'..`)
@@ -31,7 +31,7 @@ export default class Env extends Command {
       fs.mkdirSync('.firelayer', { recursive: true })
       fs.writeFileSync('.firelayer/env', envName)
     } else {
-      const notFound = envName === 'default' ? `key.json or ${envName}.key.json` : `${envName}.key.json`
+      const notFound = envName === 'default' ? `key.json or key.${envName}.json` : `key.${envName}.json`
 
       return this.log(chalk.bold.red(`\nError: service key '${notFound}' not found in 'config/keys' folder.\n`))
     }

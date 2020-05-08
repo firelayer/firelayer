@@ -19,7 +19,7 @@ export default class Run extends Command {
     /**
      * Find current environment path to service key file
      */
-    const keyFile = `./config/keys/${this.env}.key.json`
+    const keyFile = `./config/keys/key.${this.env}.json`
     const defaultKeyFile = './config/keys/key.json'
 
     let keyPath = ''
@@ -31,7 +31,7 @@ export default class Run extends Command {
     }
 
     if (!keyPath) {
-      const notFound = this.env === 'default' ? `key.json or ${this.env}.key.json` : `${this.env}.key.json`
+      const notFound = this.env === 'default' ? `key.json or key.${this.env}.json` : `key.${this.env}.json`
 
       this.log(chalk.bold(`\nFailed to get credentials from 'config/keys' > '${notFound}'\n`))
       process.exit(0)

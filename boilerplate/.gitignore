@@ -9,7 +9,7 @@ node_modules
 .DS_Store
 Thumbs.db
 key.json
-*.key.json
+key.*.json
 env*.json
 app.json
 !*dist.json
