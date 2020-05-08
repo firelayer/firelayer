@@ -11,7 +11,10 @@ export default async (): Promise<any> => {
     console.log(chalk.bold('\nNo Firebase projects found.\n'))
 
     console.log(`A Firebase project is needed to continue. Please run ${chalk.bold.cyan('firebase project:create')} or`)
+
     console.log(`Go to the Firebase console ${chalk.bold.cyan('https://console.firebase.google.com')} and create a project there.\n`)
+
+    console.log(`\nCheckout the guide on Setting Up Firebase -> ${chalk.bold.cyan('https://firelayer.io/docs/setting-up-firebase')}\n`)
 
     return process.exit(1)
     // const { confirm } = await prompt({

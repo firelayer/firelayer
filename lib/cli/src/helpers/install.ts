@@ -11,7 +11,6 @@ import cmd from '../utils/cmd'
 import addTemplate from './addTemplate'
 import npmCli from './npmCli'
 import getFirebaseConfig from './getFirebaseConfig'
-import logger from '../utils/logger'
 
 const boilerplateFolder = 'boilerplate'
 
