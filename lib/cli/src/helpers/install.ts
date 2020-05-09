@@ -21,7 +21,7 @@ export default async (targetDir, targetVersion, options) => {
   let isDev = false
 
   if (fs.existsSync(rootPackage)) {
-    isDev = false //(await import(rootPackage)).name === '@firelayer/root'
+    isDev = (await import(rootPackage)).name === '@firelayer/root'
   }
 
   const firebaseConfig = await getFirebaseConfig()
