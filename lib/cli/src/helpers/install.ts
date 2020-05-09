@@ -82,7 +82,7 @@ export default async (targetDir, targetVersion, options) => {
 
         process.chdir(targetDir)
 
-        await cmd(`GIT_TERMINAL_PROMPT=0 git filter-branch --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
+        await cmd(`GIT_TERMINAL_PROMPT=0 git filter-branch --force --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
 
         fs.removeSync(`${targetDir}/.git`)
       }
