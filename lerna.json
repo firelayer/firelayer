@@ -4,8 +4,7 @@
   "useWorkspaces": true,
   "registry": "https://registry.npmjs.org",
   "packages": [
-    "lib/*",
-    "boilerplate"
+    "lib/*"
   ],
   "command": {
     "publish": {
