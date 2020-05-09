@@ -21,7 +21,7 @@ export default async (targetDir, targetVersion, options) => {
   let isDev = false
 
   if (fs.existsSync(rootPackage)) {
-    isDev = (await import(rootPackage)).name === '@firelayer/root'
+    isDev = false //(await import(rootPackage)).name === '@firelayer/root'
   }
 
   const firebaseConfig = await getFirebaseConfig()
@@ -52,7 +52,9 @@ export default async (targetDir, targetVersion, options) => {
         const gitRepo = 'https://github.com/firelayer/firelayer.git'
 
         // choose latest tag version that suits cli version
-        const stdout = (await cmd(`GIT_TERMINAL_PROMPT=0 git ls-remote --tags ${gitRepo}`)) as string
+        const stdout = (await cmd(`git ls-remote --tags ${gitRepo}`, {}, {
+          'GIT_TERMINAL_PROMPT': '0'
+        })) as string
 
         const versions = stdout.split(/\r?\n/).map((line) => {
           const match = line.match(/tags\/(.*)/)
@@ -74,7 +76,9 @@ export default async (targetDir, targetVersion, options) => {
         fs.removeSync(tmpdir)
         fs.ensureDirSync(tmpdir)
 
-        await cmd(`GIT_TERMINAL_PROMPT=0 git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`)
+        await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`, {}, {
+          'GIT_TERMINAL_PROMPT': '0'
+        })
 
         // copy boilerplate code to target directory
         fs.copySync(path.join(tmpdir, boilerplateFolder), targetDir, { overwrite: true })
