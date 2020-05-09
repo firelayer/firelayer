@@ -1,6 +1,6 @@
 {
   "name": "firelayer",
-  "version": "1.0.0-alpha.16",
+  "version": "1.0.0-alpha.17",
   "description": "Firelayer's CLI - Jump-start your Firebase Web Project",
   "keywords": [
     "firelayer",
@@ -27,7 +27,7 @@
     "start": "firelayer"
   },
   "dependencies": {
-    "@firelayer/cli": "^1.0.0-alpha.16"
+    "@firelayer/cli": "^1.0.0-alpha.17"
   },
   "publishConfig": {
     "access": "public"

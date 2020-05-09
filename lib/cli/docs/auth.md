@@ -22,4 +22,4 @@ EXAMPLE
   $ firelayer auth -u johndoe@doejohn.doe --set-admin
 ```
 
-_See code: [dist/commands/auth.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.16/dist/commands/auth.ts)_
+_See code: [dist/commands/auth.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.17/dist/commands/auth.ts)_
