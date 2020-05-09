@@ -11,6 +11,7 @@ import cmd from '../utils/cmd'
 import addTemplate from './addTemplate'
 import npmCli from './npmCli'
 import getFirebaseConfig from './getFirebaseConfig'
+import logger from '../utils/logger'
 
 const boilerplateFolder = 'boilerplate'
 
@@ -62,9 +63,8 @@ export default async (targetDir, targetVersion, options) => {
         let latest = versions.reverse().find((version) => semver.satisfies(version, `^${targetVersion}`))
 
         if (!latest) {
-          // console.log(
-          //   chalk.bold(`Boilerplate version for @firelayer/cli v${targetVersion} not found, using 'master' branch..`)
-          // )
+          logger('install', `Boilerplate version for @firelayer/cli v${targetVersion} not found, using 'master' branch..`)
+          logger('install', versions)
           latest = 'master'
         }
 
@@ -76,15 +76,9 @@ export default async (targetDir, targetVersion, options) => {
 
         await cmd(`GIT_TERMINAL_PROMPT=0 git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`)
 
-        // move code to right folder
-        fs.copySync(tmpdir, targetDir)
+        // copy boilerplate code to target directory
+        fs.copySync(path.join(tmpdir, boilerplateFolder), targetDir, { overwrite: true })
         fs.removeSync(tmpdir)
-
-        process.chdir(targetDir)
-
-        await cmd(`GIT_TERMINAL_PROMPT=0 git filter-branch --force --prune-empty --subdirectory-filter ${boilerplateFolder} HEAD`)
-
-        fs.removeSync(`${targetDir}/.git`)
       }
 
       process.chdir(targetDir)
