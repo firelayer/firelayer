@@ -5,6 +5,7 @@ import * as chalk from 'chalk'
 import * as Listr from 'listr'
 import * as semver from 'semver'
 import * as glob from 'glob'
+import * as open from 'open'
 import { prompt } from 'inquirer'
 import ignore from 'ignore'
 import cmd from '../utils/cmd'
@@ -28,6 +29,8 @@ export default async (targetDir, targetVersion, options) => {
 
   // check npm package managers
   const npmcli = await npmCli()
+
+  let templateFn = ({ chalk, open, logger, prompt, targetDir }) => {}
 
   const tasks = new Listr([{
     title: 'Creating project',
@@ -134,7 +137,7 @@ export default async (targetDir, targetVersion, options) => {
     task: async () => {
       process.chdir(targetDir)
 
-      await addTemplate(options.template)
+      templateFn = await addTemplate(options.template)
     }
   }])
 
@@ -164,6 +167,9 @@ export default async (targetDir, targetVersion, options) => {
     }])
 
     await tasksDependencies.run()
+
+    // run template post install script
+    await templateFn({ chalk, open, logger, prompt, targetDir })
 
     console.log(chalk.bold(`\nDon't forget to verify hosting properties in '${chalk.cyan('firebase.json')}' and targets on '${chalk.cyan('.firebaserc')}'`))
     console.log(chalk.bold('\nIn order to use the Admin SDK you will need the service account key. See More:'))

@@ -95,9 +95,6 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   // delete clone
   fs.removeSync(tempPath)
 
-  // fs.removeSync(tempPath)
-  // fs.ensureDirSync(tempPath)
-
   await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tempPath}`, {}, {
     'GIT_TERMINAL_PROMPT': '0'
   })
@@ -291,6 +288,17 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
     }
   }
 
+  // get firelayer.js
+  let templateFn = () => {}
+
+  if (fs.existsSync(`${tempPath}/firelayer.js`)) {
+    try {
+      templateFn = require(`${tempPath}/firelayer.js`)
+    } catch (error) {
+      logger('addTemplate', error)
+    }
+  }
+
   // delete clone
   fs.removeSync(tempPath)
 
@@ -320,5 +328,5 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
 
   if (!options.silent) console.log(chalk.bold.cyan('\nDon\'t forget to verify hosting properties in \'firebase.json\' and targets on \'.firebaserc\'\n'))
 
-  return
+  return templateFn
 }
