@@ -273,7 +273,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   fs.ensureDirSync('./database/migrations')
 
   glob.sync(`${tempPath}/database/migrations/*`).forEach((file) => {
-    fs.copyFileSync(file, file.replace(`${tempPath}/`, './'))
+    fs.copyFileSync(file, path.join('./database/migrations', path.basename(file)))
   })
 
   // copy rules
