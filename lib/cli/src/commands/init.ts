@@ -15,7 +15,7 @@ export default class Init extends Command {
   static flags = {
     help: flags.help({ char: 'h' }),
     skip: flags.boolean({ char: 's', description: 'skip install deps' }),
-    template: flags.string({ char: 't', description: 'skip install deps', default: 'starter' })
+    template: flags.string({ char: 't', description: 'template to install', default: 'starter' })
   }
 
   static args = [{ name: 'name' }]
