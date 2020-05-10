@@ -1,5 +1,6 @@
 import { JavascriptModel, TypescriptModel } from '@firelayer/core/lib/firebase/firestore'
 import * as fs from 'fs-extra'
+import * as path from 'path'
 import * as chalk from 'chalk'
 import { prompt } from 'inquirer'
 import getDirectories from '../utils/getDirectories'
@@ -15,7 +16,7 @@ export default async (name?) => {
 
   const model = name.charAt(0).toUpperCase() + name.slice(1)
 
-  const applications = getDirectories('./apps').map((a) => a.replace('apps/', ''))
+  const applications = getDirectories('./apps').map((app) => path.basename(app))
 
   const choices = applications.map((app) => ({
     name: app
