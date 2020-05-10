@@ -1,9 +1,9 @@
-import Command from '../base'
+import Command from '../../base'
 import { flags } from '@oclif/command'
 import { User } from '@firelayer/core'
 import * as chalk from 'chalk'
-import initAdmin from '../helpers/initAdmin'
-import logger from '../utils/logger'
+import initAdmin from '../../helpers/initAdmin'
+import logger from '../../utils/logger'
 
 export default class Auth extends Command {
   static description = 'users and authentication'
