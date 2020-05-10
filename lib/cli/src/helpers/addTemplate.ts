@@ -139,17 +139,25 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
 
   // copy new apps into current project
   for (const app in newApps) {
+    const appName = newApps[app]
+
     // copy new app
     fs.ensureDirSync('./apps')
-    fs.copySync(`${tempPath}/apps/${app}`, `./apps/${newApps[app]}`, { overwrite: true })
+    fs.copySync(`${tempPath}/apps/${app}`, `./apps/${appName}`, { overwrite: true })
 
     // copy/create configs for that app
-    fs.ensureDirSync(`./config/${newApps[app]}`)
-    fs.copySync(`${tempPath}/config/${app}/env.dist.json`, `./config/${newApps[app]}/env.dist.json`, { overwrite: true })
-    fs.copySync(`${tempPath}/config/${app}/env.dist.json`, `./config/${newApps[app]}/env.json`, { overwrite: true })
+    fs.ensureDirSync(`./config/${appName}`)
+    fs.copySync(`${tempPath}/config/${app}/env.dist.json`, `./config/${appName}/env.dist.json`, { overwrite: true })
+    fs.copySync(`${tempPath}/config/${app}/env.dist.json`, `./config/${appName}/env.json`, { overwrite: true })
 
-    if (!packageJSON.scripts[`dev:${newApps[app]}`]) packageJSON.scripts[`dev:${newApps[app]}`] = `firelayer run "cd apps/${newApps[app]} && npm run dev"`
-    if (!packageJSON.scripts[`build:${newApps[app]}`]) packageJSON.scripts[`build:${newApps[app]}`] = `firelayer run "cd apps/${newApps[app]} && npm run build"`
+    if (!packageJSON.scripts[`dev:${appName}`]) packageJSON.scripts[`dev:${appName}`] = `firelayer run "cd apps/${appName} && npm run dev"`
+    if (!packageJSON.scripts[`build:${appName}`]) packageJSON.scripts[`build:${appName}`] = `firelayer run "cd apps/${appName} && npm run build"`
+
+    if (appName === 'functions') {
+      if (!packageJSON.scripts['deploy:functions']) packageJSON.scripts['deploy:functions'] = 'npm run build:functions && firebase deploy --only functions'
+    } else {
+      if (!packageJSON.scripts[`deploy:${appName}`]) packageJSON.scripts[`deploy:${appName}`] = `npm run build:${appName} && firebase deploy --only hosting:${appName}`
+    }
 
     const scripts = {}
 
