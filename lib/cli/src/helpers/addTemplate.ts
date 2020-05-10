@@ -103,8 +103,8 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   const newApps = {}
   const currentApps = {}
 
-  getDirectories(`${tempPath}/apps`).forEach((app) => { app = app.replace(`${tempPath}/apps/`, ''); newApps[app] = app })
-  getDirectories('./apps').forEach((app) => { app = app.replace('apps/', ''); currentApps[app] = app })
+  getDirectories(`${tempPath}/apps`).forEach((app) => { app = path.basename(app); newApps[app] = app })
+  getDirectories('./apps').forEach((app) => { app = path.basename(app); currentApps[app] = app })
 
   let overwritingFunctions = false
 
