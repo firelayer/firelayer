@@ -47,7 +47,10 @@ And initialize a new project:
 firelayer init new-project
 ```
 
-Once it's installed, you can `cd new-project` and `yarn dev` and it will run the development servers on your local machine. 
+Once it's installed, you can `cd new-project` and `npm run dev` or `yarn dev` and it will run the development servers on your local machine. 
+
+Start with other templates
+- [https://firelayer.io/templates](https://firelayer.io/templates)
 
 ## Community
 
