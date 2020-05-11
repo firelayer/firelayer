@@ -17,4 +17,4 @@ EXAMPLE
   $ firelayer env default
 ```
 
-_See code: [dist/commands/env.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.20/dist/commands/env.ts)_
+_See code: [dist/commands/env.ts](https://github.com/firelayer/firelayer/blob/v1.0.0-alpha.21/dist/commands/env.ts)_

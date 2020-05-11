@@ -1,6 +1,6 @@
 {
   "name": "@firelayer/cli",
-  "version": "1.0.0-alpha.20",
+  "version": "1.0.0-alpha.21",
   "description": "Firelayer's CLI - Jump-start your Firebase Web Project",
   "keywords": [
     "firelayer",
