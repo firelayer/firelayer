@@ -5,7 +5,7 @@ exports = class MODEL_NAME extends Firemodel {
     super(id)
   }
 
-  get path() {
+  get collection() {
     // REPLACE _ with correct path to collection
     return db().collection('_')
   }
@@ -21,7 +21,7 @@ export class MODEL_NAME extends Firemodel {
     super(id)
   }
 
-  get path() {
+  get collection() {
     // REPLACE _ with correct path to collection
     return db().collection('_')
   }
