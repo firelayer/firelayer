@@ -56,13 +56,22 @@ export class Firemodel {
 
   async save(data) {
     const serverStamp = serverTimestamp()
-    const copy = JSON.parse(JSON.stringify(data))
 
-    delete copy.createdAt
+    // so we don't have to trigger a .get() just to see the new stamps
+    const emulatedStamp = timestamp()
 
     if (this.id) {
-      // @ts-ignore
-      const { writeTime } = await this.doc.update({
+      // omit createdAt
+      const copy = {}
+      const keys = Object.keys(data)
+
+      for (let i = 0, len = keys.length; i < len; i++) {
+        const key = keys[i]
+
+        if (key !== 'createdAt') copy[key] = data[key]
+      }
+
+      await this.doc.update({
         ...copy,
         updatedAt: serverStamp
       })
@@ -70,7 +79,7 @@ export class Firemodel {
       this.data = {
         ...this.data,
         ...data,
-        updatedAt: writeTime
+        updatedAt: emulatedStamp
       }
     } else {
       const result = await this.collection.add({
@@ -78,9 +87,6 @@ export class Firemodel {
         createdAt: serverStamp,
         updatedAt: serverStamp
       })
-
-      // so we don't have to trigger a .get() just to see the new stamps
-      const emulatedStamp = timestamp()
 
       this.id = result.id
       this.data = {

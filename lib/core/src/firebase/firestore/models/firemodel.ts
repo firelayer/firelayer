@@ -55,11 +55,18 @@ export class Firemodel {
 
   async save(data) {
     const serverStamp = serverTimestamp()
-    const copy = JSON.parse(JSON.stringify(data))
-
-    delete copy.createdAt
 
     if (this.id) {
+      // omit createdAt
+      const copy = {}
+      const keys = Object.keys(data)
+
+      for (let i = 0, len = keys.length; i < len; i++) {
+        const key = keys[i]
+
+        if (key !== 'createdAt') copy[key] = data[key]
+      }
+
       const { writeTime } = await this.doc.update({
         ...copy,
         updatedAt: serverStamp
