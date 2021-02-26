@@ -11,6 +11,8 @@ users and authentication
 users and authentication
 
 ```
+users and authentication
+
 USAGE
   $ firelayer auth
 
@@ -23,13 +25,15 @@ EXAMPLE
   $ firelayer auth -u johndoe@doejohn.doe --set-admin
 ```
 
-_See code: [dist/commands/auth/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0/dist/commands/auth/index.ts)_
+_See code: [dist/commands/auth/index.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/auth/index.ts)_
 
 ## `firelayer auth:add`
 
 users and authentication
 
 ```
+users and authentication
+
 USAGE
   $ firelayer auth:add
 
@@ -42,4 +46,4 @@ EXAMPLE
   $ firelayer auth:add -u johndoe@doejohn.doe -p password123
 ```
 
-_See code: [dist/commands/auth/add.ts](https://github.com/firelayer/firelayer/blob/v1.0.0/dist/commands/auth/add.ts)_
+_See code: [dist/commands/auth/add.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/auth/add.ts)_

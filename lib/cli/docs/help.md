@@ -10,6 +10,8 @@ display help for firelayer
 display help for firelayer
 
 ```
+display help for <%= config.bin %>
+
 USAGE
   $ firelayer help [COMMAND]
 

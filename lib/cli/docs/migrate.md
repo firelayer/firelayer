@@ -11,6 +11,8 @@ run migrations
 run migrations
 
 ```
+run migrations
+
 USAGE
   $ firelayer migrate
 
@@ -24,13 +26,15 @@ EXAMPLE
      $ firelayer migrate:rollback --steps 2
 ```
 
-_See code: [dist/commands/migrate/index.ts](https://github.com/firelayer/firelayer/blob/v1.0.0/dist/commands/migrate/index.ts)_
+_See code: [dist/commands/migrate/index.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/migrate/index.ts)_
 
 ## `firelayer migrate:rollback`
 
 rollback migrations
 
 ```
+rollback migrations
+
 USAGE
   $ firelayer migrate:rollback
 
@@ -43,4 +47,4 @@ EXAMPLE
   $ firelayer migrate:rollback --steps 1
 ```
 
-_See code: [dist/commands/migrate/rollback.ts](https://github.com/firelayer/firelayer/blob/v1.0.0/dist/commands/migrate/rollback.ts)_
+_See code: [dist/commands/migrate/rollback.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/migrate/rollback.ts)_
