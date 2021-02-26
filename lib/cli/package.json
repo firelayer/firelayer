@@ -9,7 +9,7 @@
     "firebase",
     "cli"
   ],
-  "homepage": "https://github.com/firelayer/firelayer/tree/master/lib/cli",
+  "homepage": "https://firelayer.io",
   "bugs": {
     "url": "https://github.com/firelayer/firelayer/issues"
   },
@@ -41,7 +41,7 @@
     "deepmerge": "^4.2.2",
     "envinfo": "^7.5.0",
     "find-up": "^4.1.0",
-    "firebase-tools": "^8.2.0",
+    "firebase-tools": "^9.5.0",
     "fs-extra": "^9.0.0",
     "glob": "^7.1.6",
     "ignore": "^5.1.4",
@@ -49,7 +49,7 @@
     "listr": "^0.14.3",
     "open": "^7.0.3",
     "semver": "^7.1.3",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.4",
     "tslib": "^1"
   },
   "devDependencies": {

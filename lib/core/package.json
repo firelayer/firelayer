@@ -6,7 +6,7 @@
     "firelayer",
     "firebase"
   ],
-  "homepage": "https://github.com/firelayer/firelayer/tree/master/lib/core",
+  "homepage": "https://firelayer.io",
   "bugs": {
     "url": "https://github.com/firelayer/firelayer/issues"
   },
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "dependencies": {
-    "firebase-admin": "8.11.0",
-    "firebase-functions": "^3.6.0"
+    "firebase-admin": "^9.5.0",
+    "firebase-functions": "^3.13.2"
   }
 }

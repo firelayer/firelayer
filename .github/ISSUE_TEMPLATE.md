@@ -1,7 +1,14 @@
-### I'm submitting a ...
-<!--  (check one with "x") -->
-[ ] Bug Report
-[ ] Feature Request
+### I'm submitting a Bug Report
+
+### `firelayer-debug.log` and CLI `firelayer info` output: 
+<!-- (run `firelayer info` from a terminal/cmd prompt and paste output below): -->
+```
+insert the content of firelayer-debug.log if relevant
+```
+
+```
+insert the output from firelayer info here
+```
 
 ### Current behavior:
 <!-- Describe how the bug manifests. -->
@@ -14,10 +21,3 @@
 
 ### Other information:
 <!-- List any other information that is relevant to your issue. Stack traces, related issues, suggestions on how to fix, Stack Overflow links, forum links, etc. -->
-
-### CLI `firelayer info` output: 
-<!-- (run `firelayer info` from a terminal/cmd prompt and paste output below): -->
-
-```
-insert the output from firelayer info here
-```

@@ -9,7 +9,7 @@
     "firebase",
     "cli"
   ],
-  "homepage": "https://github.com/firelayer/firelayer/tree/master/lib/cli",
+  "homepage": "https://firelayer.io",
   "bugs": {
     "url": "https://github.com/firelayer/firelayer/issues"
   },
