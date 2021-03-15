@@ -45,7 +45,7 @@ export default class Run extends Command {
 
     await spawner(command, {
       cwd: this.cwd,
-      env
+      env,
     })
 
     return

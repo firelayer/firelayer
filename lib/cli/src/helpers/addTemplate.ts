@@ -17,7 +17,7 @@ async function getNameForApp(appName, currentApps) {
   appName = (await prompt({
     type: 'input',
     name: 'input',
-    message: `Application name '${appName}' is already taken, please choose a different name:`
+    message: `Application name '${appName}' is already taken, please choose a different name:`,
   })).input
 
   appName = cleanString(appName)
@@ -34,7 +34,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
     name = (await prompt({
       type: 'input',
       name: 'input',
-      message: 'What\'s the name or git repository of the template ? (ex: starter)'
+      message: 'What\'s the name or git repository of the template ? (ex: starter)',
     })).input
   }
 
@@ -58,7 +58,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
 
   try {
     stdout = (await cmd(`git ls-remote --tags ${gitRepo}`, {}, {
-      'GIT_TERMINAL_PROMPT': '0'
+      'GIT_TERMINAL_PROMPT': '0',
     })) as string
   } catch (error) {
     const message = `Template not found. Repository: '${gitRepo}' not found.\n`
@@ -96,7 +96,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
   fs.removeSync(tempPath)
 
   await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tempPath}`, {}, {
-    'GIT_TERMINAL_PROMPT': '0'
+    'GIT_TERMINAL_PROMPT': '0',
   })
 
   // check if i already have a app with same dir name on my current project
@@ -115,7 +115,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
           type: 'confirm',
           name: 'confirm',
           default: false,
-          message: 'You can only have one \'functions\' app, do you want to overwrite the current one ?'
+          message: 'You can only have one \'functions\' app, do you want to overwrite the current one ?',
         })
 
         overwritingFunctions = quiz.confirm
@@ -252,7 +252,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
       const defaultName = currentJSON.projects.default
 
       const newDefaultHostingTargets = {
-        targets: {}
+        targets: {},
       }
 
       newDefaultHostingTargets.targets[defaultName] = { hosting: {} }
@@ -262,7 +262,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
       })
 
       const newFirebaseRC = deepmerge(currentJSON, newDefaultHostingTargets, {
-        arrayMerge: (destinationArray, sourceArray, options) => sourceArray
+        arrayMerge: (destinationArray, sourceArray, options) => sourceArray,
       })
 
       fs.writeFileSync('./.firebaserc', JSON.stringify(newFirebaseRC, null, 2))
@@ -283,7 +283,7 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
         type: 'confirm',
         name: 'confirm',
         default: false,
-        message: 'Do you want to overwrite current rules ? \n (if not, a folder inside rules \'TO_MERGE\' will be made for manual merge)'
+        message: 'Do you want to overwrite current rules ? \n (if not, a folder inside rules \'TO_MERGE\' will be made for manual merge)',
       })
 
       if (confirm) {
@@ -318,13 +318,13 @@ export default async (name = '', options = { silent: true, dependenciesPrompt: f
         type: 'confirm',
         name: 'confirm',
         default: true,
-        message: 'Install dependencies?'
+        message: 'Install dependencies?',
       })
 
       const tasksDependencies = new Listr([{
         title: 'Installing dependencies',
         skip: () => !confirm,
-        task: () => cmd('npm run bootstrap')
+        task: () => cmd('npm run bootstrap'),
       }])
 
       await tasksDependencies.run()

@@ -15,14 +15,14 @@ export default async () => {
   if (npmClients.length === 1) return 'npm'
 
   const choices = npmClients.map((client) => ({
-    name: client
+    name: client,
   }))
 
   const { npmclient } = await prompt([{
     type: 'list',
     name: 'npmclient',
     message: 'Select which package manager to use in this project:',
-    choices
+    choices,
   }])
 
   return npmclient

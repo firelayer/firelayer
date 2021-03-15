@@ -97,7 +97,7 @@ export class User {
 
       newClaims = {
         ...customClaims,
-        ...claims
+        ...claims,
       }
     } else {
       newClaims = claims
@@ -112,7 +112,7 @@ export class User {
 
   async setAdmin(isAdmin = false) {
     return this.setClaims({
-      admin: isAdmin ? 1 : undefined
+      admin: isAdmin ? 1 : undefined,
     }, true)
   }
 
@@ -120,7 +120,7 @@ export class User {
     if (this.idType !== 'uid') await this.get()
 
     return await this.update({
-      disabled
+      disabled,
     })
   }
 

@@ -38,8 +38,8 @@ export default (env): any => {
       name,
       config: JSON.stringify({
         ...globalConfig,
-        ...config
-      })
+        ...config,
+      }),
     }
   })
 

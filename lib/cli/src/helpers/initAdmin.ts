@@ -44,6 +44,6 @@ export default () => {
   admin.initializeApp({
     credential: admin.credential.cert(credentials),
     databaseURL: globalConfig.firebase.databaseURL,
-    storageBucket: globalConfig.firebase.storageBucket
+    storageBucket: globalConfig.firebase.storageBucket,
   })
 }

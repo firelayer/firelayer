@@ -13,7 +13,7 @@ export default class Auth extends Command {
   static flags = {
     help: flags.help({ char: 'h' }),
     user: flags.string({ char: 'u', description: 'user uid, email or phone number' }),
-    'set-admin': flags.boolean({ description: 'set user as admin' })
+    'set-admin': flags.boolean({ description: 'set user as admin' }),
   }
 
   async run() {

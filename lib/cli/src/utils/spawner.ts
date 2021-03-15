@@ -13,7 +13,7 @@ export default (command, opts = { cwd: undefined, env: undefined }) => {
           stdio: 'inherit',
           shell: true,
           env: opts.env,
-          windowsVerbatimArguments: true
+          windowsVerbatimArguments: true,
         })
       } else {
         const commandParsed = argParser(command)
@@ -22,7 +22,7 @@ export default (command, opts = { cwd: undefined, env: undefined }) => {
           cwd: opts.cwd,
           stdio: 'inherit',
           shell: true,
-          env: opts.env
+          env: opts.env,
         })
       }
 

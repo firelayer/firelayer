@@ -52,7 +52,7 @@ export async function migrate(migrationsFolder: string, options: MigrateConfig =
       console.timeEnd(`Migrated ${name}`)
 
       await mdb.doc(name).set({
-        migratedAt: serverTimestamp()
+        migratedAt: serverTimestamp(),
       })
 
     } catch (error) {

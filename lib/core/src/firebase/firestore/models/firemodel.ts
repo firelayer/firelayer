@@ -7,7 +7,7 @@ type DocumentSnapshot = admin.firestore.DocumentSnapshot
 
 export class Firemodel {
   id: string
-  data: object
+  data: Record<string, unknown>
   snapshot: DocumentSnapshot
 
   constructor(id?) {
@@ -40,14 +40,14 @@ export class Firemodel {
     const { writeTime } = await this.collection.doc(id).set({
       ...data,
       createdAt: serverStamp,
-      updatedAt: serverStamp
+      updatedAt: serverStamp,
     })
 
     this.id = id
     this.data = {
       ...data,
       createdAt: writeTime,
-      updatedAt: writeTime
+      updatedAt: writeTime,
     }
 
     return this
@@ -69,19 +69,19 @@ export class Firemodel {
 
       const { writeTime } = await this.doc.update({
         ...copy,
-        updatedAt: serverStamp
+        updatedAt: serverStamp,
       })
 
       this.data = {
         ...this.data,
         ...data,
-        updatedAt: writeTime
+        updatedAt: writeTime,
       }
     } else {
       const result = await this.collection.add({
         ...data,
         createdAt: serverStamp,
-        updatedAt: serverStamp
+        updatedAt: serverStamp,
       })
 
       // so we don't have to trigger a .get() just to see the new stamps
@@ -91,7 +91,7 @@ export class Firemodel {
       this.data = {
         ...data,
         createdAt: emulatedStamp,
-        updatedAt: emulatedStamp
+        updatedAt: emulatedStamp,
       }
     }
 

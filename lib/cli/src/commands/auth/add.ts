@@ -13,7 +13,7 @@ export default class AuthAdd extends Command {
   static flags = {
     help: flags.help({ char: 'h' }),
     email: flags.string({ char: 'u', description: 'user email', required: true }),
-    password: flags.string({ char: 'p', description: 'user password', required: true })
+    password: flags.string({ char: 'p', description: 'user password', required: true }),
   }
 
   async run() {
@@ -33,7 +33,7 @@ export default class AuthAdd extends Command {
     try {
       console.log(await user.create({
         email,
-        password
+        password,
       }))
     } catch (error) {
       logger('auth', error)

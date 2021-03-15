@@ -7,7 +7,7 @@ export const backup = async (projectId: string, bucketUrl: string, collectionIds
     const responses = await client.exportDocuments({
       name: databaseName,
       outputUriPrefix: bucketUrl,
-      collectionIds
+      collectionIds,
     })
 
     const { 0: response } = responses
@@ -28,7 +28,7 @@ export const restore = async (projectId: string, bucketUrl: string, collectionId
     const responses = await client.importDocuments({
       name: databaseName,
       inputUriPrefix: bucketUrl,
-      collectionIds
+      collectionIds,
     })
 
     const { 0: response } = responses

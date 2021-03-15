@@ -1,4 +1,4 @@
-export default (string) => string
+export default (string): string => string
   .toLowerCase()
   // remove accents
   .normalize('NFD').replace(/[\u0300-\u036f]/g, '')

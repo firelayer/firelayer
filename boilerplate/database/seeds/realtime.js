@@ -1,3 +1,3 @@
 module.exports = {
-  seed: async ({ realtime }) => {}
+  seed: async ({ realtime }) => {},
 }

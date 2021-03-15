@@ -13,8 +13,8 @@ export default class DB extends Command {
       name: 'choice',
       message: 'What database action do you want?',
       choices: [{
-        name: 'Seed'
-      }]
+        name: 'Seed',
+      }],
     }])
 
     if (choice === 'Seed') await dbSeed()

@@ -16,7 +16,7 @@ export default class Migrate extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    yes: flags.boolean({ char: 'y', description: 'skip interactive session' })
+    yes: flags.boolean({ char: 'y', description: 'skip interactive session' }),
   }
 
   async run() {
@@ -28,7 +28,7 @@ export default class Migrate extends Command {
       const quiz = await prompt({
         type: 'confirm',
         name: 'confirm',
-        message: `Run migrations for environment: '${chalk.bold.cyan(this.env)}' ?`
+        message: `Run migrations for environment: '${chalk.bold.cyan(this.env)}' ?`,
       })
 
       continueMigration = quiz.confirm

@@ -16,7 +16,7 @@ export default async (): Promise<any> => {
     const { confirm } = await prompt({
       type: 'confirm',
       name: 'confirm',
-      message: 'Do you want to create a Firebase project ?'
+      message: 'Do you want to create a Firebase project ?',
     })
 
     if (confirm) {
@@ -36,11 +36,11 @@ export default async (): Promise<any> => {
       message: 'Do you wish to create a new Firebase project or select an existing one?',
       choices: [{
         name: 'Select an existing Firebase project',
-        value: 1
+        value: 1,
       }, {
         name: 'Create a new Firebase project',
-        value: 2
-      }]
+        value: 2,
+      }],
     }])
 
     if (choice === 2) {
@@ -52,7 +52,7 @@ export default async (): Promise<any> => {
         type: 'list',
         name: 'projectId',
         message: 'What Firebase project would you like to use?',
-        choices: projects.map((p) => ({ name: `${p.projectId} (${p.displayName})`, value: p.projectId }))
+        choices: projects.map((p) => ({ name: `${p.projectId} (${p.displayName})`, value: p.projectId })),
       }])).projectId
     }
   }
@@ -75,11 +75,11 @@ export default async (): Promise<any> => {
       message: 'Do you wish to create a new Firebase Web Application or select an existing one?',
       choices: [{
         name: 'Select an existing Firebase Web Application',
-        value: 1
+        value: 1,
       }, {
         name: 'Create a new Firebase Web Application',
-        value: 2
-      }]
+        value: 2,
+      }],
     }])
 
     let appId = null
@@ -93,7 +93,7 @@ export default async (): Promise<any> => {
         type: 'list',
         name: 'appId',
         message: 'What web application would you like to use?',
-        choices: apps.map((a) => ({ name: `${a.appId} (${a.displayName})`, value: a.appId }))
+        choices: apps.map((a) => ({ name: `${a.appId} (${a.displayName})`, value: a.appId })),
       }])).appId
     }
 
@@ -121,7 +121,7 @@ async function createWebApp(projectId) {
   const webProjectName = (await prompt({
     type: 'input',
     name: 'input',
-    message: 'What name do you want for the new web application?'
+    message: 'What name do you want for the new web application?',
   })).input
 
   return await firebaseCLI.apps.create('WEB', webProjectName, { project: projectId })

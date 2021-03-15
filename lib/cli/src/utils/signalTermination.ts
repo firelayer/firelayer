@@ -1,7 +1,9 @@
 import { ChildProcess } from 'child_process'
 
+type CallbackFunction = () => void;
+
 const SIGNALS_TO_HANDLE: NodeJS.Signals[] = [
-  'SIGINT', 'SIGTERM', 'SIGHUP'
+  'SIGINT', 'SIGTERM', 'SIGHUP',
 ]
 
 export class TermSignals {
@@ -9,11 +11,11 @@ export class TermSignals {
   private readonly verbose: boolean = false;
   public _exitCalled = false
 
-  constructor (options: { verbose?: boolean } = {}) {
+  constructor(options: { verbose?: boolean } = {}) {
     this.verbose = options.verbose === true
   }
 
-  public handleTermSignals (proc: ChildProcess, cbk?: Function): void {
+  public handleTermSignals(proc: ChildProcess, cbk?: CallbackFunction): void {
     // Terminate child process if parent process receives termination events
     SIGNALS_TO_HANDLE.forEach((signal): void => {
       this.terminateSpawnedProcessFuncHandlers[signal] =
@@ -87,14 +89,14 @@ export class TermSignals {
   /**
    * Enables catching of unhandled exceptions
    */
-  public handleUncaughtExceptions (): void {
+  public handleUncaughtExceptions(): void {
     process.on('uncaughtException', (e): void => this._uncaughtExceptionHandler(e))
   }
 
   /**
    * Terminate parent process helper
    */
-  public _terminateProcess (code?: number, signal?: NodeJS.Signals): void {
+  public _terminateProcess(code?: number, signal?: NodeJS.Signals): void {
     if (signal !== undefined) {
       return process.kill(process.pid, signal)
     }
@@ -107,7 +109,7 @@ export class TermSignals {
   /**
    * Exit event listener clean up helper
    */
-  public _removeProcessListeners (): void {
+  public _removeProcessListeners(): void {
     SIGNALS_TO_HANDLE.forEach((signal): void => {
       process.removeListener(signal, this.terminateSpawnedProcessFuncHandlers[signal])
     })
@@ -117,7 +119,7 @@ export class TermSignals {
   /**
   * General exception handler
   */
-  public _uncaughtExceptionHandler (e: Error): void {
+  public _uncaughtExceptionHandler(e: Error): void {
     console.error(e.message)
     process.exit(1)
   }

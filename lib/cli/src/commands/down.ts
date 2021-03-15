@@ -12,7 +12,7 @@ export default class Down extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    yes: flags.boolean({ char: 'y', description: 'skip interactive session' })
+    yes: flags.boolean({ char: 'y', description: 'skip interactive session' }),
   }
 
   async run() {
@@ -24,7 +24,7 @@ export default class Down extends Command {
       const quiz = await prompt({
         type: 'confirm',
         name: 'confirm',
-        message: `Put the application into maintenance for environment '${chalk.bold.cyan(this.env)}' ?`
+        message: `Put the application into maintenance for environment '${chalk.bold.cyan(this.env)}' ?`,
       })
 
       putInMaintenance = quiz.confirm

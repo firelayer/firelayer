@@ -8,7 +8,7 @@ export default async (name?) => {
     name = (await prompt({
       type: 'input',
       name: 'input',
-      message: 'What is the migration name? (ex: create_posts)'
+      message: 'What is the migration name? (ex: create_posts)',
     })).input
   }
 

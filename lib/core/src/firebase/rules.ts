@@ -22,7 +22,7 @@ export const getStorageRules = (): Promise<Ruleset> => {
   return admin.securityRules().getStorageRuleset()
 }
 
-export const getDatabaseRules = (): Promise<object> => {
+export const getDatabaseRules = (): Promise<unknown> => {
   return admin.database().getRulesJSON()
 }
 
@@ -33,7 +33,7 @@ export const getAllRules = async () => {
   return {
     firestore: JSON.stringify(firestore.source),
     database: JSON.stringify(database),
-    storage: JSON.stringify(storage.source)
+    storage: JSON.stringify(storage.source),
   }
 }
 

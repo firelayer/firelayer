@@ -13,8 +13,8 @@ export default class Add extends Command {
       name: 'choice',
       message: 'What would you wish to add?',
       choices: [{
-        name: 'Template'
-      }]
+        name: 'Template',
+      }],
     }])
 
     if (choice === 'Template') await addTemplate(null, { silent: false, dependenciesPrompt: true })

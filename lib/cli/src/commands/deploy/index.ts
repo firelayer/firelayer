@@ -16,10 +16,10 @@ export default class Deploy extends Command {
       name: 'choice',
       message: 'What do you wish to deploy:',
       choices: [{
-        name: 'Cloud Functions Environment Variables'
+        name: 'Cloud Functions Environment Variables',
       }, {
-        name: 'Storage CORS'
-      }]
+        name: 'Storage CORS',
+      }],
     }])
 
     if (choice === 'Cloud Functions Environment Variables') {

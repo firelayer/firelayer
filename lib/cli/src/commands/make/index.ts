@@ -17,10 +17,10 @@ export default class Make extends Command {
       name: 'make',
       message: 'What do you wish to generate:',
       choices: [{
-        name: 'Model'
+        name: 'Model',
       }, {
-        name: 'Migration'
-      }]
+        name: 'Migration',
+      }],
     }])
 
     if (make === 'Model') await makeModel()

@@ -20,36 +20,36 @@ export default class Up extends Command {
         useRules: true,
         database: {
           rules: '',
-          enabled: false
+          enabled: false,
         },
         firestore: {
           rules: '',
-          enabled: false
+          enabled: false,
         },
         storage: {
           rules: '',
-          enabled: false
-        }
+          enabled: false,
+        },
       }
 
       if (fs.existsSync('./rules/database.rules.json')) {
         stopOptions.database = {
           rules: fs.readFileSync('./rules/database.rules.json', 'utf8'),
-          enabled: true
+          enabled: true,
         }
       }
 
       if (fs.existsSync('./rules/firestore.rules')) {
         stopOptions.firestore = {
           rules: fs.readFileSync('./rules/firestore.rules', 'utf8'),
-          enabled: true
+          enabled: true,
         }
       }
 
       if (fs.existsSync('./rules/storage.rules')) {
         stopOptions.storage = {
           rules: fs.readFileSync('./rules/storage.rules', 'utf8'),
-          enabled: true
+          enabled: true,
         }
       }
 

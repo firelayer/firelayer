@@ -10,7 +10,7 @@ export default async (name?) => {
     name = (await prompt({
       type: 'input',
       name: 'input',
-      message: 'What is the model name? (ex: Post)'
+      message: 'What is the model name? (ex: Post)',
     })).input
   }
 
@@ -19,7 +19,7 @@ export default async (name?) => {
   const applications = getDirectories('./apps').map((app) => path.basename(app))
 
   const choices = applications.map((app) => ({
-    name: app
+    name: app,
   }))
 
   console.log()
@@ -28,7 +28,7 @@ export default async (name?) => {
     type: 'checkbox',
     name: 'apps',
     message: 'Select which applications to create the model:',
-    choices
+    choices,
   }])
 
   // , {

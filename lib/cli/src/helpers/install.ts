@@ -49,14 +49,14 @@ export default async (targetDir, targetVersion, options) => {
             if (!relativePath) return true
 
             return ig.filter([relativePath]).length > 0
-          }
+          },
         })
       } else {
         const gitRepo = 'https://github.com/firelayer/firelayer.git'
 
         // choose latest tag version that suits cli version
         const stdout = (await cmd(`git ls-remote --tags ${gitRepo}`, {}, {
-          'GIT_TERMINAL_PROMPT': '0'
+          'GIT_TERMINAL_PROMPT': '0',
         })) as string
 
         const versions = stdout.split(/\r?\n/).map((line) => {
@@ -80,7 +80,7 @@ export default async (targetDir, targetVersion, options) => {
         fs.ensureDirSync(tmpdir)
 
         await cmd(`git clone --branch ${latest} --depth 1 ${gitRepo} ${tmpdir}`, {}, {
-          'GIT_TERMINAL_PROMPT': '0'
+          'GIT_TERMINAL_PROMPT': '0',
         })
 
         // copy boilerplate code to target directory
@@ -111,7 +111,7 @@ export default async (targetDir, targetVersion, options) => {
       }
 
       fs.writeFileSync(`${targetDir}/package.json`, JSON.stringify(packageJSON, null, 2))
-    }
+    },
   }, {
     title: 'Preparing configurations',
     task: () => {
@@ -122,8 +122,8 @@ export default async (targetDir, targetVersion, options) => {
 
       const newAppConfig = JSON.stringify({
         firebase: {
-          ...firebaseConfig
-        }
+          ...firebaseConfig,
+        },
       }, null, 2)
 
       fs.writeFileSync(path.join(targetDir, 'config/app.json'), newAppConfig)
@@ -131,14 +131,14 @@ export default async (targetDir, targetVersion, options) => {
       const firebaserc = fs.readFileSync(path.join(targetDir, '.firebaserc'), 'utf8')
 
       fs.writeFileSync(path.join(targetDir, '.firebaserc'), firebaserc.split('firelayer-boilerplate').join(firebaseConfig.projectId))
-    }
+    },
   }, {
     title: `Adding template (${options.template})`,
     task: async () => {
       process.chdir(targetDir)
 
       templateFn = await addTemplate(options.template)
-    }
+    },
   }])
 
   try {
@@ -152,7 +152,7 @@ export default async (targetDir, targetVersion, options) => {
         type: 'confirm',
         name: 'confirm',
         default: true,
-        message: 'Install dependencies?'
+        message: 'Install dependencies?',
       })).confirm
     }
 
@@ -163,7 +163,7 @@ export default async (targetDir, targetVersion, options) => {
         process.chdir(targetDir)
 
         return cmd('npm run bootstrap')
-      }
+      },
     }])
 
     await tasksDependencies.run()

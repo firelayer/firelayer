@@ -12,7 +12,7 @@ export default async () => {
   const { confirm } = await prompt({
     type: 'confirm',
     name: 'confirm',
-    message: `Deploy cloud functions environment variables for '${chalk.bold.cyan(envName)}' ?`
+    message: `Deploy cloud functions environment variables for '${chalk.bold.cyan(envName)}' ?`,
   })
 
   if (confirm) {
@@ -22,17 +22,17 @@ export default async () => {
       title: 'Get environment variables',
       task: () => {
         envVars = getEnvVariables(envName)
-      }
+      },
     }, {
       title: `Removing previous environment variables from environment (env: ${chalk.bold(envName)}).`,
       task: async () => {
         await fireWrap(() => firebaseCLI.functions.config.unset(['env'], {}))
-      }
+      },
     }, {
       title: `Deploying new environment variables (env: ${chalk.bold(envName)}).`,
       task: async () => {
         await fireWrap(() => firebaseCLI.functions.config.set([`env=${envVars.functions}`], {}))
-      }
+      },
     }])
 
     try {

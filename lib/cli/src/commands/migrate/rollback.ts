@@ -14,7 +14,7 @@ export default class MigrateRollback extends Command {
   static flags = {
     help: flags.help({ char: 'h' }),
     yes: flags.boolean({ char: 'y', description: 'skip interactive session' }),
-    steps: flags.integer({ char: 's', description: 'rollback the last x steps', default: 1 })
+    steps: flags.integer({ char: 's', description: 'rollback the last x steps', default: 1 }),
   }
 
   async run() {
@@ -26,7 +26,7 @@ export default class MigrateRollback extends Command {
       const quiz = await prompt({
         type: 'confirm',
         name: 'confirm',
-        message: `Rollback the previous ${flags.steps} migration(s) (env: '${chalk.bold.cyan(this.env)}') ?`
+        message: `Rollback the previous ${flags.steps} migration(s) (env: '${chalk.bold.cyan(this.env)}') ?`,
       })
 
       continueRollback = quiz.confirm

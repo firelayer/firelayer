@@ -10,7 +10,7 @@ export default async (projectName, targetDir) => {
       const { confirm } = await inquirer.prompt([{
         name: 'confirm',
         type: 'confirm',
-        message: 'Generate project in current directory?'
+        message: 'Generate project in current directory?',
       }])
 
       if (!confirm) return false
@@ -23,7 +23,7 @@ export default async (projectName, targetDir) => {
           name: 'deleteAll',
           type: 'confirm',
           default: false,
-          message: 'Directory is not empty do you wish to delete all the files?'
+          message: 'Directory is not empty do you wish to delete all the files?',
         }])
 
         if (!deleteAll) return false
@@ -39,9 +39,9 @@ export default async (projectName, targetDir) => {
           choices: [
             { name: 'Overwrite', value: 'overwrite' },
             // { name: 'Merge', value: 'merge' },
-            { name: 'Cancel', value: false }
-          ]
-        }
+            { name: 'Cancel', value: false },
+          ],
+        },
       ])
 
       if (!action) {

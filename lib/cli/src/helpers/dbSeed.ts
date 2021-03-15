@@ -18,7 +18,7 @@ export default async () => {
   const { confirm } = await prompt({
     type: 'confirm',
     name: 'confirm',
-    message: `Seed database for the environment '${chalk.bold.cyan(env)}' ?`
+    message: `Seed database for the environment '${chalk.bold.cyan(env)}' ?`,
   })
 
   if (confirm) {

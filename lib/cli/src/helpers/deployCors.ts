@@ -18,21 +18,21 @@ export default async () => {
 
   const tasks = new Listr([{
     title: 'Initialize admin',
-    task: initAdmin
+    task: initAdmin,
   }, {
     title: 'Get cors configuration file',
     task: () => {
       const corsConfig = fs.readFileSync('./rules/storage-cors.json', 'utf8')
 
       cors = JSON.parse(corsConfig)
-    }
+    },
   }, {
     title: `Deploying storage cors (bucket: ${chalk.bold(storageBucket)}).`,
     task: async () => {
       const bucket = storage().bucket(storageBucket)
 
       await bucket.setCorsConfiguration(cors)
-    }
+    },
   }])
 
   try {
