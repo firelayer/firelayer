@@ -19,4 +19,4 @@ EXAMPLE
   $ firelayer run "node index.js"
 ```
 
-_See code: [dist/commands/run.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/run.ts)_
+_See code: [dist/commands/run.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/run.ts)_

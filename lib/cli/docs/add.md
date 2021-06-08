@@ -20,7 +20,7 @@ EXAMPLE
   $ firelayer add:template starter
 ```
 
-_See code: [dist/commands/add/index.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/add/index.ts)_
+_See code: [dist/commands/add/index.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/add/index.ts)_
 
 ## `firelayer add:template [NAME]`
 
@@ -36,4 +36,4 @@ EXAMPLE
   $ firelayer add:template starter
 ```
 
-_See code: [dist/commands/add/template.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/add/template.ts)_
+_See code: [dist/commands/add/template.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/add/template.ts)_

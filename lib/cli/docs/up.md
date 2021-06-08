@@ -19,4 +19,4 @@ EXAMPLE
   $ firelayer up
 ```
 
-_See code: [dist/commands/up.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/up.ts)_
+_See code: [dist/commands/up.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/up.ts)_

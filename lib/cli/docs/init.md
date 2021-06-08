@@ -24,4 +24,4 @@ EXAMPLE
   $ firelayer init new-firelayer-app
 ```
 
-_See code: [dist/commands/init.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/init.ts)_
+_See code: [dist/commands/init.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/init.ts)_

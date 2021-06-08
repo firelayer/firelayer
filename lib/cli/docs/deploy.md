@@ -21,7 +21,7 @@ EXAMPLE
   $ firelayer deploy:env
 ```
 
-_See code: [dist/commands/deploy/index.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/deploy/index.ts)_
+_See code: [dist/commands/deploy/index.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/deploy/index.ts)_
 
 ## `firelayer deploy:cors`
 
@@ -37,7 +37,7 @@ EXAMPLE
   $ firelayer deploy:cors
 ```
 
-_See code: [dist/commands/deploy/cors.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/deploy/cors.ts)_
+_See code: [dist/commands/deploy/cors.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/deploy/cors.ts)_
 
 ## `firelayer deploy:env`
 
@@ -53,4 +53,4 @@ EXAMPLE
   $ firelayer deploy:env
 ```
 
-_See code: [dist/commands/deploy/env.ts](https://github.com/firelayer/firelayer/blob/v1.1.0/dist/commands/deploy/env.ts)_
+_See code: [dist/commands/deploy/env.ts](https://github.com/firelayer/firelayer/blob/v1.1.1/dist/commands/deploy/env.ts)_
