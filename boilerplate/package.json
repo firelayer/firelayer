@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "@firelayer/cli": "^1.1.0",
-    "firebase": "^8.2.9",
-    "firebase-tools": "^9.5.0",
-    "lerna": "^3.22.1"
+    "firebase": "8.6.5",
+    "firebase-tools": "9.12.1",
+    "lerna": "3.22.1"
   }
 }

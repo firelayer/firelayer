@@ -30,7 +30,7 @@ export default (command, opts = { cwd: undefined, env: undefined }) => {
       const signals = new TermSignals()
 
       signals.handleUncaughtExceptions()
-      signals.handleTermSignals(proc, resolve)
+      signals.handleTermSignals(proc, () => { return resolve(null)})
     } catch (error) {
       reject(error)
     }
