@@ -20,7 +20,7 @@
     "test": "lerna run test --parallel"
   },
   "devDependencies": {
-    "@firelayer/cli": "^1.1.0",
+    "@firelayer/cli": "^1.1.1",
     "firebase": "8.6.5",
     "firebase-tools": "9.12.1",
     "lerna": "3.22.1"
